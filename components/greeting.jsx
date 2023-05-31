@@ -1,14 +1,15 @@
 import { useState, useEffect, Suspense } from "react";
 import { Container, Card, Row, Text } from "@nextui-org/react";
-export function Greeting() {
-  const [data, setData] = useState([]);
+
+export function Greeting({ data = [] }) {
+  const [apiData, setApiData] = useState(data);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("http://localhost:3000/api/hello");
         const json = await res.json();
-        setData(json);
+        setApiData(json);
       } catch (error) {
         console.log("error: ", error);
       }
@@ -42,8 +43,8 @@ export function Greeting() {
       <Suspense fallback={<p>Loading...</p>}>
         <Card isHoverable variant="bordered" css={{ mw: "400px" }}>
           <Card.Body>
-            <Text color="primary" size={30} TextWeights="medium">
-              {data.message}
+            <Text color="primary" size={30}>
+              {apiData.message}
             </Text>
           </Card.Body>
         </Card>
