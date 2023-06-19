@@ -20,35 +20,20 @@ export function Greeting({ data = [] }) {
 
   return (
     <div>
-      <Text
-        h1
-        size={60}
-        css={{
-          textGradient: "45deg, $blue600 -20%, $pink600 50%",
-        }}
-        weight="bold"
-      >
-        Hi there!
-      </Text>
-      <Text
-        h3
-        size={30}
-        css={{
-          textGradient: "45deg, $purple600 -20%, $pink600 100%",
-        }}
-        weight="bold"
-      >
-        Here is some data from the API:
-      </Text>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Card isHoverable variant="bordered" css={{ mw: "400px" }}>
-          <Card.Body>
-            <Text color="primary" size={30}>
-              {apiData.message}
-            </Text>
-          </Card.Body>
-        </Card>
-      </Suspense>
+        <img src="/msc-jcc-logo.png" alt="Court Image" />
+      <Row align="middle" css={{ marginBottom: "1rem" }}>
+        <Text
+          h1
+          size={60}
+          css={{
+            textGradient: "45deg, $red700 -20%, $red700 50%",
+            marginLeft: "1rem",
+          }}
+          weight="bold"
+        >
+          JURY DUTY SERVICE
+        </Text>
+      </Row>
     </div>
   );
 }

@@ -69,7 +69,7 @@ export function Login() {
               disabled={!badgeNumber || !pinCode}
               auto
               css={{
-                background: "linear-gradient(to right, #6c63ff, #ffb6ff)",
+                background: "linear-gradient(to right, #6c63ff)",
                 color: "white",
                 fontWeight: "bold",
               }}
@@ -123,7 +123,7 @@ export function Login() {
 onClick={handleLogout}
 auto
 css={{
-  background: "linear-gradient(to right, #6c63ff, #ffb6ff)",
+  background: "linear-gradient(to right, #6c63ff)",
   color: "white",
   fontWeight: "bold",
 }}
