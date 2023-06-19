@@ -1,3 +1,8 @@
+// 874555205  badge #
+// 948758     pincode
+
+//1796713491 badge #
+//190394     pincode
 
 import { useState } from "react";
 import { Container, Card, Button, Input } from "@nextui-org/react";
@@ -7,6 +12,7 @@ export function Login() {
   const [pinCode, setPinCode] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [jurorData, setJurorData] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -23,10 +29,10 @@ export function Login() {
         setJurorData(data);
         setLoggedIn(true);
       } else {
-        console.log("Login failed");
+        window.alert("Invalid Badge Number OR Pin Code");
       }
     } catch (error) {
-      console.log("Error:", error);
+      window.alert("Error: " + error);
     }
   };
 
@@ -35,6 +41,10 @@ export function Login() {
     setJurorData(null);
     setBadgeNumber("");
     setPinCode("");
+  };
+
+  const handlePostpone = () => {   
+    window.alert("Postpone still being developed");
   };
 
   return (
@@ -115,26 +125,41 @@ export function Login() {
                   <strong>Group Number:</strong> {jurorData.GroupNumber}
                 </p>
                 <p>
-                <strong>Can Postpone:</strong> {jurorData.CanPostpone ? "Yes" : "No"}
-</p>
-</div>
-)}
-<Button
-onClick={handleLogout}
-auto
-css={{
-  background: "linear-gradient(to right, #6c63ff)",
-  color: "white",
-  fontWeight: "bold",
-}}
->
-Logout
-</Button>
-</Card.Body>
-</Card>
-)}
-</Container>
-);
+                  <strong>Can Postpone:</strong> {jurorData.CanPostpone ? "Yes" : "No"}
+                </p>
+              </div>
+            )}
+            {jurorData && jurorData.CanPostpone && (    
+              <Button
+                onClick={handlePostpone}
+                auto
+                css={{
+                  background: "linear-gradient(to right, #6c63ff)",
+                  color: "white",
+                  fontWeight: "bold",
+                  marginTop: "1rem",
+                }}
+              >
+                Postpone
+              </Button>
+            )}
+            <Button
+              onClick={handleLogout}
+              auto
+              css={{
+                background: "linear-gradient(to right, #6c63ff)",
+                color: "white",
+                fontWeight: "bold",
+                marginTop: "1rem",
+              }}
+            >
+              Logout
+            </Button>
+          </Card.Body>
+        </Card>
+      )}
+    </Container>
+  );
 }
 
 export default Login;
