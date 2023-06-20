@@ -7,7 +7,7 @@ export default function Page() {
     
     <Container fluid >
       <Grid.Container gap={2} justify="center">
-        <Postpone
+        <Greeting
          />
       </Grid.Container>
     </Container>
