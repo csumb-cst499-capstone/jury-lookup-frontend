@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import React, { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
 import Days from "react-calendar/dist/cjs/MonthView/Days";
@@ -64,4 +65,17 @@ export function Postpone({ data = [] }) {
   );
 }
 
+data.defaultProps = {
+  data: [
+    {
+      BadgeNumber: 0,
+      PinCode: 0,
+      SummonDate: "2023-06-19",
+      FirstName: "",
+      LastName: "",
+      ReportingLocation: "",
+      CanPostpone: true,
+    },
+  ],
+};
 export default Postpone;
