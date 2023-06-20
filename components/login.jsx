@@ -1,18 +1,13 @@
-// 874555205  badge #
-// 948758     pincode
-
-//1796713491 badge #
-//190394     pincode
-
 import { useState } from "react";
 import { Container, Card, Button, Input } from "@nextui-org/react";
+import Postpone from '../components/postpone';
 
 export function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [jurorData, setJurorData] = useState(null);
-  const [showCalendar, setShowCalendar] = useState(false);
+  
 
   const handleLogin = async () => {
     try {
@@ -43,10 +38,11 @@ export function Login() {
     setPinCode("");
   };
 
+  const [isPostponeClicked, setIsPostponeClicked] = useState(false);
   const handlePostpone = () => {   
-    window.alert("Postpone still being developed");
+    setIsPostponeClicked(true);
   };
-
+  
   return (
     <Container>
       {!loggedIn ? (
@@ -128,8 +124,21 @@ export function Login() {
                   <strong>Can Postpone:</strong> {jurorData.CanPostpone ? "Yes" : "No"}
                 </p>
               </div>
-            )}
-            {jurorData && jurorData.CanPostpone && (    
+            )}         
+
+
+
+
+
+
+
+
+
+
+
+            {isPostponeClicked ? (
+              <Postpone />
+            ) : jurorData && jurorData.CanPostpone ? (
               <Button
                 onClick={handlePostpone}
                 auto
@@ -142,7 +151,20 @@ export function Login() {
               >
                 Postpone
               </Button>
-            )}
+            ) : null}
+
+
+
+
+
+
+
+
+
+
+
+
+            
             <Button
               onClick={handleLogout}
               auto
@@ -158,6 +180,7 @@ export function Login() {
           </Card.Body>
         </Card>
       )}
+      
     </Container>
   );
 }
