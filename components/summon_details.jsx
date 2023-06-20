@@ -1,12 +1,12 @@
-import { Container, Text, Card } from "@nextui-org/react";
+import { Container, Text, Input } from "@nextui-org/react";
 import { Postpone } from "./postpone";
 
 export function SummonDetails({ juror }) { 
     return (
         <Container>
             <Container>
-            <h1>Summon Details</h1>
-            <Text>Badge Number: {juror.BadgeNumber}</Text>
+            <Text h1 align={"center"}>Summon Details</Text>
+            <Text weight={"bold"}>Badge Number: { juror.BadgeNumber}</Text>
             <Text>Pin Code: {juror.PinCode}</Text>
             <Text>Summon Date: {juror.SummonDate}</Text>
             <Text>First Name: {juror.FirstName}</Text>
