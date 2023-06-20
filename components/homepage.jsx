@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { Container, Card, Row, Text } from "@nextui-org/react";
 
-export function Greeting({ data = [] }) {
+export function Homepage({ data = [] }) {
   const [apiData, setApiData] = useState(data);
 
   useEffect(() => {
@@ -38,4 +38,4 @@ export function Greeting({ data = [] }) {
   );
 }
 
-export default Greeting;
+export default Homepage;

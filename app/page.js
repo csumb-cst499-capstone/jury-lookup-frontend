@@ -1,14 +1,14 @@
 
 'use client';
 import { Container, Grid } from '@nextui-org/react';
-import { Greeting } from '../components/greeting';
+import { Homepage } from '../components/homepage';
 import Login from '../components/Login';
 
 export default function Page() {
   return (
     <Container fluid>
       <Grid.Container gap={2} justify="center">
-        <Greeting />
+        <Homepage />
         <Login />
       </Grid.Container>
     </Container>
