@@ -1,30 +1,34 @@
-import { data } from "autoprefixer";
 import React, { useState } from "react";
 import Calendar from 'react-calendar';
 
 export function Postpone(props) {
-  const { juror } = props;
   const [value, onChange] = useState(new Date());
   const [requestStatus, setRequestStatus] = useState(null);
-  const CurrentSummonsDate = juror.SummonsDate;
-  console.log("postpone: " + CurrentSummonsDate);
 
   const handleDateChange = async (date) => {
     onChange(date);
 
     const currentDate = new Date();
-    // const maxDate = will get from the user state once implemented
+    const CurrentSummonsDate = new Date(props.SummonsDate);
+    const BadgeNumber = props.BadgeNumber;
+    const PinCode = props.PinCode;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
-    const url = `http://localhost:3000/api/postponeSummon/687056417/164523/${formattedDate}`;
-    const sixtyDaysFromNow = currentDate.getDate() + 60; //will change to SummonsDate
+    const url = `http://localhost:3000/api/postponeSummon/${BadgeNumber}/${PinCode}/${formattedDate}`;
+    const sixtyDaysFromNow = new Date(CurrentSummonsDate);
+    sixtyDaysFromNow.setDate(CurrentSummonsDate.getDate() + 60);
 
     if (formattedDate <= currentDate.toISOString().split("T")[0]) {
         alert("Please select a date in the future.");
         setRequestStatus("failure");
         return;
     }
-    if (formattedDate >= sixtyDaysFromNow) { 
-        alert("Please select a date within 6 weeks of the original summon date.");
+    if (formattedDate <= CurrentSummonsDate.toISOString().split("T")[0]) {
+        alert("Please select a date later than your original summons date.");
+        setRequestStatus("failure");
+        return;
+    }
+    if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) { 
+        alert("Please select a date within 6 weeks of your original summon date.");
         setRequestStatus("failure");
         return;
     }
@@ -39,27 +43,23 @@ export function Postpone(props) {
             if (res.ok) {
               // Handle success
               setRequestStatus("success");
-              console.log("PUT request successful");
             } else {
               // Handle error
               setRequestStatus("failure");
-              console.log("PUT request failed");
             }
           } catch (error) {
             setRequestStatus("failure");
-            console.log("error: ", error);
           }
     }
   };
 
   return (
-
     <div>
       {requestStatus === "success" && (
-        <p>Request successful!</p>
+        <p>Your summons date was successfully updated!</p>
       )}
       {requestStatus === "failure" && (
-        <p>Request failed. Please try again.</p>
+        <p>Invalid date. Please try again.</p>
       )}
       <Calendar onChange={handleDateChange} value={value} />
     </div>

@@ -3,7 +3,6 @@ import { Postpone } from "./postpone";
 
 export function SummonDetails(props) { 
     const { juror } = props;
-    console.log("details: " + props.SummonsDate);
     return (
         <Container>
             <Container>
