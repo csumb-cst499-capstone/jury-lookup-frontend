@@ -40,7 +40,12 @@ export function Postpone(props) {
     else {
         try {
             const res = await fetch(url, { method: "PUT" });
-            if (res.ok) {
+            if (res.status === 403) {
+                // Handle 403 Forbidden response
+                alert("You have already postponed your summons date.");
+                setRequestStatus("dupe entry");
+                return;
+            } else if (res.ok) {
               // Handle success
               setRequestStatus("success");
             } else {
@@ -60,6 +65,9 @@ export function Postpone(props) {
       )}
       {requestStatus === "failure" && (
         <p>Invalid date. Please try again.</p>
+      )}
+      {requestStatus === "dupe entry" && (
+        <p>You have already postponed your summons date.</p>
       )}
       <Calendar onChange={handleDateChange} value={value} />
     </div>
