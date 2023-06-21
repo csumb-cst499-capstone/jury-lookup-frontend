@@ -6,6 +6,8 @@ export function Postpone(props) {
   const { juror } = props;
   const [value, onChange] = useState(new Date());
   const [requestStatus, setRequestStatus] = useState(null);
+  const CurrentSummonsDate = juror.SummonsDate;
+  console.log("postpone: " + CurrentSummonsDate);
 
   const handleDateChange = async (date) => {
     onChange(date);
@@ -14,7 +16,7 @@ export function Postpone(props) {
     // const maxDate = will get from the user state once implemented
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
     const url = `http://localhost:3000/api/postponeSummon/687056417/164523/${formattedDate}`;
-    const sixtyDaysFromNow = currentDate.getDate() + 60; //will change to summonDate
+    const sixtyDaysFromNow = currentDate.getDate() + 60; //will change to SummonsDate
 
     if (formattedDate <= currentDate.toISOString().split("T")[0]) {
         alert("Please select a date in the future.");
@@ -64,17 +66,16 @@ export function Postpone(props) {
   );
 }
 
-data.defaultProps = {
-  data: [
-    {
-      BadgeNumber: 0,
-      PinCode: 0,
-      SummonDate: "2023-06-19",
-      FirstName: "",
-      LastName: "",
-      ReportingLocation: "",
-      CanPostpone: true,
-    },
-  ],
-};
+Postpone.defaultProps = {
+    props: {
+        FirstName: "",
+        LastName: "",
+        BadgeNumber: 0,
+        GroupNumber: 0,
+        SummonsDate: "",
+        ReportingLocation: "",
+        CanPostpone: true,
+    }
+}
+
 export default Postpone;

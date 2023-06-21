@@ -3,6 +3,7 @@ import { Postpone } from "./postpone";
 
 export function SummonDetails(props) { 
     const { juror } = props;
+    console.log("details: " + props.SummonsDate);
     return (
         <Container>
             <Container>
@@ -17,6 +18,7 @@ export function SummonDetails(props) {
         </Container>
     )
 }
+
 // default props
 
 const today = new Date();
@@ -26,10 +28,8 @@ SummonDetails.defaultProps = {
         LastName: "",
         BadgeNumber: 0,
         GroupNumber: 0,
-        SummonsDate: "2023-06-19",
-        ReportingLocation: "King City Courthouse",
+        SummonsDate: "",
+        ReportingLocation: "",
         CanPostpone: true,
     }
 }
-
-
