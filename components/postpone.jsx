@@ -4,7 +4,8 @@ import Calendar from 'react-calendar';
 import Days from "react-calendar/dist/cjs/MonthView/Days";
 const CONSTANT = require('../constants/JUROR_CONSTANTS')
 
-export function Postpone({ data = [] }) {
+export function Postpone(props) {
+  const { juror } = props;
   const [value, onChange] = useState(new Date());
   const [requestStatus, setRequestStatus] = useState(null);
 

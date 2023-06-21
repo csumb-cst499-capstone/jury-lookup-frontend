@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container, Card, Button, Input } from "@nextui-org/react";
+import { SummonDetails } from "./summon_details";
 
 export function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
@@ -21,6 +22,7 @@ export function Login() {
         const data = await response.json();
         setJurorData(data);
         setLoggedIn(true);
+
       } else {
         window.alert("Invalid Badge Number OR Pin Code");
       }
@@ -32,12 +34,13 @@ export function Login() {
   return (
     <Container>
       {!loggedIn ? (
-        <Card bordered css={{ boxShadow: "none" }}>
+        <Card bordered="true" css={{ boxShadow: "none" }}>
           <Card.Body>
             <Input
               label="Enter Badge Number"
               value={badgeNumber}
               onChange={(e) => setBadgeNumber(e.target.value)}
+              size={"md"}
               required
               css={{
                 marginBottom: "1rem",
@@ -49,6 +52,7 @@ export function Login() {
               label="Enter Pin Code"
               value={pinCode}
               onChange={(e) => setPinCode(e.target.value)}
+              size={"md"}
               required
               css={{
                 marginBottom: "1rem",
@@ -57,9 +61,10 @@ export function Login() {
               }}
             />
             <Button
-              onClick={handleLogin}
+              onPress={handleLogin}
               disabled={!badgeNumber || !pinCode}
               auto
+              size={"md"}
               css={{
                 background: "linear-gradient(to right, #6c63ff)",
                 color: "white",
@@ -70,7 +75,13 @@ export function Login() {
             </Button>
           </Card.Body>
         </Card>
-      ) : null}
+      ) : (
+
+        <Container>
+            <SummonDetails  {...jurorData} />
+          </Container>
+          
+      )}
     </Container>
   );
 }

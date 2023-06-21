@@ -1,18 +1,18 @@
 import { Container, Text, Input } from "@nextui-org/react";
 import { Postpone } from "./postpone";
 
-export function SummonDetails({ juror }) { 
+export function SummonDetails(props) { 
+    const { juror } = props;
     return (
         <Container>
             <Container>
             <Text h1 align={"center"}>Summon Details</Text>
-            <Text weight={"bold"}>Badge Number: { juror.BadgeNumber}</Text>
-            <Text>Pin Code: {juror.PinCode}</Text>
-            <Text>Summon Date: {juror.SummonDate}</Text>
-            <Text>First Name: {juror.FirstName}</Text>
-            <Text>Last Name: {juror.LastName}</Text>
-            <Text>Reporting Location: {juror.ReportingLocation}</Text>
-                {(juror.CanPostpone) ? <Postpone /> : (<div><Text weight="bold">Cannot Postpone</Text></div>)}
+                <Text>Name: {props.FirstName} { props.LastName}</Text>
+                <Text>Summon Date: {props.SummonsDate}</Text>
+                <Text>Badge Number: {props.BadgeNumber}</Text>
+                <Text>Group Number: {props.GroupNumber}</Text>
+                <Text>Reporting Location: {props.ReportingLocation}</Text>
+                {(props.CanPostpone) ? <Postpone { ...{props}} /> : (<div><Text weight="bold">Cannot Postpone</Text></div>)}
             </Container>
         </Container>
     )
@@ -21,12 +21,12 @@ export function SummonDetails({ juror }) {
 
 const today = new Date();
 SummonDetails.defaultProps = {
-    juror: {
-        BadgeNumber: 0,
-        PinCode: 0,
-        SummonDate: "2023-06-19",
+    props: {
         FirstName: "",
         LastName: "",
+        BadgeNumber: 0,
+        GroupNumber: 0,
+        SummonsDate: "2023-06-19",
         ReportingLocation: "King City Courthouse",
         CanPostpone: true,
     }
