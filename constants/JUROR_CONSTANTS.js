@@ -1,1 +1,0 @@
-const MAX_DAYS_TO_POSTPONE = Object.freeze(42)
