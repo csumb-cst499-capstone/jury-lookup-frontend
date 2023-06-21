@@ -12,7 +12,7 @@ export function SummonDetails(props) {
                 <Text>Badge Number: {props.BadgeNumber}</Text>
                 <Text>Group Number: {props.GroupNumber}</Text>
                 <Text>Reporting Location: {props.ReportingLocation}</Text>
-                {(props.CanPostpone) ? <Postpone { ...{props}} /> : (<div><Text weight="bold">Cannot Postpone</Text></div>)}
+                {(props.CanPostpone) ? <Postpone { ...props} /> : (<div><Text weight="bold">Cannot Postpone</Text></div>)}
             </Container>
         </Container>
     )
