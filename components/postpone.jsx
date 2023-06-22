@@ -7,20 +7,15 @@ export function Postpone(props) {
 
   const handleDateChange = async (date) => {
     onChange(date);
+
     const currentDate = new Date();
     const CurrentSummonsDate = new Date(props.SummonsDate);
     const BadgeNumber = props.BadgeNumber;
     const PinCode = props.PinCode;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
-    const url = 'http://localhost:3000/api/postpone';
+    const url = `http://localhost:3000/api/postponeSummon/${BadgeNumber}/${PinCode}/${formattedDate}`;
     const sixtyDaysFromNow = new Date(CurrentSummonsDate);
     sixtyDaysFromNow.setDate(CurrentSummonsDate.getDate() + 60);
-
-    const requestBody = {
-        BadgeNumber: BadgeNumber,
-        PinCode: PinCode,
-        PostponeDate: formattedDate
-      };
 
     if (formattedDate <= currentDate.toISOString().split("T")[0]) {
         alert("Please select a date in the future.");
@@ -43,13 +38,8 @@ export function Postpone(props) {
         return;
     }
     else {
-        try { const res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });            
+        try {
+            const res = await fetch(url, { method: "PUT" });
             if (res.status === 403) {
                 // Handle 403 Forbidden response
                 alert("You have already postponed your summons date.");
