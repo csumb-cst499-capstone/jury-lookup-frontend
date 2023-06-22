@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Card, Button, Input } from "@nextui-org/react";
+import { Container, Card, Button, Input, Spacer } from "@nextui-org/react";
 import { SummonDetails } from "./summon_details";
 
 export function Login() {
@@ -34,9 +34,15 @@ export function Login() {
   return (
     <Container>
       {!loggedIn ? (
-        <Card bordered="true" css={{ boxShadow: "none" }}>
+        <Container>
+          <Card bordered="true" css={{ shadow:"$lg"}}>
+          <Spacer y={1} />
+          <Card.Header>
+            <h3  >Jury Duty Lookup</h3>
+          </Card.Header>
           <Card.Body>
-            <Input
+            <form display = "flex" justify="center" align="center">
+              <Input
               label="Enter Badge Number"
               value={badgeNumber}
               onChange={(e) => setBadgeNumber(e.target.value)}
@@ -47,7 +53,8 @@ export function Login() {
                 borderColor: "blue",
                 borderRadius: "5px",
               }}
-            />
+              />
+              <Spacer y={1} />
             <Input
               label="Enter Pin Code"
               value={pinCode}
@@ -59,8 +66,10 @@ export function Login() {
                 borderColor: "blue",
                 borderRadius: "5px",
               }}
-            />
-            <Button
+              />
+              <Spacer y={1} />
+                <Container justify="center" align="center">
+                  <Button
               onPress={handleLogin}
               disabled={!badgeNumber || !pinCode}
               auto
@@ -72,9 +81,12 @@ export function Login() {
               }}
             >
               Sign In
-            </Button>
+                  </Button>
+                  </Container>
+            </form>
           </Card.Body>
         </Card>
+        </Container>        
       ) : (
 
         <Container>
