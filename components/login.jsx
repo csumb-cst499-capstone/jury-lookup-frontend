@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Card, Button, Input, Spacer } from "@nextui-org/react";
+import { Container, Button, Input, Spacer } from "@nextui-org/react";
 import { SummonDetails } from "./summon_details";
 
 export function Login() {
@@ -22,7 +22,6 @@ export function Login() {
         const data = await response.json();
         setJurorData(data);
         setLoggedIn(true);
-
       } else {
         window.alert("Invalid Badge Number OR Pin Code");
       }
@@ -32,67 +31,75 @@ export function Login() {
   };
 
   return (
-    <Container>
+    <Container
+      justify="center"
+      align="center"
+      css={{ height: "100vh", paddingTop: "2rem" }}
+    >
       {!loggedIn ? (
-        <Container>
-          <Card bordered="true" css={{ shadow:"$lg"}}>
-          <Spacer y={1} />
-          <Card.Header>
-            <h3  >Jury Duty Lookup</h3>
-          </Card.Header>
-          <Card.Body>
-            <form display = "flex" justify="center" align="center">
-              <Input
-              label="Enter Badge Number"
-              value={badgeNumber}
-              onChange={(e) => setBadgeNumber(e.target.value)}
-              size={"md"}
-              required
-              css={{
-                marginBottom: "1rem",
-                borderColor: "blue",
-                borderRadius: "5px",
-              }}
-              />
-              <Spacer y={1} />
-            <Input
-              label="Enter Pin Code"
-              value={pinCode}
-              onChange={(e) => setPinCode(e.target.value)}
-              size={"md"}
-              required
-              css={{
-                marginBottom: "1rem",
-                borderColor: "blue",
-                borderRadius: "5px",
-              }}
-              />
-              <Spacer y={1} />
-                <Container justify="center" align="center">
-                  <Button
-              onPress={handleLogin}
-              disabled={!badgeNumber || !pinCode}
-              auto
-              size={"md"}
-              css={{
-                background: "linear-gradient(to right, #6c63ff)",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Sign In
-                  </Button>
-                  </Container>
-            </form>
-          </Card.Body>
-        </Card>
-        </Container>        
-      ) : (
-
-        <Container>
-            <SummonDetails  {...jurorData} />
+        <Container
+          shadow="large"
+          bordered
+          radius="sm"
+          padding={4}
+          css={{ maxWidth: "465px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", border: "2px solid #ccc",}}
+        >
+          <Container justify="center" align="center" marginBottom={2}>
+            <h3>Jury Duty Lookup</h3>
           </Container>
-          
+          <Container>
+            <form>
+              <Input
+                label="Enter Badge Number"
+                value={badgeNumber}
+                onChange={(e) => setBadgeNumber(e.target.value)}
+                size="medium"
+                required
+                css={{
+                  marginBottom: "1rem",
+                  borderColor: "blue",
+                  borderRadius: "5px",
+                }}
+              />
+              <Spacer y={1} />
+              <Input
+                label="Enter Pin Code"
+                value={pinCode}
+                onChange={(e) => setPinCode(e.target.value)}
+                size="medium"
+                required
+                css={{
+                  marginBottom: "1rem",
+                  borderColor: "blue",
+                  borderRadius: "5px",
+                }}
+              />
+              <Spacer y={1} />
+              <Container justify="center" align="center">
+                <Button
+                  onPress={handleLogin}
+                  disabled={!badgeNumber || !pinCode}
+                  auto
+                  size="medium"
+                  css={{
+                    background: "linear-gradient(to right, #6c63ff)",
+                    color: "white",
+                    fontWeight: "bold",
+                    padding: "9px 18px",
+                    backgroundSize: "180% 110%", 
+                  }}
+                >
+                  Sign In
+                </Button>
+                <Spacer y={1} />
+              </Container>
+            </form>
+          </Container>
+        </Container>
+      ) : (
+        <Container>
+          <SummonDetails {...jurorData} />
+        </Container>
       )}
     </Container>
   );
