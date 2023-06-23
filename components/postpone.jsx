@@ -91,7 +91,7 @@ export function Postpone(props) {
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            Confirm date: {selectedValue}
+            Confirm date: {selectedValue && new Date(selectedValue).toLocaleDateString()}
           </Text>
         </Modal.Header>
         <Modal.Footer>
