@@ -3,52 +3,50 @@ import Calendar from "react-calendar";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
 
 export function Postpone(props) {
-  const [value, onPress] = useState(new Date());
-  const [requestStatus, setRequestStatus] = useState(null);
   const [visible, setVisible] = React.useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(""); 
+  const [alertVisible, setAlertVisible] = useState(false);
 
   const handler = (date) => {
     setVisible(true);
     const formatSelectedDate = new Date(date);
     setSelectedValue(formatSelectedDate.toISOString().split("T")[0]);
-    console.log("opened");
-    console.log("formatted date from handler " + formatSelectedDate.toISOString().split("T")[0]);
   };
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
 
   const handleDateChange = async () => {
-    console.log("made it to handleDateChange selectedValue: " + selectedValue);
     const date = new Date(selectedValue);
-    console.log("check date: " + date);
-    const CurrentSummonsDate = new Date(props.SummonsDate);
-    const BadgeNumber = props.BadgeNumber;
+    const currentSummonsDate = new Date(props.SummonsDate);
+    const badgeNumber = props.BadgeNumber;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
     const url = "http://localhost:3000/api/postpone";
-    const sixtyDaysFromNow = new Date(CurrentSummonsDate);
-    sixtyDaysFromNow.setDate(CurrentSummonsDate.getDate() + 60);
+    const sixtyDaysFromNow = new Date(currentSummonsDate);
+    sixtyDaysFromNow.setDate(currentSummonsDate.getDate() + 60);
 
     const requestBody = {
-        BadgeNumber: BadgeNumber,
+        BadgeNumber: badgeNumber,
         PostponeDate: formattedDate
       };
 
-    if (formattedDate <= CurrentSummonsDate.toISOString().split("T")[0]) {
-        alert("Please select a date later than your original summons date.");
-        setRequestStatus("failure");
+    if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
+        setAlertMessage("Please select a date later than your original summons date.");
+        closeHandler();
+        setAlertVisible(true);
         return;
     }
     if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) { 
-        alert("Please select a date within 6 weeks of your original summon date.");
-        setRequestStatus("failure");
+        setAlertMessage("Please select a date within 6 weeks of your original summon date.");
+        closeHandler();
+        setAlertVisible(true);
         return;
     }
-    if (selectedValue.getDay() !== 1) {
-        alert("Selected date is not a Monday");
-        setRequestStatus("failure");
+    if (date.getDay() !== 0) {
+        setAlertMessage("Selected date is not a Monday");
+        closeHandler();
+        setAlertVisible(true);
         return;
     }
     else {
@@ -59,38 +57,29 @@ export function Postpone(props) {
               },
               body: JSON.stringify(requestBody)
           });
-          if (res.status === 404) {
-              // Handle 404 response
-              alert("You have already postponed your summons date.");
-              setRequestStatus("dupe entry");
-              return;
-          } else if (res.ok) {
+           if (res.ok) {
             // Handle success
-            setRequestStatus("success");
+            setAlertMessage("Your summons date was successfully updated.");
+            setAlertVisible(true);
           } else {
             // Handle error
-            setRequestStatus("failure");
+            setAlertMessage("Error" + res.status + ": " + res.statusText + ". Please try again");
+            setAlertVisible(true);
           }
         } catch (error) {
-          setRequestStatus("failure");
+          setAlertMessage("Error" + res.status + ": " + res.statusText + ". Please try again");
+          setAlertVisible(true);
         }
       }
     closeHandler();
   };
 
+  const closeAlertHandler = () => {
+    setAlertVisible(false);
+  };
+
   return (
     <div>
-      <div>
-      {requestStatus === "success" && (
-        <p>Your summons date was successfully updated!</p>
-      )}
-      {requestStatus === "failure" && (
-        <p>Invalid date. Please try again.</p>
-      )}
-      {requestStatus === "dupe entry" && (
-        <p>You have already postponed your summons date.</p>
-      )}
-    </div>
       {/* handleDateChange */}
       <Calendar onChange={handler}  value={selectedValue} />
       <Modal
@@ -106,8 +95,33 @@ export function Postpone(props) {
           </Text>
         </Modal.Header>
         <Modal.Footer>
-          <Button auto flat color="error" onPress={handleDateChange}>
+          <Button auto flat color="success" onPress={handleDateChange}>
             Confirm
+          </Button>
+          <Button auto flat color="black" onPress={closeHandler}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="alert-title"
+        open={alertVisible}
+        onClose={closeAlertHandler}
+      >
+        <Modal.Header>
+          <Text id="alert-title" size={18}>
+            Alert
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{alertMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onPress={closeAlertHandler}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
