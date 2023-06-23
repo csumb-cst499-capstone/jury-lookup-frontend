@@ -38,11 +38,12 @@ export function Login() {
     >
       {!loggedIn ? (
         <Container
-          shadow="large"
-          bordered
-          radius="sm"
-          padding={4}
-          css={{ maxWidth: "465px", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", border: "2px solid #ccc",}}
+          css={{ 
+            maxWidth: "465px", 
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", 
+            //border: "2px solid #ccc",
+            borderRadius: "10px",
+          }}
         >
           <Container justify="center" align="center" marginBottom={2}>
             <h3>Jury Duty Lookup</h3>
@@ -56,9 +57,9 @@ export function Login() {
                 size="medium"
                 required
                 css={{
-                  marginBottom: "1rem",
+                  marginBottom: "rem",
                   borderColor: "blue",
-                  borderRadius: "5px",
+                  borderRadius: "8px",
                 }}
               />
               <Spacer y={1} />
@@ -71,7 +72,7 @@ export function Login() {
                 css={{
                   marginBottom: "1rem",
                   borderColor: "blue",
-                  borderRadius: "5px",
+                  borderRadius: "8px",
                 }}
               />
               <Spacer y={1} />
@@ -85,8 +86,8 @@ export function Login() {
                     background: "linear-gradient(to right, #6c63ff)",
                     color: "white",
                     fontWeight: "bold",
-                    padding: "9px 18px",
-                    backgroundSize: "180% 110%", 
+                    padding: "8px 15px",
+                    backgroundSize: "10% 110%", 
                   }}
                 >
                   Sign In
