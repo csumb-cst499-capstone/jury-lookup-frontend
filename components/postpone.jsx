@@ -49,9 +49,9 @@ export function Postpone(props) {
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(requestBody)
-            });            
-            if (res.status === 403) {
-                // Handle 403 Forbidden response
+            });
+            if (res.status === 404) {
+                // Handle 404 Forbidden response
                 alert("You have already postponed your summons date.");
                 setRequestStatus("dupe entry");
                 return;
