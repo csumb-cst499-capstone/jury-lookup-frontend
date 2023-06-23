@@ -7,10 +7,8 @@ export function Postpone(props) {
 
   const handleDateChange = async (date) => {
     onChange(date);
-    const currentDate = new Date();
     const CurrentSummonsDate = new Date(props.SummonsDate);
     const BadgeNumber = props.BadgeNumber;
-    const PinCode = props.PinCode;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
     const url = "http://localhost:3000/api/postpone";
     const sixtyDaysFromNow = new Date(CurrentSummonsDate);
@@ -18,15 +16,9 @@ export function Postpone(props) {
 
     const requestBody = {
         BadgeNumber: BadgeNumber,
-        PinCode: PinCode,
         PostponeDate: formattedDate
       };
 
-    if (formattedDate <= currentDate.toISOString().split("T")[0]) {
-        alert("Please select a date in the future.");
-        setRequestStatus("failure");
-        return;
-    }
     if (formattedDate <= CurrentSummonsDate.toISOString().split("T")[0]) {
         alert("Please select a date later than your original summons date.");
         setRequestStatus("failure");
