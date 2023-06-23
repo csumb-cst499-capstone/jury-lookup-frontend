@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Calendar from 'react-calendar';
+import Calendar from "react-calendar";
 
 export function Postpone(props) {
   const [value, onChange] = useState(new Date());
@@ -12,7 +12,7 @@ export function Postpone(props) {
     const BadgeNumber = props.BadgeNumber;
     const PinCode = props.PinCode;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
-    const url = 'http://localhost:3000/api/postpone';
+    const url = "http://localhost:3000/api/postpone";
     const sixtyDaysFromNow = new Date(CurrentSummonsDate);
     sixtyDaysFromNow.setDate(CurrentSummonsDate.getDate() + 60);
 
@@ -44,9 +44,9 @@ export function Postpone(props) {
     }
     else {
         try { const res = await fetch(url, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json'
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify(requestBody)
             });
