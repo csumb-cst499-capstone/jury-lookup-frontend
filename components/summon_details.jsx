@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Container, Text, Spacer } from "@nextui-org/react";
+
+import { Container, Grid, Button, Text, Spacer, Link } from "@nextui-org/react";
+import { Loading, Modal, Input } from "@nextui-org/react";
 import { Postpone } from "./postpone";
+import AddToCalendar from "./add_to_calendar";
 
 export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
@@ -77,7 +80,7 @@ export function SummonDetails({ token }) {
   };
 
   if (!jurorData) {
-    return <div>Loading...</div>;
+    return <Loading color="currentColor" size="sm" />;
   }
 
   const formattedSummonDate = formatDate(jurorData.SummonsDate);
@@ -90,7 +93,6 @@ export function SummonDetails({ token }) {
     >
       <Container
         css={{
-          maxWidth: "700px",
           boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           borderRadius: "10px",
         }}
@@ -119,14 +121,19 @@ export function SummonDetails({ token }) {
               handlePostponeSuccess={handlePostponeSuccess}
               {...jurorData}
             />
-            <Spacer y={1} />
+            <Container>
+              <AddToCalendar {...jurorData} />
+            </Container>
           </Container>
         ) : (
-          <div>
+          <Container>
             <Text weight="bold">
               You are no longer able to postpone this summon.
             </Text>
-          </div>
+            <Container>
+              <AddToCalendar {...jurorData} />
+            </Container>
+          </Container>
         )}
       </Container>
     </Container>
