@@ -6,7 +6,9 @@ export function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [jurorData, setJurorData] = useState(null);
+  const [token, setToken] = useState(""); // Add token state
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setErrorMessage] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -20,7 +22,8 @@ export function Login() {
 
       if (response.status === 200) {
         const data = await response.json();
-        setJurorData(data);
+        // Store the token in state
+        setToken(data.token);
         setLoggedIn(true);
 
       } else {
@@ -31,57 +34,89 @@ export function Login() {
     }
   };
 
+  const closeAlertHandler = () => {
+    setAlertVisible(false);
+  };
+
   return (
     <Container>
       {!loggedIn ? (
-        <Card bordered="true" css={{ boxShadow: "none" }}>
-          <Card.Body>
-            <Input
-              label="Enter Badge Number"
-              value={badgeNumber}
-              onChange={(e) => setBadgeNumber(e.target.value)}
-              size={"md"}
-              required
-              css={{
-                marginBottom: "1rem",
-                borderColor: "blue",
-                borderRadius: "5px",
-              }}
-            />
-            <Input
-              label="Enter Pin Code"
-              value={pinCode}
-              onChange={(e) => setPinCode(e.target.value)}
-              size={"md"}
-              required
-              css={{
-                marginBottom: "1rem",
-                borderColor: "blue",
-                borderRadius: "5px",
-              }}
-            />
-            <Button
-              onPress={handleLogin}
-              disabled={!badgeNumber || !pinCode}
-              auto
-              size={"md"}
-              css={{
-                background: "linear-gradient(to right, #6c63ff)",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Sign In
-            </Button>
-          </Card.Body>
-        </Card>
-      ) : (
-
-        <Container>
-            <SummonDetails  {...jurorData} />
+        <Container
+          css={{
+            maxWidth: "465px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            borderRadius: "10px",
+          }}
+        >
+          <Container justify="center" align="center" marginBottom={2}>
+            <h3>Jury Duty Lookup</h3>
           </Container>
-          
+          <Container>
+            <form>
+              <Input
+                label="Enter Badge Number"
+                value={badgeNumber}
+                onChange={(e) => setBadgeNumber(e.target.value)}
+                size="medium"
+                required
+                css={{
+                  marginBottom: "1rem",
+                  borderColor: "blue",
+                  borderRadius: "8px",
+                }}
+              />
+              <Spacer y={1} />
+              <Input
+                label="Enter Pin Code"
+                value={pinCode}
+                onChange={(e) => setPinCode(e.target.value)}
+                size="medium"
+                required
+                css={{
+                  marginBottom: "1rem",
+                  borderColor: "blue",
+                  borderRadius: "8px",
+                }}
+              />
+              <Spacer y={1} />
+              <Container justify="center" align="center">
+                <Button
+                  onPress={handleLogin}
+                  disabled={!badgeNumber || !pinCode}
+                  auto
+                  size="medium"
+                  css={{
+                    background: "linear-gradient(to right, #6c63ff)",
+                    color: "white",
+                    fontWeight: "bold",
+                    padding: "8px 15px",
+                    backgroundSize: "10% 110%",
+                  }}
+                >
+                  Sign In
+                </Button>
+                <Spacer y={1} />
+              </Container>
+            </form>
+          </Container>
+        </Container>
+      ) : (
+        <Container>
+          <SummonDetails token={token} />
+        </Container>
       )}
+
+      <Modal closeButton blur open={alertVisible} onClose={closeAlertHandler}>
+        <Modal.Header></Modal.Header>
+        <Modal.Body>
+          <p>Invalid Pincode or Badge number</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onPress={closeAlertHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

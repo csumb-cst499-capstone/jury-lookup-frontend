@@ -1,82 +1,140 @@
-import { data } from "autoprefixer";
-import React, { useState, useEffect } from "react";
-import Calendar from 'react-calendar';
-import Days from "react-calendar/dist/cjs/MonthView/Days";
-const CONSTANT = require('../constants/JUROR_CONSTANTS')
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
+import SummonDetails from "./summon_details";
 
 export function Postpone(props) {
-  const { juror } = props;
-  const [value, onChange] = useState(new Date());
-  const [requestStatus, setRequestStatus] = useState(null);
+  const [visible, setVisible] = React.useState(false);
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const token = props.token;
 
-  const handleDateChange = async (date) => {
-    onChange(date);
+  const handler = (date) => {
+    setVisible(true);
+    const formatSelectedDate = new Date(date);
+    setSelectedValue(formatSelectedDate.toISOString().split("T")[0]);
+  };
+  const closeHandler = () => {
+    setVisible(false);
+  };
 
-    const currentDate = new Date();
-    // const maxDate = will get from the user state once implemented
+  const handleDateChange = async () => {
+    const date = new Date(selectedValue);
+    const currentSummonsDate = new Date(props.SummonsDate);
+    const badgeNumber = props.BadgeNumber;
     const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
-    const url = `http://localhost:3000/api/postponeSummon/687056417/164523/${formattedDate}`;
-    const sixtyDaysFromNow = currentDate.getDate() + 60; //will change to summonDate
+    const url = "http://localhost:3000/api/postpone";
+    const sixtyDaysFromNow = new Date(currentSummonsDate);
+    sixtyDaysFromNow.setDate(currentSummonsDate.getDate() + 60);
 
-    if (formattedDate <= currentDate.toISOString().split("T")[0]) {
-        alert("Please select a date in the future.");
-        setRequestStatus("failure");
-        return;
+    const requestBody = {
+      PostponeDate: formattedDate,
+    };
+
+    if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
+      setAlertMessage(
+        "Please select a date later than your original summons date."
+      );
+      closeHandler();
+
+      return;
     }
-    if (formattedDate >= sixtyDaysFromNow) { 
-        alert("Please select a date within 6 weeks of the original summon date.");
-        setRequestStatus("failure");
-        return;
+    if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
+      setAlertMessage(
+        "Please select a date within 6 weeks of your original summon date."
+      );
+      closeHandler();
+
+      return;
     }
     if (date.getDay() !== 1) {
-        alert("Selected date is not a Monday");
-        setRequestStatus("failure");
-        return;
+      setAlertMessage("Selected date is not a Monday");
+      closeHandler();
+
+      return;
+    } else {
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify(requestBody),
+        });
+        if (res.ok) {
+          // Handle success
+          handlePostponeSuccess();
+        } else {
+          // Handle error
+          setAlertMessage(
+            "Error" + res.status + ": " + res.statusText + ". Please try again"
+          );
+          setAlertVisible(true);
+        }
+      } catch (error) {
+        setAlertMessage("Error: " + error.message + ". Please try again");
+        setAlertVisible(true);
+      }
     }
-    else {
-        try {
-            const res = await fetch(url, { method: "PUT" });
-            if (res.ok) {
-              // Handle success
-              setRequestStatus("success");
-              console.log("PUT request successful");
-            } else {
-              // Handle error
-              setRequestStatus("failure");
-              console.log("PUT request failed");
-            }
-          } catch (error) {
-            setRequestStatus("failure");
-            console.log("error: ", error);
-          }
-    }
+    closeHandler();
+  };
+
+  const closeAlertHandler = () => {
+    setAlertVisible(false);
   };
 
   return (
-
     <div>
-      {requestStatus === "success" && (
-        <p>Request successful!</p>
-      )}
-      {requestStatus === "failure" && (
-        <p>Request failed. Please try again.</p>
-      )}
-      <Calendar onChange={handleDateChange} value={value} />
+      {/* handleDateChange */}
+      <Calendar onChange={handler} value={selectedValue} />
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={18}>
+            Confirm date:{" "}
+            {selectedValue && new Date(selectedValue).toLocaleDateString()}
+          </Text>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button auto flat color="success" onPress={handleDateChange}>
+            Confirm
+          </Button>
+          <Button auto flat color="black" onPress={closeHandler}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="alert-title"
+        open={alertVisible}
+        onClose={closeAlertHandler}
+      >
+        <Modal.Header>
+          <Text id="alert-title" size={18}>
+            Alert
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{alertMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onPress={closeAlertHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
 
-data.defaultProps = {
-  data: [
-    {
-      BadgeNumber: 0,
-      PinCode: 0,
-      SummonDate: "2023-06-19",
-      FirstName: "",
-      LastName: "",
-      ReportingLocation: "",
-      CanPostpone: true,
-    },
-  ],
-};
 export default Postpone;
