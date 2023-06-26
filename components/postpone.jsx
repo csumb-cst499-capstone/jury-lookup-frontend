@@ -3,14 +3,12 @@ import Calendar from "react-calendar";
 import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
 import SummonDetails from "./summon_details";
 
-
 export function Postpone(props) {
   const [visible, setVisible] = React.useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const token = props.token;
-
 
   const handler = (date) => {
     setVisible(true);

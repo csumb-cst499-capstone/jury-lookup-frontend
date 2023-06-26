@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+
 import { Container, Text, Spacer, Link } from "@nextui-org/react";
+
 import { Postpone } from "./postpone";
 const { google, outlook, office365, yahoo, ics } = require("calendar-link");
 
@@ -77,6 +79,7 @@ export function SummonDetails({ token }) {
     } catch (error) {
       console.error("Error fetching summon details", error);
     }
+
   };
 
   if (!jurorData) {
@@ -135,12 +138,14 @@ export function SummonDetails({ token }) {
             <Link href={google(event)}>Add to Google Calendar</Link>
             <Link href={outlook(event)}>Add to Outlook</Link>
             <Link href={ics(event)}>Add to iCal</Link>
+
           </Container>
         ) : (
           <div>
             <Text weight="bold">
               You are no longer able to postpone this summon.
             </Text>
+
             <Link href={google(event)}>Add to Google Calendar</Link>
             <Link href={outlook(event)}>Add to Outlook</Link>
             <Link href={office365(event)}>Add to Office 365</Link>
@@ -148,7 +153,6 @@ export function SummonDetails({ token }) {
           </div>
         )}
       </Container>
-      <Container></Container>;
     </Container>
   );
 }
