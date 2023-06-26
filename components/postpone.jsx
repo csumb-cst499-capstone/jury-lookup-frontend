@@ -65,11 +65,11 @@ export function Postpone(props) {
         });
         if (res.ok) {
           // Handle success
-          handlePostponeSuccess();
+          props.handlePostponeSuccess(); // Invoke the prop function
         } else {
           // Handle error
           setAlertMessage(
-            "Error" + res.status + ": " + res.statusText + ". Please try again"
+            "Error " + res.status + ": " + res.statusText + ". Please try again"
           );
           setAlertVisible(true);
         }

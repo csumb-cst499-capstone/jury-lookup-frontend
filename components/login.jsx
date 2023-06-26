@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Card, Button, Input } from "@nextui-org/react";
+import { Container, Spacer, Modal, Button, Input } from "@nextui-org/react";
 import { SummonDetails } from "./summon_details";
 
 export function Login() {
@@ -25,7 +25,6 @@ export function Login() {
         // Store the token in state
         setToken(data.token);
         setLoggedIn(true);
-
       } else {
         window.alert("Invalid Badge Number OR Pin Code");
       }
@@ -39,7 +38,11 @@ export function Login() {
   };
 
   return (
-    <Container>
+    <Container
+      justify="center"
+      align="center"
+      css={{ height: "100vh", paddingTop: "2rem" }}
+    >
       {!loggedIn ? (
         <Container
           css={{

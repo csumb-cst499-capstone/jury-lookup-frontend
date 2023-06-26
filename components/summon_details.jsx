@@ -62,11 +62,13 @@ export function SummonDetails({ token }) {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify({ token: token }),
       });
       if (response.status === 200) {
+        // wait for the response to be parsed as JSON
         const data = await response.json();
+        // Update the juror data state
         setJurorData(data);
+        // Reset the postpone success status
         setPostponeSuccess(false); // Reset the postpone success status
       } else {
         console.error("Error fetching summon details");
@@ -79,7 +81,7 @@ export function SummonDetails({ token }) {
   if (!jurorData) {
     return <div>Loading...</div>;
   }
-
+  // Format the date for display
   const formattedSummonDate = formatDate(jurorData.SummonsDate);
 
   return (
@@ -116,8 +118,8 @@ export function SummonDetails({ token }) {
           <Container>
             <Postpone
               token={token}
-              handlePostponeSuccess={handlePostponeSuccess}
               {...jurorData}
+              handlePostponeSuccess={handlePostponeSuccess}
             />
             <Spacer y={1} />
           </Container>
