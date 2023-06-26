@@ -26,10 +26,11 @@ export function Login() {
         setToken(data.token);
         setLoggedIn(true);
       } else {
-        window.alert("Invalid Badge Number OR Pin Code");
+        setAlertVisible(true);
       }
     } catch (error) {
-      window.alert("Error: " + error);
+      setErrorMessage("Error: " + error);
+      setAlertVisible(true);
     }
   };
 
