@@ -1,5 +1,12 @@
-import { useState } from "react";
-import { Container, Card, Button, Input } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import {
+  Container,
+  Loading,
+  Spacer,
+  Modal,
+  Button,
+  Input,
+} from "@nextui-org/react";
 import { SummonDetails } from "./summon_details";
 
 export function Login() {
@@ -8,10 +15,13 @@ export function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState(""); // Add token state
   const [alertVisible, setAlertVisible] = useState(false);
-  const [alertMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
+  const [errorMessage, setErrorMessage] = useState(""); // Add error message state
 
   const handleLogin = async () => {
     try {
+      setLoading(true); // Set loading state to true
+
       const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
@@ -25,21 +35,42 @@ export function Login() {
         // Store the token in state
         setToken(data.token);
         setLoggedIn(true);
-
       } else {
-        window.alert("Invalid Badge Number OR Pin Code");
+        setErrorMessage("Invalid Pincode or Badge number");
+        setAlertVisible(true);
       }
     } catch (error) {
-      window.alert("Error: " + error);
+      setErrorMessage("Error: " + error);
+      setAlertVisible(true);
+    } finally {
+      setLoading(false); // Set loading state to false
     }
   };
 
   const closeAlertHandler = () => {
+    setErrorMessage("");
     setAlertVisible(false);
   };
 
+  useEffect(() => {
+    let timer;
+    if (alertVisible) {
+      timer = setTimeout(() => {
+        setErrorMessage("");
+        setAlertVisible(false);
+      }, 2000); // Hide error message after 2 seconds
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [alertVisible]);
+
   return (
-    <Container>
+    <Container
+      justify="center"
+      align="center"
+      css={{ height: "100vh", paddingTop: "2rem" }}
+    >
       {!loggedIn ? (
         <Container
           css={{
@@ -82,7 +113,7 @@ export function Login() {
               <Container justify="center" align="center">
                 <Button
                   onPress={handleLogin}
-                  disabled={!badgeNumber || !pinCode}
+                  disabled={!badgeNumber || !pinCode || loading}
                   auto
                   size="medium"
                   css={{
@@ -93,7 +124,13 @@ export function Login() {
                     backgroundSize: "10% 110%",
                   }}
                 >
-                  Sign In
+                  {loading ? (
+                    <Loading />
+                  ) : errorMessage ? (
+                    errorMessage
+                  ) : (
+                    "Sign In"
+                  )}
                 </Button>
                 <Spacer y={1} />
               </Container>
@@ -109,7 +146,7 @@ export function Login() {
       <Modal closeButton blur open={alertVisible} onClose={closeAlertHandler}>
         <Modal.Header></Modal.Header>
         <Modal.Body>
-          <p>Invalid Pincode or Badge number</p>
+          <p>{errorMessage}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onPress={closeAlertHandler}>

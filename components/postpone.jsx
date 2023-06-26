@@ -65,11 +65,11 @@ export function Postpone(props) {
         });
         if (res.ok) {
           // Handle success
-          handlePostponeSuccess();
+          props.handlePostponeSuccess(); // Invoke the prop function
         } else {
           // Handle error
           setAlertMessage(
-            "Error" + res.status + ": " + res.statusText + ". Please try again"
+            "Error " + res.status + ": " + res.statusText + ". Please try again"
           );
           setAlertVisible(true);
         }
@@ -87,13 +87,52 @@ export function Postpone(props) {
 
   return (
     <div>
-      {requestStatus === "success" && (
-        <p>Request successful!</p>
-      )}
-      {requestStatus === "failure" && (
-        <p>Request failed. Please try again.</p>
-      )}
-      <Calendar onChange={handleDateChange} value={value} />
+      {/* handleDateChange */}
+      <Calendar onChange={handler} value={selectedValue} />
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={18}>
+            Confirm date:{" "}
+            {selectedValue && new Date(selectedValue).toLocaleDateString()}
+          </Text>
+        </Modal.Header>
+        <Modal.Footer>
+          <Button auto flat color="success" onPress={handleDateChange}>
+            Confirm
+          </Button>
+          <Button auto flat color="black" onPress={closeHandler}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="alert-title"
+        open={alertVisible}
+        onClose={closeAlertHandler}
+      >
+        <Modal.Header>
+          <Text id="alert-title" size={18}>
+            Alert
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{alertMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onPress={closeAlertHandler}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
