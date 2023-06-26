@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Container, Text, Spacer } from "@nextui-org/react";
+import { Container, Text, Spacer, Link } from "@nextui-org/react";
 import { Postpone } from "./postpone";
+const { google, outlook, office365, yahoo, ics } = require("calendar-link");
 
 export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
@@ -84,6 +85,15 @@ export function SummonDetails({ token }) {
   // Format the date for display
   const formattedSummonDate = formatDate(jurorData.SummonsDate);
 
+  // Set event as an object
+  const event = {
+    title: "Jury Service",
+    description: "Summoned for jury service",
+    start: new Date(jurorData.SummonsDate),
+    duration: [8, "hour"],
+    location: jurorData.ReportingLocation,
+  };
+
   return (
     <Container
       justify="center"
@@ -122,18 +132,25 @@ export function SummonDetails({ token }) {
               handlePostponeSuccess={handlePostponeSuccess}
             />
             <Spacer y={1} />
+            <Link href={google(event)}>Add to Google Calendar</Link>
+            <Link href={outlook(event)}>Add to Outlook</Link>
+            <Link href={ics(event)}>Add to iCal</Link>
           </Container>
         ) : (
           <div>
             <Text weight="bold">
               You are no longer able to postpone this summon.
             </Text>
+            <Link href={google(event)}>Add to Google Calendar</Link>
+            <Link href={outlook(event)}>Add to Outlook</Link>
+            <Link href={office365(event)}>Add to Office 365</Link>
+            <Link href={ics(event)}>Add to iCal</Link>
           </div>
         )}
       </Container>
+      <Container></Container>;
     </Container>
   );
 }
 
 export default SummonDetails;
-
