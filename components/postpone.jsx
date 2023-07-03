@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { Modal, Button, Text, Input, Row, Checkbox } from "@nextui-org/react";
-import SummonDetails from "./summon_details";
+import { Modal, Button, Text } from "@nextui-org/react";
 
 export function Postpone(props) {
   const [visible, setVisible] = React.useState(false);
@@ -18,12 +17,20 @@ export function Postpone(props) {
   const closeHandler = () => {
     setVisible(false);
   };
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    weekday: 'short',
+    timeZone: 'UTC'
+  };
+  const selectedValueDate = new Date(selectedValue);
+  const selectedValueUTC = selectedValueDate.toLocaleString('en-US', options);
+  const formattedUTCDay = selectedValueDate.getUTCDay();
 
   const handleDateChange = async () => {
-    const date = new Date(selectedValue);
     const currentSummonsDate = new Date(props.SummonsDate);
-    const badgeNumber = props.BadgeNumber;
-    const formattedDate = date.toISOString().split("T")[0]; // Format date as "YYYY-MM-DD"
+    const formattedDate = selectedValueDate.toISOString().split("T")[0];
     const url = "http://localhost:3000/api/postpone";
     const sixtyDaysFromNow = new Date(currentSummonsDate);
     sixtyDaysFromNow.setDate(currentSummonsDate.getDate() + 60);
@@ -33,23 +40,28 @@ export function Postpone(props) {
     };
 
     if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
+
       setAlertMessage(
         "Please select a date later than your original summons date."
       );
+      setAlertVisible(true);
       closeHandler();
 
       return;
     }
     if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
+      console.log(formattedUTCDay);
       setAlertMessage(
         "Please select a date within 6 weeks of your original summon date."
       );
+      setAlertVisible(true);
       closeHandler();
 
       return;
     }
-    if (date.getDay() !== 1) {
+    if (formattedUTCDay !== 1) {
       setAlertMessage("Selected date is not a Monday");
+      setAlertVisible(true);
       closeHandler();
 
       return;
@@ -88,7 +100,7 @@ export function Postpone(props) {
   return (
     <div>
       {/* handleDateChange */}
-      <Calendar onChange={handler} value={selectedValue} />
+      <Calendar onChange={ handler } value={ selectedValue } />
       <Modal
         closeButton
         blur
@@ -98,8 +110,8 @@ export function Postpone(props) {
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            Confirm date:{" "}
-            {selectedValue && new Date(selectedValue).toLocaleDateString()}
+            New summons date: <br></br> {" "}
+            { selectedValueUTC + " at 8:00 am PDT" }
           </Text>
         </Modal.Header>
         <Modal.Footer>
