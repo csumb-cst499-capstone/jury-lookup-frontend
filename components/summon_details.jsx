@@ -47,6 +47,7 @@ export function SummonDetails({ token }) {
       month: "long",
       day: "numeric",
       year: "numeric",
+      timeZone: 'UTC'
     };
 
     const date = new Date(dateString);
