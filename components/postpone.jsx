@@ -42,8 +42,7 @@ export function Postpone(props) {
     if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
 
       setAlertMessage(
-        "Please select a date later than your original summons date."
-      );
+        "Please select a date later than your original summons date." );
       setAlertVisible(true);
       closeHandler();
 

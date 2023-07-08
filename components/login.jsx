@@ -61,6 +61,7 @@ export function Login() {
             <form>
               <Input
                 label="Enter Badge Number"
+                name="BadgeNumber"
                 value={badgeNumber}
                 onChange={(e) => setBadgeNumber(e.target.value)}
                 size="medium"
@@ -75,6 +76,7 @@ export function Login() {
               <Input
                 label="Enter Pin Code"
                 value={pinCode}
+                name="PinCode"
                 onChange={(e) => setPinCode(e.target.value)}
                 size="medium"
                 required
@@ -91,6 +93,7 @@ export function Login() {
                   disabled={!badgeNumber || !pinCode}
                   auto
                   size="medium"
+                  type="submit"
                   css={{
                     background:
                       buttonState === 3
