@@ -1,6 +1,7 @@
 import { Suspense, useState } from "react";
-import { Container, Spacer, Button, Input } from "@nextui-org/react";
+import { Container, Spacer, Button, Input, Modal, Text } from "@nextui-org/react";
 import { SummonDetails } from "./summon_details";
+
 
 export function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
@@ -8,6 +9,27 @@ export function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState(""); // Add token state
   const [buttonState, setButton] = useState(0); // button can be 0: disabled, 1: enabled, 2: loading, 3: success, 4: error
+  const [validationVisible, setValidationVisible] = useState(false);
+  const [validationMessage, setValidationMessage] = useState("");
+
+  const closeValidationModal = () => {
+    setValidationVisible(false);
+  };
+
+  const validateLogin = async () => {
+    console.log("validating login...");
+    if (badgeNumber.length !== 6) {
+      setValidationMessage("Please enter a valid badge number.");
+      setValidationVisible(true);
+    }
+
+    if (pinCode.length !== 4) {
+      setValidationMessage("Please enter a valid pin code.");
+      setValidationVisible(true);
+    }
+
+    handleLogin();
+  };
 
   const handleLogin = async () => {
     try {
@@ -25,18 +47,18 @@ export function Login() {
         // Store the token in state
         setToken(data.token);
         setLoggedIn(true);
-        setButton(3);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
 
         // Set button state to success
+      } else if (response.status === 401) {
+        setValidationMessage("Invalid credentials. Please try again.");
+        setValidationVisible(true);
       } else {
-        setButton(4); // Set button state to error
-        // sleep for 2 seconds
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        setButton(1); // Set button state to enabled
+        setValidationMessage("An error occurred. Please try again later.");
+        setValidationVisible(true);
       }
     } catch (error) {
-      setButton(4); // Set button state to error
+      setValidationMessage("An error occurred. Please try again later.");
+      setValidationVisible(true);
     }
   };
 
@@ -89,7 +111,7 @@ export function Login() {
               <Spacer y={1} />
               <Container justify="center" align="center">
                 <Button
-                  onPress={handleLogin}
+                  onClick={ validateLogin }
                   disabled={!badgeNumber || !pinCode}
                   auto
                   size="medium"
@@ -120,6 +142,25 @@ export function Login() {
               </Container>
             </form>
           </Container>
+          <Modal
+            closeButton
+            blur
+            aria-labelledby="validation-title"
+            open={validationVisible}
+            onClose={closeValidationModal}
+          >
+            <Modal.Header>
+              <Text id="validation-title" size={18}>
+                Error
+              </Text>
+            </Modal.Header>
+            <Modal.Body>
+              <center>
+                <p>{validationMessage}</p>
+              </center>
+              <br />
+            </Modal.Body>
+          </Modal>
         </Container>
       ) : (
         <Suspense fallback={<div>Loading...</div>}>
