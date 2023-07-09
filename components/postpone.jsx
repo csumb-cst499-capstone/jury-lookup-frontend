@@ -10,14 +10,24 @@ export function Postpone(props) {
   const token = props.token;
   const summonDate = props.SummonsDate;
 
-  const handler = (date) => {
+  const selectDateHandler = (date) => {
     setVisible(true);
     const formatSelectedDate = new Date(date);
     setSelectedValue(formatSelectedDate.toISOString().split("T")[0]);
   };
+
   const closeHandler = () => {
     setVisible(false);
   };
+
+  const openAlertHandler = () => {
+    setAlertVisible(true);
+  };
+
+  const closeAlertHandler = () => {
+    setAlertVisible(false);
+  };
+
   const options = {
     year: 'numeric',
     month: 'short',
@@ -25,6 +35,7 @@ export function Postpone(props) {
     weekday: 'short',
     timeZone: 'UTC'
   };
+
   const selectedValueDate = new Date(selectedValue);
   const selectedValueUTC = selectedValueDate.toLocaleString('en-US', options);
   const formattedUTCDay = selectedValueDate.getUTCDay();
@@ -41,30 +52,16 @@ export function Postpone(props) {
     };
 
     if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
-
       setAlertMessage(
-        "Please select a date later than your original summons date." );
-      setAlertVisible(true);
+        "Date must be later than your original summons date." );
+      openAlertHandler();
       closeHandler();
-
-      return;
-    }
-    if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
-      console.log(formattedUTCDay);
+    } else if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
       setAlertMessage(
-        "Please select a date within 6 weeks of your original summons date."
+        "Date must be within 6 weeks of your original summons date."
       );
-      setAlertVisible(true);
+      openAlertHandler();
       closeHandler();
-
-      return;
-    }
-    if (formattedUTCDay !== 1) {
-      setAlertMessage("Selected date is not a Monday");
-      setAlertVisible(true);
-      closeHandler();
-
-      return;
     } else {
       try {
         const res = await fetch(url, {
@@ -76,31 +73,25 @@ export function Postpone(props) {
           body: JSON.stringify(requestBody),
         });
         if (res.ok) {
-          // Handle success
-          props.handlePostponeSuccess(); // Invoke the prop function
+          props.handlePostponeSuccess();
         } else {
-          // Handle error
           setAlertMessage(
             "Error " + res.status + ": " + res.statusText + ". Please try again"
           );
-          setAlertVisible(true);
+          openAlertHandler();
         }
       } catch (error) {
         setAlertMessage("Error: " + error.message + ". Please try again");
-        setAlertVisible(true);
+        openAlertHandler();
       }
     }
     closeHandler();
   };
 
-  const closeAlertHandler = () => {
-    setAlertVisible(false);
-  };
-
   return (
     <div>
       {/* handleDateChange */}
-      <Calendar defaultValue={ summonDate } name="calendar" onChange={ handler } value={ selectedValue } />
+      <Calendar tileDisabled={ ({ date }) => date.getUTCDay() != 1 } defaultValue={ summonDate } name="calendar" onChange={ selectDateHandler } value={ selectedValue } />
       <Modal
         closeButton
         blur
@@ -109,16 +100,16 @@ export function Postpone(props) {
         onClose={closeHandler}
       >
         <Modal.Header>
-          <Text id="modal-title" size={18}>
+          <Text id="modal-title" size={ 18 }>
             New summons date: <br></br> {" "}
             { selectedValueUTC + " at 8:00 am PDT" }
           </Text>
         </Modal.Header>
         <Modal.Footer>
-          <Button auto flat color="success" onPress={handleDateChange}>
+          <Button auto flat color="success" onPress={ handleDateChange }>
             Confirm
           </Button>
-          <Button auto flat color="black" onPress={closeHandler}>
+          <Button auto flat color="black" onPress={ closeHandler }>
             Cancel
           </Button>
         </Modal.Footer>
@@ -128,19 +119,19 @@ export function Postpone(props) {
         closeButton
         blur
         aria-labelledby="alert-title"
-        open={alertVisible}
-        onClose={closeAlertHandler}
+        open={ alertVisible }
+        onClose={ closeAlertHandler }
       >
         <Modal.Header>
-          <Text id="alert-title" size={18}>
+          <Text id="alert-title" size={ 18 }>
             Alert
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <p>{alertMessage}</p>
+          <p>{ alertMessage }</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="error" onPress={closeAlertHandler}>
+          <Button auto flat color="error" onPress={ closeAlertHandler }>
             Close
           </Button>
         </Modal.Footer>

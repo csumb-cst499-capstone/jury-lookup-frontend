@@ -12,19 +12,11 @@ describe('Sucessful Postpone Component', () => {
       , { timeout: 10000 }).should("be.visible");
   });
 
-  it('should display "Postpone date must be a Monday" if the selected date is not a Monday', () => {
-    cy.get('abbr[aria-label="June 20, 2023"]'
-      , { timeout: 10000 }).click();
-    cy.get('button:contains("Confirm")').click();
-    cy.contains('date is not a Monday'
-      , { timeout: 10000 }).should("be.visible");
-  });
-
   it('should display "Postpone date must be after service date" if the selected date is before the service date', () => {
     cy.get('abbr[aria-label="June 19, 2023"]'
       , { timeout: 10000 }).click();
     cy.get('button:contains("Confirm")').click();
-    cy.contains('Please select a date later than your original summons date.'
+    cy.contains('Date must be later than your original summons date.'
       , { timeout: 10000 }).should("be.visible");
   });
 
@@ -36,7 +28,7 @@ describe('Sucessful Postpone Component', () => {
     cy.get('abbr[aria-label="August 21, 2023"]'
       , { timeout: 10000 }).click();
     cy.get('button:contains("Confirm")').click();
-    cy.contains('Please select a date within 6 weeks of your original summons date.'
+    cy.contains('Date must be within 6 weeks of your original summons date.'
       , { timeout: 10000 }).should("be.visible");
   });
 
