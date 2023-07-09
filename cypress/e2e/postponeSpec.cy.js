@@ -13,7 +13,7 @@ describe('Sucessful Postpone Component', () => {
 
   it('should display "Postpone date must be a Monday" if the selected date is not a Monday', () => {
     cy.wait(10000);
-    cy.get('abbr[aria-label="July 14, 2023"]').click();
+    cy.get('abbr[aria-label="July 11, 2023"]').click();
     cy.get('button:contains("Confirm")').click();
     cy.contains('date is not a Monday', { timeout: 10000 }).should("be.visible");
   });
