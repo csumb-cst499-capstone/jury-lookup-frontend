@@ -10,6 +10,9 @@ export function Postpone(props) {
   const token = props.token;
   const summonDate = props.SummonsDate;
   const reportingLocation = props.ReportingLocation;
+  const currentSummonsDate = new Date(props.SummonsDate);
+  const sixtyDaysFromCurrentSummons = new Date(currentSummonsDate);
+  sixtyDaysFromCurrentSummons.setDate(currentSummonsDate.getDate() + 60);
 
   const selectDateHandler = (date) => {
     setVisible(true);
@@ -46,11 +49,8 @@ export function Postpone(props) {
   const selectedValueUTC = selectedValueDate.toLocaleString("en-US", options);
 
   const handleDateChange = async () => {
-    const currentSummonsDate = new Date(props.SummonsDate);
     const formattedDate = selectedValueDate.toISOString().split("T")[0];
     const url = "http://localhost:3000/api/postpone";
-    const sixtyDaysFromNow = new Date(currentSummonsDate);
-    sixtyDaysFromNow.setDate(currentSummonsDate.getDate() + 60);
 
     const requestBody = {
       PostponeDate: formattedDate,
@@ -58,14 +58,6 @@ export function Postpone(props) {
 
     if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
       setAlertMessage("Date must be later than your original summons date.");
-      openAlertHandler();
-      closeHandler();
-    } else if (
-      formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]
-    ) {
-      setAlertMessage(
-        "Date must be within 6 weeks of your original summons date."
-      );
       openAlertHandler();
       closeHandler();
     } else {
@@ -114,6 +106,8 @@ export function Postpone(props) {
         <Modal.Body>
           <Calendar
             tileDisabled={({ date }) => date.getUTCDay() !== 1}
+            maxDate={ sixtyDaysFromCurrentSummons }
+            minDate={ currentSummonsDate }
             defaultValue={ summonDateUTC }
             name="calendar"
             onChange={ selectDateHandler }
