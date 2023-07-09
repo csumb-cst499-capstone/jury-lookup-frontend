@@ -13,6 +13,8 @@ describe('Sucessful Postpone Component', () => {
   });
 
   it('should display "Postpone date must be after service date" if the selected date is before the service date', () => {
+    cy.get('button:contains("Postpone")'
+      , { timeout: 10000 }).click();
     cy.get('abbr[aria-label="June 19, 2023"]'
       , { timeout: 10000 }).click();
     cy.get('button:contains("Confirm")').click();
@@ -21,6 +23,8 @@ describe('Sucessful Postpone Component', () => {
   });
 
   it('should display "Postpone date must be within 6 weeks of service date" if the selected date is more than 6 weeks after the service date', () => {
+    cy.get('button:contains("Postpone")'
+      , { timeout: 10000 }).click();
     cy.get('button[class="react-calendar__navigation__arrow react-calendar__navigation__next-button"]'
       , { timeout: 10000 }).click();
     cy.get('button[class="react-calendar__navigation__arrow react-calendar__navigation__next-button"]'
@@ -33,6 +37,8 @@ describe('Sucessful Postpone Component', () => {
   });
 
   it('should display "You have successfully postponed your service date" if the selected date is valid', () => {  
+    cy.get('button:contains("Postpone")'
+      , { timeout: 10000 }).click();
     cy.get('abbr[aria-label="June 26, 2023"]'
       , { timeout: 10000 }).click();
     cy.get('button:contains("Confirm")').click();
