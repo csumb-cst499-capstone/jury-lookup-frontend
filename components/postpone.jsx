@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { Modal, Button, Text } from "@nextui-org/react";
+import { Modal, Button, Text, Dropdown } from "@nextui-org/react";
 
 export function Postpone(props) {
   const [visible, setVisible] = React.useState(false);
@@ -9,6 +9,7 @@ export function Postpone(props) {
   const [alertVisible, setAlertVisible] = useState(false);
   const token = props.token;
   const summonDate = props.SummonsDate;
+  const reportingLocation = props.ReportingLocation;
 
   const selectDateHandler = (date) => {
     setVisible(true);
@@ -39,7 +40,7 @@ export function Postpone(props) {
     weekday: "short",
     timeZone: "UTC",
   };
-  
+
   const selectedValueDate = new Date(selectedValue);
   const summonDateUTC = summonDate.toLocaleString("en-US", options);
   const selectedValueUTC = selectedValueDate.toLocaleString("en-US", options);
@@ -95,7 +96,7 @@ export function Postpone(props) {
 
   return (
     <div>
-      <Button onClick={ openCalendarHandler }>Postpone</Button>
+      <Button onClick={ openCalendarHandler }>Edit Summons</Button>
       <Modal
         closeButton
         blur
@@ -105,8 +106,9 @@ export function Postpone(props) {
       >
         <Modal.Header>
           <Text id="modal-title" size={ 18 }>
-            New summons date: <br />
+            Updated Summons: <br />
             {summonDateUTC > selectedValueUTC ? summonDateUTC : selectedValueUTC} at 8:00 am PDT
+            <br /> in { reportingLocation + ", CA" }
           </Text>
         </Modal.Header>
         <Modal.Body>

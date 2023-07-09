@@ -131,7 +131,7 @@ export function SummonDetails({ token }) {
         {jurorData.CanPostpone ? (
           <Container>
             <Text weight="bold" align="left">
-              You may postpone your service to a later date. 
+              You may edit your summons by postponing to a later date and/or changing locations. 
               <br></br> Court is held every Monday at 8:00 AM. PDT excluding holidays.
             </Text>
             <Postpone
