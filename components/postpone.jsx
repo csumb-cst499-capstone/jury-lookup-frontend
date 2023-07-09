@@ -8,6 +8,7 @@ export function Postpone(props) {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const token = props.token;
+  const summonDate = props.SummonsDate;
 
   const handler = (date) => {
     setVisible(true);
@@ -42,8 +43,7 @@ export function Postpone(props) {
     if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
 
       setAlertMessage(
-        "Please select a date later than your original summons date."
-      );
+        "Please select a date later than your original summons date." );
       setAlertVisible(true);
       closeHandler();
 
@@ -52,7 +52,7 @@ export function Postpone(props) {
     if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
       console.log(formattedUTCDay);
       setAlertMessage(
-        "Please select a date within 6 weeks of your original summon date."
+        "Please select a date within 6 weeks of your original summons date."
       );
       setAlertVisible(true);
       closeHandler();
@@ -100,7 +100,7 @@ export function Postpone(props) {
   return (
     <div>
       {/* handleDateChange */}
-      <Calendar onChange={ handler } value={ selectedValue } />
+      <Calendar defaultValue={ summonDate } name="calendar" onChange={ handler } value={ selectedValue } />
       <Modal
         closeButton
         blur

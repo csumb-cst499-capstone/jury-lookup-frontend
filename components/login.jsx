@@ -22,11 +22,11 @@ export function Login() {
 
       if (response.status === 200) {
         const data = await response.json();
+        setButton(3);
+        await new Promise((resolve) => setTimeout(resolve, 5000));
         // Store the token in state
         setToken(data.token);
         setLoggedIn(true);
-        setButton(3);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
 
         // Set button state to success
       } else {
@@ -64,6 +64,7 @@ export function Login() {
                 value={badgeNumber}
                 onChange={(e) => setBadgeNumber(e.target.value)}
                 size="medium"
+                name="badgeNumber"
                 required
                 css={{
                   marginBottom: "1rem",
@@ -77,6 +78,7 @@ export function Login() {
                 value={pinCode}
                 onChange={(e) => setPinCode(e.target.value)}
                 size="medium"
+                name="pinCode"
                 required
                 css={{
                   marginBottom: "1rem",
