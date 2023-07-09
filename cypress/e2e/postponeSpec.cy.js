@@ -1,13 +1,13 @@
 import { postponeableUserLogin, 
          resetPostponeableUserLogin } from './specLogin.js';
 
-
 describe('Sucessful Postpone Component', () => {
   beforeEach(() => {
     postponeableUserLogin();
   });
 
   it('should display a calendar if CanPostpone is true', () => {
+    resetPostponeableUserLogin();
     cy.contains('You may postpone your service to a later date. Court is held every Monday at 8:00 AM. PDT excluding holidays.'
       , { timeout: 10000 }).should("be.visible");
   });
