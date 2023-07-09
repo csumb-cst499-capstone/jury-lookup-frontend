@@ -106,6 +106,7 @@ export function Postpone(props) {
         <Modal.Body>
           <Calendar
             tileDisabled={({ date }) => date.getUTCDay() !== 1}
+            minDetail="month"
             maxDate={ sixtyDaysFromCurrentSummons }
             minDate={ currentSummonsDate }
             defaultValue={ summonDateUTC }
