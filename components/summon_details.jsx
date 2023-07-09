@@ -130,6 +130,10 @@ export function SummonDetails({ token }) {
         <Spacer y={1} />
         {jurorData.CanPostpone ? (
           <Container>
+            <Text weight="bold" align="left">
+              You may postpone your service to a later date. 
+              <br></br> Court is held every Monday at 8:00 AM. PDT excluding holidays.
+            </Text>
             <Postpone
               token={token}
               {...jurorData}
@@ -143,7 +147,7 @@ export function SummonDetails({ token }) {
           </Container>
         ) : (
           <div>
-            <Text weight="bold">
+            <Text weight="bold" id="cannot-postpone">
               You are no longer able to postpone this summon.
             </Text>
 

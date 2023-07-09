@@ -1,11 +1,9 @@
-const { Modal } = require("@nextui-org/react");
-const { default: Calendar } = require("react-calendar");
-
 describe("Login Component", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3001"); 
   });
 
+  // test successful login
   it("should successfully log in with valid credentials", () => {
     cy.intercept("POST", "http://localhost:3000/api/login", {
       statusCode: 200,
@@ -21,6 +19,7 @@ describe("Login Component", () => {
     });
   });
 
+  // test unsuccessful login
   it("should display error message with invalid credentials", () => {
     cy.intercept("POST", "http://localhost:3000/api/login", {
       statusCode: 401,

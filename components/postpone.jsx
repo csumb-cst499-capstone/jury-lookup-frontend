@@ -51,7 +51,7 @@ export function Postpone(props) {
     if (formattedDate > sixtyDaysFromNow.toISOString().split("T")[0]) {
       console.log(formattedUTCDay);
       setAlertMessage(
-        "Please select a date within 6 weeks of your original summon date."
+        "Please select a date within 6 weeks of your original summons date."
       );
       setAlertVisible(true);
       closeHandler();
@@ -99,7 +99,7 @@ export function Postpone(props) {
   return (
     <div>
       {/* handleDateChange */}
-      <Calendar onChange={ handler } value={ selectedValue } />
+      <Calendar name="calendar" onChange={ handler } value={ selectedValue } />
       <Modal
         closeButton
         blur
