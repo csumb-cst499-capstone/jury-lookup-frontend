@@ -8,6 +8,7 @@ export function Postpone(props) {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const token = props.token;
+  const summonDate = props.SummonsDate;
 
   const handler = (date) => {
     setVisible(true);
@@ -99,7 +100,7 @@ export function Postpone(props) {
   return (
     <div>
       {/* handleDateChange */}
-      <Calendar name="calendar" onChange={ handler } value={ selectedValue } />
+      <Calendar defaultValue={ summonDate } name="calendar" onChange={ handler } value={ selectedValue } />
       <Modal
         closeButton
         blur
