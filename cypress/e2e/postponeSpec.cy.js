@@ -12,16 +12,6 @@ describe('Sucessful Postpone Component', () => {
       , { timeout: 10000 }).should("be.visible");
   });
 
-  it('should display "Postpone date must be after service date" if the selected date is before the service date', () => {
-    cy.get('button:contains("Edit Summons")'
-      , { timeout: 10000 }).click();
-    cy.get('abbr[aria-label="June 19, 2023"]'
-      , { timeout: 10000 }).click();
-    cy.get('button:contains("Confirm")').click();
-    cy.contains('Date must be later than your original summons date.'
-      , { timeout: 10000 }).should("be.visible");
-  });
-
   it('should display "You have successfully postponed your service date" if the selected date is valid', () => {  
     cy.get('button:contains("Edit Summons")'
       , { timeout: 10000 }).click();

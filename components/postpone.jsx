@@ -55,33 +55,26 @@ export function Postpone(props) {
     const requestBody = {
       PostponeDate: formattedDate,
     };
-
-    if (formattedDate <= currentSummonsDate.toISOString().split("T")[0]) {
-      setAlertMessage("Date must be later than your original summons date.");
-      openAlertHandler();
-      closeHandler();
-    } else {
-      try {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify(requestBody),
-        });
-        if (res.ok) {
-          props.handlePostponeSuccess();
-        } else {
-          setAlertMessage(
-            "Error " + res.status + ": " + res.statusText + ". Please try again"
-          );
-          openAlertHandler();
-        }
-      } catch (error) {
-        setAlertMessage("Error: " + error.message + ". Please try again");
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      if (res.ok) {
+        props.handlePostponeSuccess();
+      } else {
+        setAlertMessage(
+          "Error " + res.status + ": " + res.statusText + ". Please try again"
+        );
         openAlertHandler();
       }
+    } catch (error) {
+      setAlertMessage("Error: " + error.message + ". Please try again");
+      openAlertHandler();
     }
     closeHandler();
   };
