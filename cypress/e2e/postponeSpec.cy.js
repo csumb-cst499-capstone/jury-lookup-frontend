@@ -1,5 +1,6 @@
-import { postponeableUserLogin } from './specLogin.js';
-import { nonPostponeableUserLogin } from './specLogin.js';
+import { postponeableUserLogin, 
+         resetPostponeableUserLogin } from './specLogin.js';
+
 
 describe('Sucessful Postpone Component', () => {
   beforeEach(() => {
@@ -39,15 +40,12 @@ describe('Sucessful Postpone Component', () => {
     cy.wait(10000);
     cy.get('button[class="react-calendar__navigation__arrow react-calendar__navigation__next-button"]').click();
     cy.get('abbr[aria-label="August 7, 2023"]').click();
-  });
-});
-
-describe('Postpone Component', () => {
-  beforeEach(() => {
-    nonPostponeableUserLogin();
+    cy.get('button:contains("Confirm")').click();
+    cy.contains('You are no longer able to postpone this summon').should("be.visible");
   });
 
   it('should display "You are no longer able to postpone this summon" if CanPostpone is false', () => {
     cy.contains('You are no longer able to postpone this summon', { timeout: 10000 }).should("be.visible");
+    resetPostponeableUserLogin();
   });
 });

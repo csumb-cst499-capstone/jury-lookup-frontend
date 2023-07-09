@@ -1,12 +1,4 @@
 const postponeableUser = { badgeNumber: "917803216", pinCode: "118975" };
-const nonPostponeableUser = { badgeNumber: "1781995622", pinCode: "877715" };
-
-export function nonPostponeableUserLogin() {
-  cy.visit("http://localhost:3001");
-  cy.get('input[name="badgeNumber"]').type(nonPostponeableUser.badgeNumber);
-  cy.get('input[name="pinCode"]').type(nonPostponeableUser.pinCode);
-  cy.contains("Sign In").click();
-};
 
 export function postponeableUserLogin() {
   cy.visit("http://localhost:3001");
@@ -15,3 +7,23 @@ export function postponeableUserLogin() {
   cy.contains("Sign In").click();
 };
 
+export function resetPostponeableUserLogin() {
+  cy.request('POST', 'http://localhost:3000/api/login/', {
+    BadgeNumber: postponeableUser.badgeNumber,
+    PinCode: postponeableUser.pinCode
+  }).then((response) => {
+    const token = response.body.token;
+    Cypress.env('token', token);
+
+    cy.request({
+      method: 'POST',
+      url: 'http://localhost:3000/api/resetSummonsDate',
+      body: {
+        badgeNumber: postponeableUser.badgeNumber
+      },
+      headers: {
+        Authorization: token
+      }
+    });
+  });
+};
