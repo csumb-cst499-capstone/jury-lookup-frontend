@@ -1,4 +1,4 @@
-const testUser = { badgeNumber: "1781995622", pinCode: "877715" };
+const testUser = { badgeNumber: "433980699", pinCode: "554359" };
 
 export function postponeableUserLogin() {
   cy.visit("http://localhost:3001");
