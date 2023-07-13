@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-
-import { Container, Text, Spacer, Link } from "@nextui-org/react";
-
+import Calendar from "react-calendar";
+import { Button } from "@nextui-org/react";
 import { Postpone } from "./postpone";
 const { google, outlook, office365, yahoo, ics } = require("calendar-link");
+import { AiOutlineGoogle, AiOutlineCalendar } from "react-icons/ai";
+import { BiCalendarEvent } from "react-icons/bi";
 
 export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
@@ -36,7 +37,6 @@ export function SummonDetails({ token }) {
 
   useEffect(() => {
     if (postponeSuccess) {
-      // Perform any necessary actions or fetch updated juror data
       fetchData();
     }
   }, [postponeSuccess]);
@@ -47,7 +47,7 @@ export function SummonDetails({ token }) {
       month: "long",
       day: "numeric",
       year: "numeric",
-      timeZone: 'UTC'
+      timeZone: "UTC",
     };
 
     const date = new Date(dateString);
@@ -68,28 +68,27 @@ export function SummonDetails({ token }) {
         },
       });
       if (response.status === 200) {
-        // wait for the response to be parsed as JSON
         const data = await response.json();
-        // Update the juror data state
         setJurorData(data);
-        // Reset the postpone success status
-        setPostponeSuccess(false); // Reset the postpone success status
+        setPostponeSuccess(false);
       } else {
         console.error("Error fetching summon details");
       }
     } catch (error) {
       console.error("Error fetching summon details", error);
     }
-
   };
 
   if (!jurorData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
   }
-  // Format the date for display
+
   const formattedSummonDate = formatDate(jurorData.SummonsDate);
 
-  // Set event as an object
   const event = {
     title: "Jury Service",
     description: "Summoned for jury service",
@@ -98,67 +97,145 @@ export function SummonDetails({ token }) {
     location: jurorData.ReportingLocation,
   };
 
+  const googleCalendarUrl = google(event);
+  const outlookCalendarUrl = outlook(event);
+  const office365CalendarUrl = office365(event);
+  const icsCalendarUrl = ics(event);
+
   return (
-    <Container
-      justify="center"
-      align="center"
-      css={{ height: "100vh", paddingTop: "2rem" }}
-    >
-      <Container
-        css={{
-          maxWidth: "700px",
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-          borderRadius: "10px",
-        }}
-      >
-        <Text h4 css={{ color: "$red600" }}>
+    <div className="flex justify-center items-center h-screen">
+      <div className="max-w-lg p-8 bg-white rounded-lg shadow-md">
+        <h4 className="text-red-600 text-2xl font-bold mb-4">
           YOU HAVE BEEN SUMMONED FOR JURY SERVICE
-        </Text>
-        <Text weight="bold" align="left">
+        </h4>
+        <p className="font-bold text-left">
           Name: {jurorData.FirstName} {jurorData.LastName}
-        </Text>
-        <Text weight="bold" align="left">
+        </p>
+        <p className="font-bold text-left">
           Badge Number: {jurorData.BadgeNumber}
-        </Text>
-        <Text weight="bold" align="left">
+        </p>
+        <p className="font-bold text-left">
           Group Number: {jurorData.GroupNumber}
-        </Text>
-        <Text align="left">
+        </p>
+        <p className="text-left">
           Please report to {jurorData.ReportingLocation} on{" "}
           {formattedSummonDate} at 8:00 AM
-        </Text>
-        <Spacer y={1} />
+        </p>
+        <div className="my-6"></div>
         {jurorData.CanPostpone ? (
-          <Container>
-            <Text weight="bold" align="left">
-              You may edit your summons by postponing to a later date and/or changing locations. 
-              <br></br> Court is held every Monday at 8:00 AM. PDT excluding holidays.
-            </Text>
+          <div>
+            <p className="font-bold text-left">
+              You may edit your summons by postponing to a later date and/or
+              changing locations.
+              <br />
+              Court is held every Monday at 8:00 AM. PDT excluding holidays.
+            </p>
             <Postpone
               token={token}
               {...jurorData}
               handlePostponeSuccess={handlePostponeSuccess}
             />
-            <Spacer y={1} />
-            <Link href={google(event)}>Add to Google Calendar</Link>
-            <Link href={outlook(event)}>Add to Outlook</Link>
-            <Link href={ics(event)}>Add to iCal</Link>
-
-          </Container>
+            <div className="my-6"></div>
+            <Button
+              as="a"
+              href={googleCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+              startContent={<AiOutlineGoogle />}
+              shape="square"
+              fullWidth
+            >
+              Add to Google Calendar
+            </Button>
+            <Button
+              as="a"
+              href={outlookCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<AiOutlineCalendar />}
+              shape="square"
+              fullWidth
+            >
+              Add to Outlook
+            </Button>
+            <Button
+              as="a"
+              href={office365CalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<AiOutlineCalendar />}
+              shape="square"
+              fullWidth
+            >
+              Add to Office 365
+            </Button>
+            <Button
+              as="a"
+              href={icsCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<BiCalendarEvent />}
+              shape="square"
+              fullWidth
+            >
+              Add to iCal
+            </Button>
+          </div>
         ) : (
           <div>
-            <Text weight="bold" id="cannot-postpone">
+            <p className="font-bold" id="cannot-postpone">
               You are no longer able to postpone this summon.
-            </Text>
-
-            <Link href={google(event)}>Add to Google Calendar</Link>
-            <Link href={outlook(event)}>Add to Outlook</Link>
-            <Link href={office365(event)}>Add to Office 365</Link>
-            <Link href={ics(event)}>Add to iCal</Link>
+            </p>
+            <Button
+              as="a"
+              href={googleCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<AiOutlineGoogle />}
+              shape="square"
+              fullWidth
+            ></Button>
+            <Button
+              as="a"
+              href={outlookCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<AiOutlineCalendar />}
+              shape="square"
+              fullWidth
+            >
+              Add to Outlook
+            </Button>
+            <Button
+              as="a"
+              href={office365CalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<AiOutlineCalendar />}
+              shape="square"
+              fullWidth
+            ></Button>
+            <Button
+              as="a"
+              href={icsCalendarUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline mt-4"
+              startContent={<BiCalendarEvent />}
+              shape="square"
+              fullWidth
+            ></Button>
           </div>
         )}
-      </Container>
-    </Container>
+      </div>
+    </div>
   );
 }
 

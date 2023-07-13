@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { Modal, Button, Text, Dropdown } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "@nextui-org/react";
 
 export function Postpone(props) {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(props.SummonsDate);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
@@ -79,68 +86,53 @@ export function Postpone(props) {
     closeHandler();
   };
 
+  const isMonday = (date) => date.getDay() === 1;
+
   return (
-    <div>
-      <Button onClick={ openCalendarHandler }>Edit Summons</Button>
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="modal-title"
-        open={ visible }
-        onClose={ closeHandler }
-      >
-        <Modal.Header>
-          <Text id="modal-title" size={ 18 }>
-            Updated Summons: <br />
-            {summonDateUTC > selectedValueUTC ? summonDateUTC : selectedValueUTC} at 8:00 am PDT
-            <br /> in { reportingLocation + ", CA" }
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Calendar
-            tileDisabled={({ date }) => date.getUTCDay() !== 1}
-            minDetail="month"
-            maxDate={ sixtyDaysFromCurrentSummons }
-            minDate={ currentSummonsDate }
-            defaultValue={ summonDateUTC }
-            name="calendar"
-            onChange={ selectDateHandler }
-            value={ selectedValue }
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="success" onPress={ handleDateChange }>
-            Confirm
-          </Button>
-          <Button auto flat color="black" onPress={ closeHandler }>
-            Cancel
-          </Button>
-        </Modal.Footer>
+    <>
+      <Button onPress={openCalendarHandler}>Edit Summons</Button>
+      <Modal isOpen={visible} onOpenChange={closeHandler}>
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">
+            Updated Summons:
+          </ModalHeader>
+          <ModalBody>
+            <p>
+              {summonDateUTC > selectedValueUTC
+                ? summonDateUTC
+                : selectedValueUTC}{" "}
+              at 8:00 am PDT
+              <br /> in {reportingLocation + ", CA"}
+            </p>
+            <Calendar
+              tileDisabled={({ date }) => !isMonday(date)}
+              minDetail="month"
+              maxDate={sixtyDaysFromCurrentSummons}
+              minDate={currentSummonsDate}
+              defaultValue={summonDateUTC}
+              name="calendar"
+              onChange={selectDateHandler}
+              value={selectedValue}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button onPress={closeHandler}>Close</Button>
+            <Button onPress={handleDateChange}>Confirm</Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
 
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="alert-title"
-        open={ alertVisible }
-        onClose={ closeAlertHandler }
-      >
-        <Modal.Header>
-          <Text id="alert-title" size={ 18 }>
-            Alert
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{alertMessage}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onPress={ closeAlertHandler }>
-            Close
-          </Button>
-        </Modal.Footer>
+      <Modal isOpen={alertVisible} onOpenChange={closeAlertHandler}>
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">Alert</ModalHeader>
+          <ModalBody>
+            <p>{alertMessage}</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button onPress={closeAlertHandler}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
-
-export default Postpone;
