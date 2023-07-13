@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import { Button } from "@nextui-org/react";
 import { Postpone } from "./postpone";
-const { google, outlook, office365, yahoo, ics } = require("calendar-link");
-import { AiOutlineGoogle, AiOutlineCalendar } from "react-icons/ai";
-import { BiCalendarEvent } from "react-icons/bi";
+import CalendarLinks from "./calendar-links";
 
 export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
@@ -97,141 +95,45 @@ export function SummonDetails({ token }) {
     location: jurorData.ReportingLocation,
   };
 
-  const googleCalendarUrl = google(event);
-  const outlookCalendarUrl = outlook(event);
-  const office365CalendarUrl = office365(event);
-  const icsCalendarUrl = ics(event);
-
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="max-w-lg p-8 bg-white rounded-lg shadow-md">
-        <h4 className="text-red-600 text-2xl font-bold mb-4">
+        <h4 className="text-red-600 text-2xl text-center font-bold mb-4">
           YOU HAVE BEEN SUMMONED FOR JURY SERVICE
         </h4>
-        <p className="font-bold text-left">
+        <p className="font-bold">
           Name: {jurorData.FirstName} {jurorData.LastName}
         </p>
-        <p className="font-bold text-left">
-          Badge Number: {jurorData.BadgeNumber}
-        </p>
-        <p className="font-bold text-left">
-          Group Number: {jurorData.GroupNumber}
-        </p>
-        <p className="text-left">
+        <p className="font-bold">Badge Number: {jurorData.BadgeNumber}</p>
+        <p className="font-bold">Group Number: {jurorData.GroupNumber}</p>
+        <p>
           Please report to {jurorData.ReportingLocation} on{" "}
           {formattedSummonDate} at 8:00 AM
         </p>
-        <div className="my-6"></div>
+        <hr className="my-6" />
         {jurorData.CanPostpone ? (
           <div>
-            <p className="font-bold text-left">
+            <p className="font-bold">
               You may edit your summons by postponing to a later date and/or
               changing locations.
               <br />
-              Court is held every Monday at 8:00 AM. PDT excluding holidays.
+              Court is held every Monday at 8:00 AM PDT, excluding holidays.
             </p>
             <Postpone
               token={token}
               {...jurorData}
               handlePostponeSuccess={handlePostponeSuccess}
             />
-            <div className="my-6"></div>
-            <Button
-              as="a"
-              href={googleCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline"
-              startContent={<AiOutlineGoogle />}
-              shape="square"
-              fullWidth
-            >
-              Add to Google Calendar
-            </Button>
-            <Button
-              as="a"
-              href={outlookCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<AiOutlineCalendar />}
-              shape="square"
-              fullWidth
-            >
-              Add to Outlook
-            </Button>
-            <Button
-              as="a"
-              href={office365CalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<AiOutlineCalendar />}
-              shape="square"
-              fullWidth
-            >
-              Add to Office 365
-            </Button>
-            <Button
-              as="a"
-              href={icsCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<BiCalendarEvent />}
-              shape="square"
-              fullWidth
-            >
-              Add to iCal
-            </Button>
+            <hr className="my-6" />
+            <CalendarLinks event={event} />
           </div>
         ) : (
           <div>
             <p className="font-bold" id="cannot-postpone">
               You are no longer able to postpone this summon.
             </p>
-            <Button
-              as="a"
-              href={googleCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<AiOutlineGoogle />}
-              shape="square"
-              fullWidth
-            ></Button>
-            <Button
-              as="a"
-              href={outlookCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<AiOutlineCalendar />}
-              shape="square"
-              fullWidth
-            >
-              Add to Outlook
-            </Button>
-            <Button
-              as="a"
-              href={office365CalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<AiOutlineCalendar />}
-              shape="square"
-              fullWidth
-            ></Button>
-            <Button
-              as="a"
-              href={icsCalendarUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 hover:underline mt-4"
-              startContent={<BiCalendarEvent />}
-              shape="square"
-              fullWidth
-            ></Button>
+            <p className="font-bold">Add to your calendar:</p>
+            <CalendarLinks event={event} />
           </div>
         )}
       </div>

@@ -8,6 +8,7 @@ import {
   ModalFooter,
   Button,
 } from "@nextui-org/react";
+import "react-calendar/dist/Calendar.css";
 
 export function Postpone(props) {
   const [visible, setVisible] = useState(false);
@@ -92,12 +93,13 @@ export function Postpone(props) {
     <>
       <Button onPress={openCalendarHandler}>Edit Summons</Button>
       <Modal isOpen={visible} onOpenChange={closeHandler}>
-        <ModalContent>
+        <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">
-            Updated Summons:
+            Request Postponement:
           </ModalHeader>
           <ModalBody>
-            <p>
+            <p className="text-center">
+              You have selected: <br />
               {summonDateUTC > selectedValueUTC
                 ? summonDateUTC
                 : selectedValueUTC}{" "}
@@ -113,6 +115,7 @@ export function Postpone(props) {
               name="calendar"
               onChange={selectDateHandler}
               value={selectedValue}
+              className="mx-auto"
             />
           </ModalBody>
           <ModalFooter>
@@ -123,7 +126,7 @@ export function Postpone(props) {
       </Modal>
 
       <Modal isOpen={alertVisible} onOpenChange={closeAlertHandler}>
-        <ModalContent>
+        <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">Alert</ModalHeader>
           <ModalBody>
             <p>{alertMessage}</p>

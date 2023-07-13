@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import React, { Suspense, useState } from "react";
 import { SummonDetails } from "./summon_details";
 
 function Login() {
@@ -37,7 +37,7 @@ function Login() {
   };
 
   return (
-    <div className="bg-cyan-300 flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen">
       {!loggedIn ? (
         <div className="w-full max-w-md px-6 py-8 bg-white rounded-lg shadow-md">
           <h3 className="text-3xl font-bold text-center mb-4">
@@ -45,20 +45,22 @@ function Login() {
           </h3>
           <form>
             <div className="mb-4">
-              <label className="block font-bold mb-1">Enter Badge Number</label>
+              <label className="block font-bold text-slate-400 mb-1">Badge Number</label>
               <input
                 value={badgeNumber}
                 onChange={(e) => setBadgeNumber(e.target.value)}
-                className="w-full px-4 py-2 border border-blue-500 rounded-lg"
+                className="w-full px-4 py-2 border  border-blue-500 rounded-lg"
+                placeholder="Enter Badge Number"
                 required
               />
             </div>
             <div className="mb-4">
-              <label className="block font-bold mb-1">Enter Pin Code</label>
+              <label className="block text-slate-400 font-bold mb-1">Pin Code</label>
               <input
                 value={pinCode}
                 onChange={(e) => setPinCode(e.target.value)}
                 className="w-full px-4 py-2 border border-blue-500 rounded-lg"
+                placeholder="Enter Pin Code"
                 required
               />
             </div>
