@@ -63,27 +63,27 @@ export function Postpone(props) {
 
   const handleChange = async () => {
     const formattedDate = selectedValueDate.toISOString().split("T")[0];
-    const postponeUrl = "http://localhost:3000/api/editSummons";
+    const url = "http://localhost:3000/api/editSummons";
 
-    const postponeRequestBody = {
+    const requestBody = {
       PostponeDate: formattedDate,
       ReportingLocation: selectedReportingValue !== undefined ? selectedReportingValue : reportingLocation,
     };
 
     try {
-      const postponeRes = await fetch(postponeUrl, {
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify( postponeRequestBody ),
+        body: JSON.stringify( requestBody ),
       });
-      if (postponeRes.ok) {
+      if (res.ok) {
         props.handlePostponeSuccess();
       } else {
         setAlertMessage(
-          "Error " + postponeRes.status + ": " + postponeRes.statusText + ". Please try again"
+          "Error " + res.status + ": " + res.statusText + ". Please try again"
         );
         openAlertHandler();
       }
