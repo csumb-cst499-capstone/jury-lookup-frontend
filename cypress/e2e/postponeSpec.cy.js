@@ -46,5 +46,6 @@ describe('Unsucessful Postpone Component', () => {
   it('should display "You are no longer able to postpone this summon" if CanPostpone is false', () => {
     cy.contains('You are no longer able to postpone this summon'
       , { timeout: 10000 }).should("be.visible");
+    resetPostponeableUserLogin();
   });
 });
