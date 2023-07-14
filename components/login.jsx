@@ -1,5 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { SummonDetails } from "./summon_details";
+import { Input, Button } from "@nextui-org/react";
+import "../styles/animations.css"; // Import the CSS file containing animations
 
 function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
@@ -37,55 +39,58 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="justify-center">
       {!loggedIn ? (
-        <div className="w-full max-w-md px-6 py-8 bg-white rounded-lg shadow-md">
-          <h3 className="text-3xl font-bold text-center mb-4">
-            Jury Duty Lookup
-          </h3>
-          <form>
-            <div className="mb-4">
-              <label className="block font-bold text-slate-400 mb-1">Badge Number</label>
-              <input
-                value={badgeNumber}
-                onChange={(e) => setBadgeNumber(e.target.value)}
-                className="w-full px-4 py-2 border  border-blue-500 rounded-lg"
-                placeholder="Enter Badge Number"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-slate-400 font-bold mb-1">Pin Code</label>
-              <input
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-                className="w-full px-4 py-2 border border-blue-500 rounded-lg"
-                placeholder="Enter Pin Code"
-                required
-              />
-            </div>
-            <div className="flex justify-center items-center">
-              <button
-                onClick={handleLogin}
-                disabled={!badgeNumber || !pinCode}
-                className={`${
-                  buttonState === 3
-                    ? "bg-green-500"
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-full max-w-md px-6 py-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-large shadow-md">
+            <h3 className="text-3xl font-bold text-white text-center mb-8">
+              Jury Duty Lookup
+            </h3>
+            <hr className="mb-8" />
+            <form>
+              <div className="mb-8">
+                <Input
+                  type="text"
+                  label="Badge Number"
+                  onChange={(e) => setBadgeNumber(e.target.value)}
+                  className="w-full rounded-lg"
+                  isRequired
+                  placeholder="Enter your badge number"
+                />
+              </div>
+              <div className="mb-8">
+                <Input
+                  type="password"
+                  label="Pin Code"
+                  onChange={(e) => setPinCode(e.target.value)}
+                  className="w-full rounded-lg"
+                  isRequired
+                  placeholder="Enter your pin code"
+                />
+              </div>
+              <div className="flex justify-center items-center mt-6">
+                <Button
+                  onClick={handleLogin}
+                  isDisabled={!badgeNumber || !pinCode}
+                  className={`${
+                    buttonState === 3
+                      ? "bg-green-500"
+                      : buttonState === 4
+                      ? "bg-red-500 animate-shake"
+                      : "bg-pink-500"
+                  } text-white font-bold px-6 py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-opacity-75 mb-8`}
+                >
+                  {buttonState === 2
+                    ? "Loading..."
+                    : buttonState === 3
+                    ? "Success!"
                     : buttonState === 4
-                    ? "bg-red-500"
-                    : "bg-gradient-to-r from-blue-600 to-purple-600"
-                } text-white font-bold px-6 py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-opacity-75`}
-              >
-                {buttonState === 2
-                  ? "Loading..."
-                  : buttonState === 3
-                  ? "Success!"
-                  : buttonState === 4
-                  ? "Invalid Credentials"
-                  : "Sign In"}
-              </button>
-            </div>
-          </form>
+                    ? "Invalid Credentials"
+                    : "Sign In"}
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       ) : (
         <Suspense fallback={<div>Loading...</div>}>

@@ -1,10 +1,10 @@
-export function Logo() {
+export function Logo({ width, height, color }) {
   return (
     <svg
-      width="344"
-      height="56"
+      width={width}
+      height={height}
       viewBox="0 0 344 56"
-      fill="none"
+      fill={color}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
