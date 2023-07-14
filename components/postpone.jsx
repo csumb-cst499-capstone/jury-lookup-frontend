@@ -112,7 +112,8 @@ export function Postpone(props) {
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <Dropdown>
+          <Dropdown
+          >
             <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
             { selectedReportingValue && reportingLocation ? selectedReportingValue : reportingLocation }, CA.
             </Dropdown.Button>
@@ -189,8 +190,7 @@ export async function GetReportingLocations () {
   });
   if (res.ok) {
     const locations = await res.json();
-    const filteredLocations = locations.slice(1); // Remove the first element
-    return filteredLocations;
+    return locations;
   } else {
       console.error("Error fetching reporting locations");
   }
