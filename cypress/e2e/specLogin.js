@@ -17,7 +17,7 @@ export function resetPostponeableUserLogin() {
 
     cy.request({
       method: 'POST',
-      url: 'http://localhost:3000/api/resetSummonsDate',
+      url: 'http://localhost:3000/api/resetSummonsTest',
       body: {
         badgeNumber: testUser.badgeNumber
       },
