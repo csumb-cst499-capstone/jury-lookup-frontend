@@ -5,25 +5,25 @@ export function postponeableUserLogin() {
   cy.get('input[name="badgeNumber"]').type(testUser.badgeNumber);
   cy.get('input[name="pinCode"]').type(testUser.pinCode);
   cy.contains("Sign In").click();
-};
+}
 
 export function resetPostponeableUserLogin() {
-  cy.request('POST', 'http://localhost:3000/api/login/', {
+  cy.request("POST", "http://localhost:3000/api/login/", {
     BadgeNumber: testUser.badgeNumber,
-    PinCode: testUser.pinCode
+    PinCode: testUser.pinCode,
   }).then((response) => {
     const token = response.body.token;
-    Cypress.env('token', token);
+    Cypress.env("token", token);
 
     cy.request({
-      method: 'POST',
-      url: 'http://localhost:3000/api/resetSummonsDate',
+      method: "POST",
+      url: "http://localhost:3000/api/resetSummonsTest",
       body: {
-        badgeNumber: testUser.badgeNumber
+        badgeNumber: testUser.badgeNumber,
       },
       headers: {
-        Authorization: token
-      }
+        Authorization: token,
+      },
     });
   });
-};
+}

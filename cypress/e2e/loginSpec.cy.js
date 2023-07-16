@@ -1,6 +1,6 @@
 describe("Login Component", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3001"); 
+    cy.visit("http://localhost:3001");
   });
 
   // test successful login

@@ -124,7 +124,7 @@ export function SummonDetails({ token }) {
               Please report to {jurorData.ReportingLocation} on{" "}
               {formattedSummonDate} at 8:00 AM
             </p>
-            ;
+
             <hr className="my-6" />
             {jurorData.CanPostpone ? (
               <div>
