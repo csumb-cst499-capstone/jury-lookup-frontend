@@ -1,3 +1,4 @@
+import { Skeleton } from "@nextui-org/react";
 import React, { useState } from "react";
 
 export function SearchBar({ onDataFetched }) {

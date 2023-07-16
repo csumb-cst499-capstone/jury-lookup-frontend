@@ -6,20 +6,54 @@ import {
   ModalFooter,
   Input,
   Link,
-  Tooltip,
 } from "@nextui-org/react";
 
 export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} color="primary" size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} color="primary" size="lg">
       <ModalContent>
         <ModalHeader>View Details</ModalHeader>
         <ModalBody>
           {selectedJuror && (
-            <div>
-              <p>First Name: {selectedJuror.FirstName}</p>
-              <p>Last Name: {selectedJuror.LastName}</p>
-              {/* Add other details here */}
+            <div className="grid grid-cols-2 gap-4">
+              <Input
+                label="First Name"
+                value={selectedJuror.FirstName}
+                isReadOnly
+              />
+              <Input
+                label="Last Name"
+                value={selectedJuror.LastName}
+                isReadOnly
+              />
+              <Input
+                label="Mailing Address"
+                value={selectedJuror.MailingAddress}
+                isReadOnly
+              />
+              <Input label="City" value={selectedJuror.City} isReadOnly />
+              <Input label="State" value={selectedJuror.State} isReadOnly />
+              <Input label="Email" value={selectedJuror.Email} isReadOnly />
+              <Input
+                label="Badge Number"
+                value={selectedJuror.BadgeNumber}
+                isReadOnly
+              />
+              <Input
+                label="Summons Date"
+                value={selectedJuror.SummonsDate}
+                isReadOnly
+              />
+              <Input
+                label="Reporting Location"
+                value={selectedJuror.ReportingLocation}
+                isReadOnly
+              />
+              <Input
+                label="Can Postpone"
+                value={selectedJuror.CanPostpone}
+                isReadOnly
+              />
             </div>
           )}
         </ModalBody>

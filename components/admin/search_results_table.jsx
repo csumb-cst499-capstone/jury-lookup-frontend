@@ -21,7 +21,7 @@ import {
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
 
-function SearchResultsTable({ jurorData }) {
+export function SearchResultsTable({ jurorData }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedJuror, setSelectedJuror] = useState(null);
