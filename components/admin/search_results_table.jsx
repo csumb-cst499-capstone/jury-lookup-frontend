@@ -20,7 +20,6 @@ import {
 
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
-import { use } from "chai";
 
 function SearchResultsTable({ jurorData }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
