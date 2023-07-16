@@ -15,15 +15,19 @@ import {
 import "react-calendar/dist/Calendar.css";
 
 export function Postpone(props) {
+  // modal
   const [visible, setVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(props.SummonsDate);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
+  // auth
   const token = props.token;
+  //date
   const summonDate = props.SummonsDate;
   const currentSummonsDate = new Date(props.SummonsDate);
   const sixtyDaysFromCurrentSummons = new Date(currentSummonsDate);
   sixtyDaysFromCurrentSummons.setDate(currentSummonsDate.getDate() + 60);
+  //dropdown
   const reportingLocation = props.ReportingLocation;
   const [reportingLocations, setReportingLocations] = useState([]);
   const [selectedReportingLocation, setReportingLocation] = useState(
@@ -75,16 +79,13 @@ export function Postpone(props) {
   const summonDateUTC = summonDate.toLocaleString("en-US", options);
   const selectedValueUTC = selectedValueDate.toLocaleString("en-US", options);
 
-  const handleDateChange = async () => {
+  const handleChange = async () => {
     const formattedDate = selectedValueDate.toISOString().split("T")[0];
     const url = "http://localhost:3000/api/editSummons";
 
     const requestBody = {
       PostponeDate: formattedDate,
-      ReportingLocation:
-        selectedReportingValue !== undefined
-          ? selectedReportingValue
-          : reportingLocation,
+      ReportingLocation: selectedReportingValue !== undefined ? selectedReportingValue : reportingLocation,
     };
 
     try {
@@ -94,7 +95,7 @@ export function Postpone(props) {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify( requestBody ),
       });
       if (res.ok) {
         props.handlePostponeSuccess();
@@ -190,7 +191,7 @@ export function Postpone(props) {
     </>
   );
 }
-
+ 
 export async function GetReportingLocations() {
   const url = "http://localhost:3000/api/getReportingLocations";
   const res = await fetch(url, {
@@ -204,6 +205,7 @@ export async function GetReportingLocations() {
     return locations;
   } else {
     console.error("Error fetching reporting locations");
+
   }
 }
 
