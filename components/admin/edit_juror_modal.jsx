@@ -20,16 +20,42 @@ export function EditJurorModal({
   selectedJuror,
   onSaveJuror,
 }) {
-  const [editedJuror, setEditedJuror] = useState({ ...selectedJuror });
+  const [editedJuror, setEditedJuror] = useState({
+    ...selectedJuror,
+    FirstName: selectedJuror?.FirstName || "",
+    LastName: selectedJuror?.LastName || "",
+    MailingAddress: selectedJuror?.MailingAddress || "",
+    City: selectedJuror?.City || "",
+    State: selectedJuror?.State || "",
+    Email: selectedJuror?.Email || "",
+    BadgeNumber: selectedJuror?.BadgeNumber || "",
+    SummonsDate: selectedJuror?.SummonsDate || "",
+    ReportingLocation: selectedJuror?.ReportingLocation || "",
+    CanPostpone: selectedJuror?.CanPostpone || false,
+  });
   const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
-    setEditedJuror({ ...selectedJuror });
+    setEditedJuror({
+      ...selectedJuror,
+      FirstName: selectedJuror?.FirstName || "",
+      LastName: selectedJuror?.LastName || "",
+      MailingAddress: selectedJuror?.MailingAddress || "",
+      City: selectedJuror?.City || "",
+      State: selectedJuror?.State || "",
+      Email: selectedJuror?.Email || "",
+      BadgeNumber: selectedJuror?.BadgeNumber || "",
+      SummonsDate: selectedJuror?.SummonsDate || "",
+      ReportingLocation: selectedJuror?.ReportingLocation || "",
+      CanPostpone: selectedJuror?.CanPostpone || false,
+    });
     setHasChanges(false);
   }, [selectedJuror]);
-
   const handleChange = (field, value) => {
     value = value.target.value;
+    if (field === "CanPostpone") {
+      value = value === "true";
+    }
     setEditedJuror((prevJuror) => ({
       ...prevJuror,
       [field]: value,
@@ -108,17 +134,19 @@ export function EditJurorModal({
                   aria-label="Can Postpone"
                   variant="flat"
                   className="mr-8"
-                  selectedKeys={editedJuror.CanPostpone}
-                  onSelect={(key) =>
-                    handleChange("CanPostpone", key === "true")
-                  }
                 >
                   <DropdownTrigger>
-                    <Button>{editedJuror.CanPostpone ? "Yes" : "No"}</Button>
+                    <Button>
+                      {editedJuror.CanPostpone ? "true" : "false"}
+                    </Button>
                   </DropdownTrigger>
-                  <DropdownMenu title="Can Postpone">
-                    <DropdownItem key="true">Yes</DropdownItem>
-                    <DropdownItem key="false">No</DropdownItem>
+                  <DropdownMenu
+                    title="Can Postpone"
+                    selectedKeys={editedJuror.CanPostpone ? "true" : "false"}
+                    onAction={(key) => console.log(key)}
+                  >
+                    <DropdownItem key="true">True</DropdownItem>
+                    <DropdownItem key="false">False</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
@@ -126,15 +154,10 @@ export function EditJurorModal({
           )}
         </ModalBody>
         <ModalFooter>
-          <Button auto color="secondary" onPress={handleCancel}>
+          <Button color="secondary" onPress={handleCancel}>
             Cancel
           </Button>
-          <Button
-            auto
-            color="primary"
-            onPress={handleSave}
-            disabled={!hasChanges}
-          >
+          <Button color="primary" onPress={handleSave} disabled={!hasChanges}>
             Save
           </Button>
         </ModalFooter>
@@ -142,5 +165,3 @@ export function EditJurorModal({
     </Modal>
   );
 }
-
-export default EditJurorModal;

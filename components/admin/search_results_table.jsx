@@ -21,7 +21,7 @@ import {
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
 
-export function SearchResultsTable({ jurorData }) {
+export function SearchResultsTable({ jurorData, onSaveJuror }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedJuror, setSelectedJuror] = useState(null);
@@ -42,7 +42,34 @@ export function SearchResultsTable({ jurorData }) {
     setSelectedJuror(null);
   };
 
-  const handleSaveJuror = () => {
+  const handleSaveJuror = async (updatedJuror) => {
+    // patch the juror
+    let url = `http://localhost:3000/api/admin/juror/edit/${updatedJuror._id}`;
+    let options = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedJuror),
+    };
+
+    try {
+      const response = await fetch(url, options);
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log("Juror updated successfully");
+        console.log(data);
+        // Update the jurorData with the updated juror
+        onSaveJuror(data);
+        setSelectedJuror(data);
+      } else {
+        console.error("Error updating juror");
+      }
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+
+    // close the modal
     handleCloseModal();
   };
 
