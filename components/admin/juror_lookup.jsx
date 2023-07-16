@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SearchBar from "@/components/admin/search";
 import SearchResultsTable from "@/components/admin/search_results_table";
 
-export default function Page() {
+export function JurorLookup() {
   const [jurorData, setJurorData] = useState([]);
 
   const handleDataFetched = (data) => {
@@ -39,3 +39,5 @@ export default function Page() {
     </div>
   );
 }
+
+export default JurorLookup;

@@ -51,7 +51,7 @@ export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
               />
               <Input
                 label="Can Postpone"
-                value={selectedJuror.CanPostpone}
+                value={selectedJuror.CanPostpone ? "Yes" : "No"}
                 isReadOnly
               />
             </div>

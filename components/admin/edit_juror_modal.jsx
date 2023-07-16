@@ -34,6 +34,10 @@ export function EditJurorModal({
     CanPostpone: selectedJuror?.CanPostpone || false,
   });
   const [hasChanges, setHasChanges] = useState(false);
+  const [canPostponeOptions] = useState([
+    { key: "true", label: "True" },
+    { key: "false", label: "False" },
+  ]);
 
   useEffect(() => {
     setEditedJuror({
@@ -51,8 +55,8 @@ export function EditJurorModal({
     });
     setHasChanges(false);
   }, [selectedJuror]);
+
   const handleChange = (field, value) => {
-    value = value.target.value;
     if (field === "CanPostpone") {
       value = value === "true";
     }
@@ -84,47 +88,49 @@ export function EditJurorModal({
               <Input
                 label="First Name"
                 value={editedJuror.FirstName}
-                onChange={(value) => handleChange("FirstName", value)}
+                onChange={(e) => handleChange("FirstName", e.target.value)}
               />
               <Input
                 label="Last Name"
                 value={editedJuror.LastName}
-                onChange={(value) => handleChange("LastName", value)}
+                onChange={(e) => handleChange("LastName", e.target.value)}
               />
               <Input
                 label="Mailing Address"
                 value={editedJuror.MailingAddress}
-                onChange={(value) => handleChange("MailingAddress", value)}
+                onChange={(e) => handleChange("MailingAddress", e.target.value)}
               />
               <Input
                 label="City"
                 value={editedJuror.City}
-                onChange={(value) => handleChange("City", value)}
+                onChange={(e) => handleChange("City", e.target.value)}
               />
               <Input
                 label="State"
                 value={editedJuror.State}
-                onChange={(value) => handleChange("State", value)}
+                onChange={(e) => handleChange("State", e.target.value)}
               />
               <Input
                 label="Email"
                 value={editedJuror.Email}
-                onChange={(value) => handleChange("Email", value)}
+                onChange={(e) => handleChange("Email", e.target.value)}
               />
               <Input
                 label="Badge Number"
                 value={editedJuror.BadgeNumber}
-                onChange={(value) => handleChange("BadgeNumber", value)}
+                onChange={(e) => handleChange("BadgeNumber", e.target.value)}
               />
               <Input
                 label="Summons Date"
                 value={editedJuror.SummonsDate}
-                onChange={(value) => handleChange("SummonsDate", value)}
+                onChange={(e) => handleChange("SummonsDate", e.target.value)}
               />
               <Input
                 label="Reporting Location"
                 value={editedJuror.ReportingLocation}
-                onChange={(value) => handleChange("ReportingLocation", value)}
+                onChange={(e) =>
+                  handleChange("ReportingLocation", e.target.value)
+                }
               />
               <div className="flex items-center bg-default-100 rounded-lg">
                 <label className="m-3 text-tiny text-foreground-700">
@@ -143,10 +149,13 @@ export function EditJurorModal({
                   <DropdownMenu
                     title="Can Postpone"
                     selectedKeys={editedJuror.CanPostpone ? "true" : "false"}
-                    onAction={(key) => console.log(key)}
+                    onAction={(key) => handleChange("CanPostpone", key)}
                   >
-                    <DropdownItem key="true">True</DropdownItem>
-                    <DropdownItem key="false">False</DropdownItem>
+                    {canPostponeOptions.map((option) => (
+                      <DropdownItem key={option.key}>
+                        {option.label}
+                      </DropdownItem>
+                    ))}
                   </DropdownMenu>
                 </Dropdown>
               </div>

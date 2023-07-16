@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import JurorLookup from "@/components/admin/juror_lookup";
+import { JurorLookup } from "@/components/admin/juror_lookup";
 
 export default function Page() {
   return (
