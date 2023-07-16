@@ -29,22 +29,18 @@ export default function RootLayout({ children }) {
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-8" justify="center">
               <NavbarItem>
-                <Button
-                  onClick={() => window.location.reload()}
-                  className="text-sm px-3 py-1 rounded-full bg-purple-500 text-white hover:bg-purple-300"
-                  >
-                 Home
-                </Button>
-
+                <Link isBlock href="/admin"
+                      className="text-sm px-3 py-1 rounded-full bg-purple-500 text-white hover:bg-purple-300"
+                      >
+                  Admin
+                </Link>
               </NavbarItem>
               <NavbarItem>
-               <Button
-                  href="/"
-                  className="text-sm px-3 py-1 rounded-full bg-purple-500 text-white hover:bg-purple-300"
-                >
-                  About
-                </Button> 
-               
+                <Link isBlock href="/"
+                      className="text-sm px-3 py-1 rounded-full bg-purple-500 text-white hover:bg-purple-300"
+                      >
+                  Home
+                </Link>
               </NavbarItem>
             </NavbarContent>
           </Navbar>
