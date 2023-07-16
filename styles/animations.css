@@ -27,3 +27,15 @@
 .animated-shake {
   animation: shake 500ms infinite;
 }
+
+.shadow-custom {
+  box-shadow: 0 10px 20px rgba(181, 124, 203, 0.619);
+}
+
+.bg-custom-color {
+  background-color: rgba(239, 220, 243, 0.466);
+}
+
+.bg-custom-colorButton {
+  background-color: rgba(207, 49, 239, 0.466);
+}

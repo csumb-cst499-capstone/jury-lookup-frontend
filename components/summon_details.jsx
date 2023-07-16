@@ -97,7 +97,7 @@ export function SummonDetails({ token }) {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="max-w-lg p-8 bg-white rounded-lg shadow-md">
+      <div className="max-w-lg p-8 bg-white rounded-lg shadow-custom">
         <h4 className="text-red-600 text-2xl text-center font-bold mb-4">
           YOU HAVE BEEN SUMMONED FOR JURY SERVICE
         </h4>

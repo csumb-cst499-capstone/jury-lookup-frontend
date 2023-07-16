@@ -91,7 +91,9 @@ export function Postpone(props) {
 
   return (
     <>
-      <Button onPress={openCalendarHandler}>Edit Summons</Button>
+      <Button 
+        className="text-sm px-3 py-1 rounded-xl bg-purple-500 text-white hover:bg-purple-300"
+        onPress={openCalendarHandler}>Edit Summons</Button>
       <Modal isOpen={visible} onOpenChange={closeHandler}>
         <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">
@@ -119,8 +121,12 @@ export function Postpone(props) {
             />
           </ModalBody>
           <ModalFooter>
-            <Button onPress={closeHandler}>Close</Button>
-            <Button onPress={handleDateChange}>Confirm</Button>
+            <Button 
+              className="text-sm px-3 py-1 rounded-xl bg-red-500 text-white hover:bg-red-300"
+              onPress={closeHandler}>Close</Button>
+            <Button 
+              className="text-sm px-3 py-1 rounded-xl bg-green-500 text-white hover:bg-green-300"
+              onPress={handleDateChange}>Confirm</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
