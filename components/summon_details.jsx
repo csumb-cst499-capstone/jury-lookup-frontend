@@ -95,46 +95,63 @@ export function SummonDetails({ token }) {
     location: jurorData.ReportingLocation,
   };
 
+  const isSummonDatePassed = new Date(jurorData.SummonsDate) < new Date();
+  const isMoreThanAWeekPassed =
+    new Date(jurorData.SummonsDate) < new Date() - 7 * 24 * 60 * 60 * 1000;
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="max-w-lg p-8 bg-white rounded-lg shadow-md">
         <h4 className="text-red-600 text-2xl text-center font-bold mb-4">
-          YOU HAVE BEEN SUMMONED FOR JURY SERVICE
+          {isMoreThanAWeekPassed
+            ? "Jury Service Completed"
+            : "YOU HAVE BEEN SUMMONED FOR JURY SERVICE"}
         </h4>
         <p className="font-bold">
           Name: {jurorData.FirstName} {jurorData.LastName}
         </p>
         <p className="font-bold">Badge Number: {jurorData.BadgeNumber}</p>
         <p className="font-bold">Group Number: {jurorData.GroupNumber}</p>
-        <p>
-          Please report to {jurorData.ReportingLocation} on{" "}
-          {formattedSummonDate} at 8:00 AM
-        </p>
-        <hr className="my-6" />
-        {jurorData.CanPostpone ? (
-          <div>
-            <p className="font-bold">
-              You may edit your summons by postponing to a later date and/or
-              changing locations.
-              <br />
-              Court is held every Monday at 8:00 AM PDT, excluding holidays.
+
+        {isSummonDatePassed && isMoreThanAWeekPassed && (
+          <p className="text-center text-green-500 font-bold my-4">
+            Thank you for your service.
+          </p>
+        )}
+        {!isMoreThanAWeekPassed && (
+          <>
+            <p>
+              Please report to {jurorData.ReportingLocation} on{" "}
+              {formattedSummonDate} at 8:00 AM
             </p>
-            <Postpone
-              token={token}
-              {...jurorData}
-              handlePostponeSuccess={handlePostponeSuccess}
-            />
+            ;
             <hr className="my-6" />
-            <CalendarLinks event={event} />
-          </div>
-        ) : (
-          <div>
-            <p className="font-bold" id="cannot-postpone">
-              You are no longer able to postpone this summon.
-            </p>
-            <p className="font-bold">Add to your calendar:</p>
-            <CalendarLinks event={event} />
-          </div>
+            {jurorData.CanPostpone ? (
+              <div>
+                <p className="font-bold">
+                  You may edit your summons by postponing to a later date and/or
+                  changing locations.
+                  <br />
+                  Court is held every Monday at 8:00 AM PDT, excluding holidays.
+                </p>
+                <Postpone
+                  token={token}
+                  {...jurorData}
+                  handlePostponeSuccess={handlePostponeSuccess}
+                />
+                <hr className="my-6" />
+                <CalendarLinks event={event} />
+              </div>
+            ) : (
+              <div>
+                <p className="font-bold" id="cannot-postpone">
+                  You are no longer able to postpone this summon.
+                </p>
+                <p className="font-bold">Add to your calendar:</p>
+                <CalendarLinks event={event} />
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

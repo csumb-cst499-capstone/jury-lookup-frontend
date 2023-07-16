@@ -12,7 +12,8 @@ import "react-calendar/dist/Calendar.css";
 
 export function Postpone(props) {
   const [visible, setVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(props.SummonsDate);
+  const [selectedValue, setSelectedValue] = useState(props.SummonsDate || "");
+
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const token = props.token;

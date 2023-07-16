@@ -10,7 +10,7 @@ function Login() {
   const [token, setToken] = useState("");
   const [buttonState, setButtonState] = useState(0);
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
     event.preventDefault();
 
     try {
@@ -70,7 +70,7 @@ function Login() {
               </div>
               <div className="flex justify-center items-center mt-6">
                 <Button
-                  onClick={handleLogin}
+                  onClick={(event) => handleLogin(event)}
                   isDisabled={!badgeNumber || !pinCode}
                   className={`${
                     buttonState === 3

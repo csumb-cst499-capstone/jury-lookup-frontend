@@ -22,7 +22,14 @@ export default function RootLayout({ children }) {
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
               <NavbarItem>
-                <Button href="/">Home</Button>
+                <Link isBlock href="/admin">
+                  Admin
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link isBlock href="/">
+                  Home
+                </Link>
               </NavbarItem>
             </NavbarContent>
           </Navbar>
