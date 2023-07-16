@@ -1,17 +1,20 @@
-import { Suspense, useState } from "react";
-import { Container, Spacer, Button, Input } from "@nextui-org/react";
+import React, { Suspense, useState } from "react";
 import { SummonDetails } from "./summon_details";
+import { Input, Button } from "@nextui-org/react";
+import "../styles/animations.css"; // Import the CSS file containing animations
 
-export function Login() {
+function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [token, setToken] = useState(""); // Add token state
-  const [buttonState, setButton] = useState(0); // button can be 0: disabled, 1: enabled, 2: loading, 3: success, 4: error
+  const [token, setToken] = useState("");
+  const [buttonState, setButtonState] = useState(0);
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     try {
-      setButton(2); // Set button state to loading
+      setButtonState(2);
       const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         headers: {
@@ -22,90 +25,60 @@ export function Login() {
 
       if (response.status === 200) {
         const data = await response.json();
-        setButton(3);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        // Store the token in state
+        setButtonState(3);
         setToken(data.token);
         setLoggedIn(true);
-
-        // Set button state to success
       } else {
-        setButton(4); // Set button state to error
-        // sleep for 2 seconds
+        setButtonState(4);
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        setButton(1); // Set button state to enabled
+        setButtonState(1);
       }
     } catch (error) {
-      setButton(4); // Set button state to error
+      setButtonState(4);
     }
   };
 
   return (
-    <Container
-      justify="center"
-      align="center"
-      css={{ height: "100vh", paddingTop: "2rem" }}
-    >
+    <div className="justify-center">
       {!loggedIn ? (
-        <Container
-          css={{
-            maxWidth: "465px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "10px",
-          }}
-        >
-          <Container justify="center" align="center" marginBottom={2}>
-            <h3>Jury Duty Lookup</h3>
-          </Container>
-          <Container>
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-full max-w-md px-6 py-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-large shadow-md">
+            <h3 className="text-3xl font-bold text-white text-center mb-8">
+              Jury Duty Lookup
+            </h3>
+            <hr className="mb-8" />
             <form>
-              <Input
-                label="Enter Badge Number"
-                value={badgeNumber}
-                onChange={(e) => setBadgeNumber(e.target.value)}
-                size="medium"
-                name="badgeNumber"
-                required
-                css={{
-                  marginBottom: "1rem",
-                  borderColor: "blue",
-                  borderRadius: "8px",
-                }}
-              />
-              <Spacer y={1} />
-              <Input
-                label="Enter Pin Code"
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-                size="medium"
-                name="pinCode"
-                required
-                css={{
-                  marginBottom: "1rem",
-                  borderColor: "blue",
-                  borderRadius: "8px",
-                }}
-              />
-              <Spacer y={1} />
-              <Container justify="center" align="center">
+              <div className="mb-8">
+                <Input
+                  type="text"
+                  label="Badge Number"
+                  onChange={(e) => setBadgeNumber(e.target.value)}
+                  className="w-full rounded-lg"
+                  isRequired
+                  placeholder="Enter your badge number"
+                />
+              </div>
+              <div className="mb-8">
+                <Input
+                  type="password"
+                  label="Pin Code"
+                  onChange={(e) => setPinCode(e.target.value)}
+                  className="w-full rounded-lg"
+                  isRequired
+                  placeholder="Enter your pin code"
+                />
+              </div>
+              <div className="flex justify-center items-center mt-6">
                 <Button
-                  onPress={handleLogin}
-                  disabled={!badgeNumber || !pinCode}
-                  auto
-                  size="medium"
-                  css={{
-                    background:
-                      buttonState === 3
-                        ? "green"
-                        : buttonState === 4
-                        ? "red"
-                        : "linear-gradient(to right, #6c63ff)",
-                    color: "white",
-                    fontWeight: "bold",
-                    padding: "8px 15px",
-                    backgroundSize: "10% 110%",
-                    animation: buttonState === 4 ? "shake 0.5s" : "none",
-                  }}
+                  onClick={(event) => handleLogin(event)}
+                  isDisabled={!badgeNumber || !pinCode}
+                  className={`${
+                    buttonState === 3
+                      ? "bg-green-500"
+                      : buttonState === 4
+                      ? "bg-red-500 animate-shake"
+                      : "bg-pink-500"
+                  } text-white font-bold px-6 py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-opacity-75 mb-8`}
                 >
                   {buttonState === 2
                     ? "Loading..."
@@ -115,40 +88,19 @@ export function Login() {
                     ? "Invalid Credentials"
                     : "Sign In"}
                 </Button>
-                <Spacer y={1} />
-              </Container>
+              </div>
             </form>
-          </Container>
-        </Container>
+          </div>
+        </div>
       ) : (
         <Suspense fallback={<div>Loading...</div>}>
-          <Container>
+          <div>
             <SummonDetails token={token} />
-          </Container>
+          </div>
         </Suspense>
       )}
-    </Container>
+    </div>
   );
 }
 
 export default Login;
-
-<style jsx>{`
-  @keyframes shake {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-5px);
-    }
-    50% {
-      transform: translateX(5px);
-    }
-    75% {
-      transform: translateX(-5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-`}</style>;

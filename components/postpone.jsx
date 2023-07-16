@@ -1,20 +1,38 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { Modal, Button, Text, Dropdown } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/react";
+import "react-calendar/dist/Calendar.css";
 
 export function Postpone(props) {
+  // modal
   const [visible, setVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(props.SummonsDate);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
+  // auth
   const token = props.token;
+  //date
   const summonDate = props.SummonsDate;
   const currentSummonsDate = new Date(props.SummonsDate);
   const sixtyDaysFromCurrentSummons = new Date(currentSummonsDate);
   sixtyDaysFromCurrentSummons.setDate(currentSummonsDate.getDate() + 60);
+  //dropdown
   const reportingLocation = props.ReportingLocation;
   const [reportingLocations, setReportingLocations] = useState([]);
-  const [selectedReportingLocation, setReportingLocation] = useState(props.ReportingLocation);
+  const [selectedReportingLocation, setReportingLocation] = useState(
+    props.ReportingLocation
+  );
 
   const selectedReportingValue = React.useMemo(
     () => Array.from(selectedReportingLocation).join("").replaceAll("_", " "),
@@ -94,105 +112,100 @@ export function Postpone(props) {
     closeHandler();
   };
 
+  const isMonday = (date) => date.getDay() === 1;
+
   return (
-    <div>
-      <Button onPress={ openCalendarHandler }>Edit Summons</Button>
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="modal-title"
-        open={ visible }
-        onClose={ closeHandler }
-      >
-        <Modal.Header>
-          <Text id="modal-title" size={ 18 }>
-            Updated Summons: <br />
-            {summonDateUTC > selectedValueUTC ? summonDateUTC : selectedValueUTC} at 8:00 am PDT at:
-            <br></br> { selectedReportingValue }, CA
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Dropdown
-          >
-            <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
-            { selectedReportingValue && reportingLocation ? selectedReportingValue : reportingLocation }, CA.
-            </Dropdown.Button>
-            <Dropdown.Menu
-              aria-label="Single selection actions"
-              color="secondary"
-              disallowEmptySelection
-              selectionMode="single"
-              selectedKeys={selectedReportingLocation}
-              onSelectionChange={setReportingLocation}
-            >
-              { reportingLocations.map((location) => (
-                <Dropdown.Item 
-                  key={ location } 
-                  >
-                  { location }
-                </Dropdown.Item>
-              )) }
-            </Dropdown.Menu>
-          </Dropdown>
-          <Calendar
-            tileDisabled={({ date }) => date.getUTCDay() !== 1}
-            minDetail="month"
-            maxDate={ sixtyDaysFromCurrentSummons }
-            minDate={ currentSummonsDate }
-            defaultValue={ summonDateUTC }
-            name="calendar"
-            onChange={ selectDateHandler }
-            value={ selectedValue }
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="success" onPress={ handleChange }>
-            Confirm
-          </Button>
-          <Button auto flat color="black" onPress={ closeHandler }>
-            Cancel
-          </Button>
-        </Modal.Footer>
+    <>
+      <Button onPress={openCalendarHandler}>Edit Summons</Button>
+      <Modal isOpen={visible} onOpenChange={closeHandler}>
+        <ModalContent className="flex flex-col items-center">
+          <ModalHeader className="flex flex-col gap-1">
+            Request Postponement:
+          </ModalHeader>
+          <ModalBody>
+            <p className="text-center">
+              You have selected: <br />
+              {summonDateUTC > selectedValueUTC
+                ? summonDateUTC
+                : selectedValueUTC}{" "}
+              at 8:00 am PDT
+              <br /> in {reportingLocation + ", CA"}
+            </p>
+            <Dropdown>
+              <DropdownTrigger>
+                <Button
+                  variant="flat"
+                  color="secondary"
+                  css={{ tt: "capitalize" }}
+                >
+                  {selectedReportingValue && reportingLocation
+                    ? selectedReportingValue
+                    : reportingLocation}
+                  , CA.
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                aria-label="Single selection actions"
+                color="secondary"
+                disallowEmptySelection
+                selectionMode="single"
+                selectedKeys={selectedReportingLocation}
+                onSelectionChange={setReportingLocation}
+              >
+                {reportingLocations.map((location) => (
+                  <DropdownItem key={location}>{location}</DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+
+            <Calendar
+              tileDisabled={({ date }) => !isMonday(date)}
+              minDetail="month"
+              maxDate={sixtyDaysFromCurrentSummons}
+              minDate={currentSummonsDate}
+              defaultValue={summonDateUTC}
+              name="calendar"
+              onChange={selectDateHandler}
+              value={selectedValue}
+              className="mx-auto"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button onPress={closeHandler}>Close</Button>
+            <Button onPress={handleDateChange}>Confirm</Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
 
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="alert-title"
-        open={ alertVisible }
-        onClose={ closeAlertHandler }
-      >
-        <Modal.Header>
-          <Text id="alert-title" size={ 18 }>
-            Alert
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{alertMessage}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onPress={ closeAlertHandler }>
-            Close
-          </Button>
-        </Modal.Footer>
+      <Modal isOpen={alertVisible} onOpenChange={closeAlertHandler}>
+        <ModalContent className="flex flex-col items-center">
+          <ModalHeader className="flex flex-col gap-1">Alert</ModalHeader>
+          <ModalBody>
+            <p>{alertMessage}</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button onPress={closeAlertHandler}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
-
-export async function GetReportingLocations () {
+ 
+export async function GetReportingLocations() {
   const url = "http://localhost:3000/api/getReportingLocations";
   const res = await fetch(url, {
-      method: "GET",
-      headers: {
-          "Content-Type": "application/json",
-      },
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   if (res.ok) {
     const locations = await res.json();
     return locations;
   } else {
-      console.error("Error fetching reporting locations");
+    console.error("Error fetching reporting locations");
+
   }
 }
 
