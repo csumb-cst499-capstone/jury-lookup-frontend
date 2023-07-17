@@ -85,7 +85,10 @@ export function Postpone(props) {
 
     const requestBody = {
       PostponeDate: formattedDate,
-      ReportingLocation: selectedReportingValue !== undefined ? selectedReportingValue : reportingLocation,
+      ReportingLocation:
+        selectedReportingValue !== undefined
+          ? selectedReportingValue
+          : reportingLocation,
     };
 
     try {
@@ -95,7 +98,7 @@ export function Postpone(props) {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify( requestBody ),
+        body: JSON.stringify(requestBody),
       });
       if (res.ok) {
         props.handlePostponeSuccess();
@@ -172,7 +175,7 @@ export function Postpone(props) {
           </ModalBody>
           <ModalFooter>
             <Button onPress={closeHandler}>Close</Button>
-            <Button onPress={handleDateChange}>Confirm</Button>
+            <Button onPress={handleChange}>Confirm</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -191,7 +194,7 @@ export function Postpone(props) {
     </>
   );
 }
- 
+
 export async function GetReportingLocations() {
   const url = "http://localhost:3000/api/getReportingLocations";
   const res = await fetch(url, {
@@ -205,7 +208,6 @@ export async function GetReportingLocations() {
     return locations;
   } else {
     console.error("Error fetching reporting locations");
-
   }
 }
 
