@@ -31,6 +31,10 @@ export function SearchBar({ onDataFetched }) {
     if (event.key === "Enter") {
       handleSearch();
     }
+
+    if (event.key === "Escape") {
+      setQuery("");
+    }
   };
 
   return (
