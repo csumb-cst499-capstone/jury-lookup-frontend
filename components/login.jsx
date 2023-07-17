@@ -26,6 +26,8 @@ function Login() {
       if (response.status === 200) {
         const data = await response.json();
         setButtonState(3);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         setToken(data.token);
         setLoggedIn(true);
       } else {
@@ -52,6 +54,7 @@ function Login() {
                 <Input
                   type="text"
                   label="Badge Number"
+                  name="badgeNumber"
                   value={badgeNumber}
                   onChange={(e) => setBadgeNumber(e.target.value)}
                   className="w-full rounded-lg"
@@ -63,6 +66,7 @@ function Login() {
                 <Input
                   type="password"
                   label="Pin Code"
+                  name="pinCode"
                   value={pinCode}
                   onChange={(e) => setPinCode(e.target.value)}
                   className="w-full rounded-lg"
