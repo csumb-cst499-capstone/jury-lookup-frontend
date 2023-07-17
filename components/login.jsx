@@ -127,7 +127,7 @@ function Login() {
               <br />
               3. Click on the "Sign In" button.
               <br />
-              If you still have trouble signing in, please call 911 for assistance.
+              If you still have trouble signing in, please call our office for assistance.
             </p>
             <Button
               className="mt-4 text-sm px-3 py-1 rounded-full bg-purple-500 text-white hover:bg-purple-300"

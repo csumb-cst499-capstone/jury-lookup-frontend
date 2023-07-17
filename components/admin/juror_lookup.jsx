@@ -21,8 +21,8 @@ export function JurorLookup() {
   };
 
   return (
-    <div className="flex-auto max-w-full h-screen m-auto mt-4">
-      <div className="flex-auto rounded-full">
+    <div className="bg-gray-100 flex-auto max-w-full h-screen m-auto mt-4 ">
+      <div className="flex-auto rounded-full ">
         <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
           To begin search for a juror
         </h2>

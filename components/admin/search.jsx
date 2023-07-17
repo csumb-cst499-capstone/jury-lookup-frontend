@@ -21,7 +21,7 @@ export function SearchBar({ onDataFetched }) {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-2">
+    <div className="flex items-center justify-center space-x-2 ">
       <input
         type="text"
         value={query}
@@ -31,7 +31,7 @@ export function SearchBar({ onDataFetched }) {
       />
       <button
         onClick={handleSearch}
-        className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500"
+        className="px-4 py-2 text-white bg-purple-500 rounded-lg text-white hover:bg-purple-300"
       >
         Search
       </button>
