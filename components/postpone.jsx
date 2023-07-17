@@ -134,7 +134,10 @@ export function Postpone(props) {
                 ? summonDateUTC
                 : selectedValueUTC}{" "}
               at 8:00 am PDT
-              <br /> in {reportingLocation + ", CA"}
+              <br /> in {selectedReportingValue && reportingLocation
+                    ? selectedReportingValue
+                    : reportingLocation}
+                  , CA.
             </p>
             <Dropdown>
               <DropdownTrigger>
