@@ -15,7 +15,7 @@ import {
 
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
-
+import { motion } from "framer-motion";
 export function SearchResultsTable({ jurorData, onSaveJuror }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -69,7 +69,12 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    
+    >
       <div className="mx-1 p-2 max-w-full">
         <Table isHeaderSticky className="flex m-1 p-4" aria-label="Juror Table">
           <TableHeader className="text-center">
@@ -132,7 +137,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
         selectedJuror={selectedJuror}
         onSaveJuror={handleSaveJuror}
       />
-    </>
+    </motion.div>
   );
 }
 
