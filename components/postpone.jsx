@@ -123,7 +123,7 @@ export function Postpone(props) {
       <Modal isOpen={visible} onOpenChange={closeHandler}>
         <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">
-            Request Postponement:
+            Request Postponement
           </ModalHeader>
           <ModalBody>
             <p className="text-center">
@@ -156,7 +156,7 @@ export function Postpone(props) {
                 onSelectionChange={setReportingLocation}
               >
                 {reportingLocations.map((location) => (
-                  <DropdownItem key={location}>{location}</DropdownItem>
+                  <DropdownItem key={location}{...location}>{location}</DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>

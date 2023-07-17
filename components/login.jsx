@@ -52,6 +52,7 @@ function Login() {
                 <Input
                   type="text"
                   label="Badge Number"
+                  value={badgeNumber}
                   onChange={(e) => setBadgeNumber(e.target.value)}
                   className="w-full rounded-lg"
                   isRequired
@@ -62,6 +63,7 @@ function Login() {
                 <Input
                   type="password"
                   label="Pin Code"
+                  value={pinCode}
                   onChange={(e) => setPinCode(e.target.value)}
                   className="w-full rounded-lg"
                   isRequired

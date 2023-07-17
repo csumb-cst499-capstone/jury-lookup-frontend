@@ -8,28 +8,28 @@ export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
   const [postponeSuccess, setPostponeSuccess] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/summon", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify({ token: token }),
-        });
-        if (response.status === 200) {
-          const data = await response.json();
-          setJurorData(data);
-        } else {
-          console.error("Error fetching summon details");
-        }
-      } catch (error) {
-        console.error("Error fetching summon details", error);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/summon", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        setJurorData(data);
+        setPostponeSuccess(false);
+      } else {
+        console.error("Error fetching summon details");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching summon details", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [token]);
 
@@ -54,27 +54,6 @@ export function SummonDetails({ token }) {
 
   const handlePostponeSuccess = () => {
     setPostponeSuccess(true);
-  };
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/summon", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        const data = await response.json();
-        setJurorData(data);
-        setPostponeSuccess(false);
-      } else {
-        console.error("Error fetching summon details");
-      }
-    } catch (error) {
-      console.error("Error fetching summon details", error);
-    }
   };
 
   if (!jurorData) {
