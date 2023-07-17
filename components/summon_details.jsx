@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import { Button } from "@nextui-org/react";
 import { Postpone } from "./postpone";
 import CalendarLinks from "./calendar-links";
 
@@ -126,7 +124,6 @@ export function SummonDetails({ token }) {
                 <p className="font-bold" id="cannot-postpone">
                   You are no longer able to postpone this summon.
                 </p>
-                <p className="font-bold">Add to your calendar:</p>
                 <CalendarLinks event={event} />
               </div>
             )}
