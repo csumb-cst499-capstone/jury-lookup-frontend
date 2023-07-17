@@ -9,6 +9,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { Logo } from "../components/logo";
+import { motion } from "framer-motion";
 import "../styles/globals.css";
 
 export default function RootLayout({ children }) {
