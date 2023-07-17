@@ -10,11 +10,11 @@ describe("Login Component", () => {
       body: { token: "your-token-value" },
     }).as("loginRequest");
 
-    cy.get('input[name="badgeNumber"]').type("123");
-    cy.get('input[name="pinCode"]').type("123");
+    cy.get('Input[name="badgeNumber"]').type("9999999");
+    cy.get('Input[name="pinCode"]').type("9999999");
     cy.contains("Sign In").click();
 
-    cy.wait("@loginRequest").then(() => {
+    cy.wait("@loginRequest", ).then(() => {
       cy.get('button:contains("Success!")').should("be.visible");
     });
   });
