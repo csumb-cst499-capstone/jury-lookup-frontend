@@ -85,7 +85,10 @@ export function Postpone(props) {
 
     const requestBody = {
       PostponeDate: formattedDate,
-      ReportingLocation: selectedReportingValue !== undefined ? selectedReportingValue : reportingLocation,
+      ReportingLocation:
+        selectedReportingValue !== undefined
+          ? selectedReportingValue
+          : reportingLocation,
     };
 
     try {
@@ -95,7 +98,7 @@ export function Postpone(props) {
           "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify( requestBody ),
+        body: JSON.stringify(requestBody),
       });
       if (res.ok) {
         props.handlePostponeSuccess();
@@ -122,7 +125,7 @@ export function Postpone(props) {
       <Modal isOpen={visible} onOpenChange={closeHandler}>
         <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">
-            Request Postponement:
+            Request Postponement
           </ModalHeader>
           <ModalBody>
             <p className="text-center">
@@ -155,7 +158,7 @@ export function Postpone(props) {
                 onSelectionChange={setReportingLocation}
               >
                 {reportingLocations.map((location) => (
-                  <DropdownItem key={location}>{location}</DropdownItem>
+                  <DropdownItem key={location}{...location}>{location}</DropdownItem>
                 ))}
               </DropdownMenu>
             </Dropdown>
@@ -197,7 +200,7 @@ export function Postpone(props) {
     </>
   );
 }
- 
+
 export async function GetReportingLocations() {
   const url = "http://localhost:3000/api/getReportingLocations";
   const res = await fetch(url, {
@@ -211,7 +214,6 @@ export async function GetReportingLocations() {
     return locations;
   } else {
     console.error("Error fetching reporting locations");
-
   }
 }
 
