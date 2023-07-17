@@ -8,11 +8,6 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Input,
   Link,
   Tooltip,
@@ -44,7 +39,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   const handleSaveJuror = async (updatedJuror) => {
     // patch the juror
-    let url = `http://localhost:3000/api/admin/juror/edit/${updatedJuror._id}`;
+    let url = `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/juror/edit/${updatedJuror._id}`;
     let options = {
       method: "PATCH",
       headers: {
@@ -75,7 +70,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   return (
     <>
-      <div className="h-screen mx-1 p-2 max-w-full">
+      <div className="mx-1 p-2 max-w-full">
         <Table isHeaderSticky className="flex m-1 p-4" aria-label="Juror Table">
           <TableHeader className="text-center">
             <TableColumn>ID</TableColumn>
@@ -104,7 +99,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         anchorIcon={<BsEye />}
                         showAnchorIcon
                         isBlock
-                        onClick={() => handleViewDetails(juror)}
+                        onPress={() => handleViewDetails(juror)}
                       ></Link>
                     </Tooltip>
 
@@ -113,7 +108,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         anchorIcon={<BsPencilSquare />}
                         showAnchorIcon
                         isBlock
-                        onClick={() => handleEditJuror(juror)}
+                        onPress={() => handleEditJuror(juror)}
                         style={{ marginLeft: "8px" }}
                       ></Link>
                     </Tooltip>
