@@ -129,7 +129,10 @@ export function Postpone(props) {
                 ? summonDateUTC
                 : selectedValueUTC}{" "}
               at 8:00 am PDT
-              <br /> in {reportingLocation + ", CA"}
+              <br /> in {selectedReportingValue && reportingLocation
+                    ? selectedReportingValue
+                    : reportingLocation}
+                  , CA.
             </p>
             <Dropdown>
               <DropdownTrigger>
@@ -172,7 +175,7 @@ export function Postpone(props) {
           </ModalBody>
           <ModalFooter>
             <Button onPress={closeHandler}>Close</Button>
-            <Button onPress={handleDateChange}>Confirm</Button>
+            <Button onPress={handleChange}>Confirm</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

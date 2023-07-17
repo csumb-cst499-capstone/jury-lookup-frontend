@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import { Button } from "@nextui-org/react";
 import { Postpone } from "./postpone";
 import CalendarLinks from "./calendar-links";
 
