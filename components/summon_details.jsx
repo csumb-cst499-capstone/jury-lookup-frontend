@@ -145,7 +145,6 @@ export function SummonDetails({ token }) {
                 <p className="font-bold" id="cannot-postpone">
                   You are no longer able to postpone this summon.
                 </p>
-                <p className="font-bold">Add to your calendar:</p>
                 <CalendarLinks event={event} />
               </div>
             )}
