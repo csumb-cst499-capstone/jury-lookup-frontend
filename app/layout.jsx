@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/router";
 
 import { Providers } from "./providers";
 import {

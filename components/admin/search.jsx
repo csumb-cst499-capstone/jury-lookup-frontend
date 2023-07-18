@@ -70,12 +70,7 @@ export function SearchBar({ onDataFetched }) {
           setQuery("");
         }}
       />
-      <button
-        onClick={handleSearch}
-        className="px-4 py-2 text-white bg-purple-500 rounded-lg text-white hover:bg-purple-300"
-      >
-        Search
-      </button>
+      Enter to Search:
     </div>
   );
 }
