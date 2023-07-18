@@ -184,7 +184,7 @@ export function Postpone(props) {
               onPress={closeHandler}>Close</Button>
             <Button 
               className="text-sm px-3 py-1 rounded-xl bg-green-500 text-white hover:bg-green-300"
-              onPress={handleDateChange}>Confirm</Button>
+              onPress={handleChange}>Confirm</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
