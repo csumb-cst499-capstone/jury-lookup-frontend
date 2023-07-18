@@ -35,6 +35,9 @@ export function SearchBar({ onDataFetched }) {
     if (event.key === "Escape") {
       setQuery("");
     }
+
+    // if double escape is pressed, clear the search bar
+    
   };
 
   return (
