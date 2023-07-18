@@ -23,7 +23,3 @@
     transform: translateX(0);
   }
 }
-
-.animated-shake {
-  animation: shake 500ms infinite;
-}

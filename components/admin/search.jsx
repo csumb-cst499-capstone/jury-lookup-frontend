@@ -34,11 +34,9 @@ export function SearchBar({ onDataFetched }) {
   };
 
   return (
-    <div className="w-[600px] h-[240px] px-8 rounded-2xl flex justify-center items-center bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
-      <Input
-        label="Search"
-        isClearable
-        radius="lg"
+    <div className="flex items-center justify-center space-x-2 ">
+      <input
+        type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -72,6 +70,7 @@ export function SearchBar({ onDataFetched }) {
           setQuery("");
         }}
       />
+      Enter to Search:
     </div>
   );
 }
