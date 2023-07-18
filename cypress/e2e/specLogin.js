@@ -1,10 +1,15 @@
-const testUser = { badgeNumber: "687056417", pinCode: "164523" };
+export const testUser = { badgeNumber: "687056417", pinCode: "164523" };
 
 export function postponeableUserLogin() {
   cy.visit("http://localhost:3001");
   cy.get('input[placeholder="Enter your badge number"]').type(testUser.badgeNumber);
   cy.get('input[placeholder="Enter your pin code"]').type(testUser.pinCode);
   cy.contains("Sign In").click();
+}
+
+export function adminUserLogin() {
+  cy.visit("http://localhost:3001");
+  cy.get('li:contains("Admin")').click();
 }
 
 export function resetPostponeableUserLogin() {

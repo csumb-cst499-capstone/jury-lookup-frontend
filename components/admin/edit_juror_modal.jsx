@@ -87,46 +87,55 @@ export function EditJurorModal({
             <div className="grid grid-cols-2 gap-4">
               <Input
                 label="First Name"
+                name="FirstName"
                 value={editedJuror.FirstName}
                 onChange={(e) => handleChange("FirstName", e.target.value)}
               />
               <Input
                 label="Last Name"
+                name="LastName"
                 value={editedJuror.LastName}
                 onChange={(e) => handleChange("LastName", e.target.value)}
               />
               <Input
                 label="Mailing Address"
+                name="MailingAddress"
                 value={editedJuror.MailingAddress}
                 onChange={(e) => handleChange("MailingAddress", e.target.value)}
               />
               <Input
                 label="City"
+                name="City"
                 value={editedJuror.City}
                 onChange={(e) => handleChange("City", e.target.value)}
               />
               <Input
                 label="State"
+                name="State"
                 value={editedJuror.State}
                 onChange={(e) => handleChange("State", e.target.value)}
               />
               <Input
                 label="Email"
+                name="Email"
                 value={editedJuror.Email}
                 onChange={(e) => handleChange("Email", e.target.value)}
               />
               <Input
                 label="Badge Number"
+                name="BadgeNumber"
                 value={editedJuror.BadgeNumber}
                 onChange={(e) => handleChange("BadgeNumber", e.target.value)}
               />
               <Input
                 label="Summons Date"
+                name="SummonsDate"
                 value={editedJuror.SummonsDate}
                 onChange={(e) => handleChange("SummonsDate", e.target.value)}
               />
               <Input
                 label="Reporting Location"
+                name="ReportingLocation"
                 value={editedJuror.ReportingLocation}
                 onChange={(e) =>
                   handleChange("ReportingLocation", e.target.value)
