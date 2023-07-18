@@ -2,7 +2,7 @@ import React, { Suspense, useState } from "react";
 import { SummonDetails } from "./summon_details";
 import { Button, Input } from "@nextui-org/react";
 import Modal from "./Modal";
-import "../styles/animations.css"; // Import the CSS file containing animations
+import "../styles/animations.css";
 
 function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
