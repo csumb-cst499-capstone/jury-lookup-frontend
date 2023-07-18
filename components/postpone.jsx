@@ -169,7 +169,7 @@ export function Postpone(props) {
               defaultValue={summonDateUTC}
               name="calendar"
               onChange={selectDateHandler}
-              value={selectedValue}
+              value={selectedValueUTC}
               className="mx-auto"
             />
           </ModalBody>
