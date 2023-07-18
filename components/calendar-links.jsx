@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@nextui-org/react";
 const { google, outlook, office365, yahoo, ics } = require("calendar-link");
 
 export function CalendarLinks({ event }) {
@@ -13,24 +14,24 @@ export function CalendarLinks({ event }) {
   return (
     <div className="flex gap-2 mt-4">
       <p className="font-bold">Add to your calendar:</p>
-      <button
+      <Button
         className="text-blue-500 hover:underline"
         onClick={() => handleCreateEvent(googleCalendarUrl)}
       >
         Google
-      </button>
-      <button
+      </Button>
+      <Button
         className="text-blue-500 hover:underline"
         onClick={() => handleCreateEvent(outlookCalendarUrl)}
       >
         Outlook
-      </button>
-      <button
+      </Button>
+      <Button
         className="text-blue-500 hover:underline"
         onClick={() => handleCreateEvent(icsCalendarUrl)}
       >
         iCal
-      </button>
+      </Button>
     </div>
   );
 }
