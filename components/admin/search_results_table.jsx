@@ -104,6 +104,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         anchorIcon={<BsEye />}
                         showAnchorIcon
                         isBlock
+                        name="viewButton"
                         onPress={() => handleViewDetails(juror)}
                       ></Link>
                     </Tooltip>
@@ -113,6 +114,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         anchorIcon={<BsPencilSquare />}
                         showAnchorIcon
                         isBlock
+                        name="editButton"
                         onPress={() => handleEditJuror(juror)}
                         style={{ marginLeft: "8px" }}
                       ></Link>
