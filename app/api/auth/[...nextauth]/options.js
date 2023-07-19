@@ -1,6 +1,4 @@
 import Auth0Provider from "next-auth/providers/auth0";
-import GithubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
 
 export const options = {
   callbacks: {
