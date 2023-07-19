@@ -7,11 +7,11 @@ import {
   ModalFooter,
   Input,
   Button,
-  Link,
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
+  Switch
 } from "@nextui-org/react";
 
 export function EditJurorModal({

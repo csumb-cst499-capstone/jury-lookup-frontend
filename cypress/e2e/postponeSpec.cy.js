@@ -9,9 +9,8 @@ describe("Sucessful Postpone Component", () => {
     postponeableUserLogin();
   });
 
-  it('should sucessfully update the location and date', () => {
-    cy.get('button:contains("Edit Summons")'
-      , { timeout: 10000 }).click();
+  it("should sucessfully update the location and date", () => {
+    cy.get('button:contains("Edit Summons")', { timeout: 10000 }).click();
     cy.get('button:contains("Monterey")').click();
     cy.get('li:contains("King City")').click();
     cy.get('abbr[aria-label="January 11, 2100"]'
@@ -23,9 +22,8 @@ describe("Sucessful Postpone Component", () => {
     cy.contains("January 11, 2100").should("be.visible");
   });
 
-  it('should sucessfully change the location without changing date', () => {
-    cy.get('button:contains("Edit Summons")'
-      , { timeout: 10000 }).click();
+  it("should sucessfully change the location without changing date", () => {
+    cy.get('button:contains("Edit Summons")', { timeout: 10000 }).click();
     cy.get('button:contains("Monterey")').click();
     cy.get('li:contains("King City")').click();
     cy.get('button:contains("Confirm")').click();
@@ -34,7 +32,7 @@ describe("Sucessful Postpone Component", () => {
     cy.contains('January 4, 2100').should("be.visible");
   });
 
-  it('should sucessfully update the date without changing location', () => {  
+  it("should sucessfully update the date without changing location", () => {
     resetPostponeableUserLogin();
     cy.get('button:contains("Edit Summons")'
       , { timeout: 10000 }).click();
@@ -46,7 +44,7 @@ describe("Sucessful Postpone Component", () => {
   });
 });
 
-describe('Unsucessful Postpone Component', () => {
+describe("Unsucessful Postpone Component", () => {
   beforeEach(() => {
     postponeableUserLogin();
   });

@@ -59,7 +59,7 @@ export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
           )}
         </ModalBody>
         <ModalFooter>
-          <Link color="secondary" onClick={onClose}>
+          <Link color="secondary" onPress={onClose}>
             Close
           </Link>
         </ModalFooter>

@@ -8,11 +8,6 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Input,
   Link,
   Tooltip,
@@ -20,7 +15,7 @@ import {
 
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
-
+import { motion } from "framer-motion";
 export function SearchResultsTable({ jurorData, onSaveJuror }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -44,7 +39,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   const handleSaveJuror = async (updatedJuror) => {
     // patch the juror
-    let url = `http://localhost:3000/api/admin/juror/edit/${updatedJuror._id}`;
+    let url = `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/juror/edit/${updatedJuror._id}`;
     let options = {
       method: "PATCH",
       headers: {
@@ -74,8 +69,13 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
   };
 
   return (
-    <>
-      <div className="h-screen mx-1 p-2 max-w-full">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    
+    >
+      <div className="mx-1 p-2 max-w-full">
         <Table isHeaderSticky className="flex m-1 p-4" aria-label="Juror Table">
           <TableHeader className="text-center">
             <TableColumn>ID</TableColumn>
@@ -105,7 +105,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         showAnchorIcon
                         isBlock
                         name="viewButton"
-                        onClick={() => handleViewDetails(juror)}
+                        onPress={() => handleViewDetails(juror)}
                       ></Link>
                     </Tooltip>
 
@@ -115,7 +115,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
                         showAnchorIcon
                         isBlock
                         name="editButton"
-                        onClick={() => handleEditJuror(juror)}
+                        onPress={() => handleEditJuror(juror)}
                         style={{ marginLeft: "8px" }}
                       ></Link>
                     </Tooltip>
@@ -139,7 +139,7 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
         selectedJuror={selectedJuror}
         onSaveJuror={handleSaveJuror}
       />
-    </>
+    </motion.div>
   );
 }
 
