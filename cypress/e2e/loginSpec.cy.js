@@ -1,11 +1,11 @@
 describe("Login Component", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit(Cypress.env("BASE_URL"));
   });
 
   // test successful login
   it("should successfully log in with valid credentials", () => {
-    cy.intercept("POST", "http://localhost:8080/api/login", {
+    cy.intercept("POST", `${Cypress.env("API_URL")}/api/login`, {
       statusCode: 200,
       body: { token: "your-token-value" },
     }).as("loginRequest");
@@ -21,7 +21,7 @@ describe("Login Component", () => {
 
   // test unsuccessful login
   it("should display error message with invalid credentials", () => {
-    cy.intercept("POST", "http://localhost:8080/api/login", {
+    cy.intercept("POST", `${Cypress.env("API_URL")}/api/login`, {
       statusCode: 401,
     }).as("loginRequest");
 

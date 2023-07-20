@@ -1,7 +1,7 @@
 export const testUser = { badgeNumber: "687056417", pinCode: "164523" };
 
 export function postponeableUserLogin() {
-  cy.visit("http://localhost:3000");
+  cy.visit(Cypress.env("BASE_URL"));
   cy.get('input[placeholder="Enter your badge number"]').type(
     testUser.badgeNumber
   );
@@ -10,12 +10,12 @@ export function postponeableUserLogin() {
 }
 
 export function adminUserLogin() {
-  cy.visit("http://localhost:3000");
+  cy.visit(Cypress.env("BASE_URL"));
   cy.get('li:contains("Login")').click();
 }
 
 export function resetPostponeableUserLogin() {
-  cy.request("POST", "http://localhost:8080/api/login/", {
+  cy.request("POST", `${Cypress.env("API_URL")}/api/login`, {
     BadgeNumber: testUser.badgeNumber,
     PinCode: testUser.pinCode,
   }).then((response) => {
@@ -24,7 +24,7 @@ export function resetPostponeableUserLogin() {
 
     cy.request({
       method: "POST",
-      url: "http://localhost:8080/api/resetSummonsTest",
+      url: `${Cypress.env("API_URL")}/api/resetSummonsTest`,
       body: {
         badgeNumber: testUser.badgeNumber,
       },
