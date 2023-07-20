@@ -1,31 +1,46 @@
 import { Skeleton, Button, Input, kbd } from "@nextui-org/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
+import useApi from "@/hooks/use_api";
 
 export function SearchBar({ onDataFetched }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const api = useApi(); // Call the hook at the top level
 
   const handleSearch = async () => {
     if (query.trim() === "") {
-      return; // Exit early if the query is empty or contains only whitespace
+      return;
     }
 
     try {
-      const response = await fetch(
-        `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/search?query=${query}`
+      let url = new URL(
+        `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/search`
       );
-      if (response.status === 200) {
-        const data = await response.json();
-        console.log("Search results fetched successfully");
-        onDataFetched(data);
-      } else {
-        console.error("Error fetching search results");
+      url.searchParams.append("query", query);
+
+      const { response, error, isLoading } = api(url); // Use the hook
+
+      if (isLoading) {
+        setLoading(true);
+      }
+
+      if (error) {
+        console.error(error);
+      }
+
+      if (response) {
+        setLoading(false);
+        onDataFetched(response);
       }
     } catch (error) {
-      console.error("Error fetching search results", error);
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    handleSearch(); // Perform the initial search on component mount
+  }, []); // Empty dependency array to run only once
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -37,7 +52,6 @@ export function SearchBar({ onDataFetched }) {
     }
 
     // if double escape is pressed, clear the search bar
-    
   };
 
   return (

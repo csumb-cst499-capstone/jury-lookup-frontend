@@ -7,12 +7,10 @@ import {
   Link,
   Button,
 } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
+
 import { redirect } from "next/navigation";
 import Logo from "@/components/logo";
 export function Navigation() {
-  const { data } = useSession();
-
   return (
     <>
       <Navbar isBordered position="floating">
@@ -30,13 +28,17 @@ export function Navigation() {
               Home
             </Link>
           </NavbarItem>
-          {data && (
-            <NavbarItem>
-              <Link isBlock href="/api/auth/signout">
-                Sign Out
-              </Link>
-            </NavbarItem>
-          )}
+          <NavbarItem>
+            <Link isBlock href="/api/auth/login">
+              Sign In
+            </Link>
+          </NavbarItem>
+
+          <NavbarItem>
+            <Link isBlock href="/api/auth/signout">
+              Sign Out
+            </Link>
+          </NavbarItem>
         </NavbarContent>
       </Navbar>
     </>

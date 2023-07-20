@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.0.0-beta.3",
     "@nextui-org/button": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/code": "^0.0.0-dev-v2-20230622022515",
     "@nextui-org/input": "^0.0.0-dev-v2-20230622022515",
@@ -43,5 +44,10 @@
     "cypress": "^12.17.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
