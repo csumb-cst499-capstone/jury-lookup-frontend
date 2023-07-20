@@ -13,7 +13,7 @@ export function SearchBar({ onDataFetched }) {
 
     try {
       const response = await fetch(
-        `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/search?query=${query}`
+        `${process.env.API_URL}/api/admin/search?query=${query}`
       );
       if (response.status === 200) {
         const data = await response.json();
@@ -31,12 +31,18 @@ export function SearchBar({ onDataFetched }) {
     if (event.key === "Enter") {
       handleSearch();
     }
+
+    if (event.key === "Escape") {
+      setQuery("");
+    }
   };
 
   return (
-    <div className="flex items-center justify-center space-x-2 ">
-      <input
-        type="text"
+    <div className="w-[600px] h-[240px] px-8 rounded-2xl flex justify-center items-center bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+      <Input
+        label="Search"
+        isClearable
+        radius="lg"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -70,7 +76,6 @@ export function SearchBar({ onDataFetched }) {
           setQuery("");
         }}
       />
-      Enter to Search:
     </div>
   );
 }

@@ -8,7 +8,7 @@ export function SummonDetails({ token }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/summon", {
+      const response = await fetch(`${process.env.API_URL}/api/summon`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

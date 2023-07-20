@@ -7,7 +7,7 @@ export function Greeting({ data = [] }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/hello");
+        const res = await fetch("http://localhost:8080/api/hello");
         const json = await res.json();
         setApiData(json);
       } catch (error) {

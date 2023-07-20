@@ -39,7 +39,8 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   const handleSaveJuror = async (updatedJuror) => {
     // patch the juror
-    let url = `http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}/api/admin/juror/edit/${updatedJuror._id}`;
+    let url = `${process.env.API_URL}/api/admin/juror/edit/${updatedJuror._id}`;
+    
     let options = {
       method: "PATCH",
       headers: {
@@ -73,7 +74,6 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-    
     >
       <div className="mx-1 p-2 max-w-full">
         <Table isHeaderSticky className="flex m-1 p-4" aria-label="Juror Table">
