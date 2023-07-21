@@ -63,8 +63,6 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
     } catch (error) {
       console.error("Error: ", error);
     }
-
-    // close the modal
     handleCloseModal();
   };
 
@@ -73,7 +71,6 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-    
     >
       <div className="mx-1 p-2 max-w-full">
         <Table isHeaderSticky className="flex m-1 p-4" aria-label="Juror Table">

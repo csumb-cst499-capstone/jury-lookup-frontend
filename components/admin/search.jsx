@@ -1,4 +1,3 @@
-import { Skeleton, Button, Input, kbd } from "@nextui-org/react";
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
@@ -34,43 +33,23 @@ export function SearchBar({ onDataFetched }) {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-2 ">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        classNames={{
-          label: "text-black/50 dark:text-white/90",
-          input: [
-            "bg-transparent",
-            "text-black/90 dark:text-white/90",
-            "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-          ],
-          innerWrapper: "bg-transparent",
-          inputWrapper: [
-            "shadow-xl",
-            "bg-default-200/50",
-            "dark:bg-default/60",
-            "backdrop-blur-xl",
-            "backdrop-saturate-200",
-            "hover:bg-default-200/70",
-            "dark:hover:bg-default/70",
-            "group-data-[focused=true]:bg-default-200/50",
-            "dark:group-data-[focused=true]:bg-default/60",
-            "!cursor-text",
-          ],
-        }}
-        placeholder="Type to search..."
-        variant="filled"
-        startContent={
-          <BsSearch className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
-        }
-        onClear={() => {
-          setQuery("");
-        }}
-      />
-      Enter to Search:
+    <div className="flex items-center justify-center space-x-2">
+      <div className="bg-custom-colorBox border-2 border-gray-400 dark:border-gray-700 rounded-lg px-3 py-2 flex items-center shadow-admin">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="bg-transparent text-black w-full focus:outline-none"
+          placeholder="Type to search..."
+        />
+        <button
+          className="ml-2 text-purple-600 dark:text-red-300 focus:outline-none "
+          onClick={handleSearch}
+        >
+          <BsSearch className="w-8 h-5" />
+        </button>
+      </div>
     </div>
   );
 }
