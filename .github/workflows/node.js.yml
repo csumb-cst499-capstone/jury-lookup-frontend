@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies for frontend
         run: |
-          cd jury-lookup/frontend
+          cd jury-lookup-frontend
           npm install
 
       - name: Checkout backend
@@ -41,7 +41,7 @@ jobs:
 
       - name: Start Backend
         run: |
-          cd jury-lookup-frontend
+          cd jury-lookup-backend
           npm start &
 
       - name: Wait for Backend to Start
@@ -49,7 +49,7 @@ jobs:
 
       - name: Start Frontend
         run: |
-          cd jury-lookup/frontend
+          cd jury-lookup-frontend
           npm start &
 
       - name: Wait for Frontend to Start
@@ -57,5 +57,5 @@ jobs:
 
       - name: Run Cypress Tests
         run: |
-          cd jury-lookup/frontend
+          cd jury-lookup-fronend
           npx run cypress
