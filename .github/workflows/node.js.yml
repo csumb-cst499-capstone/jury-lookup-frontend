@@ -71,7 +71,9 @@ jobs:
         run: sleep 10s
 
       - name: Start Frontend
-        run: npm start &
+        run: |
+          npm build
+          npm start &
         working-directory: jury-lookup-frontend
 
       - name: Wait for Frontend to Start
