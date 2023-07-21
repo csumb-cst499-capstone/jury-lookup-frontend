@@ -28,6 +28,7 @@ export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
               />
               <Input
                 label="Mailing Address"
+                name="MailingAddress"
                 value={selectedJuror.MailingAddress}
                 isReadOnly
               />
