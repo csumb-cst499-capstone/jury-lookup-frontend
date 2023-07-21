@@ -30,6 +30,12 @@ jobs:
         node-version: [18.x, 19.x]
 
     steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
       - name: Checkout frontend
         uses: actions/checkout@v3
         with:
@@ -51,11 +57,7 @@ jobs:
         run: npm install
         working-directory: jury-lookup-backend
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+
 
       - name: Start Backend
         run: npm start &
