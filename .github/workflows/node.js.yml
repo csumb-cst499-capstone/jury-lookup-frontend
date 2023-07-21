@@ -36,10 +36,6 @@ jobs:
         with:
           path: jury-lookup-frontend
 
-      - name: Install Dependencies for frontend
-        run: npm install
-        working-directory: jury-lookup-frontend
-
       - name: Checkout backend
         uses: actions/checkout@v3
         with:
@@ -47,16 +43,19 @@ jobs:
           token: ${{ secrets.token }}
           ref: main
           path: jury-lookup-backend
-
+          
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          working-directory: jury-lookup-frontend
+          
+      - name: Install Dependencies for frontend
+        run: npm ci
+        working-directory: jury-lookup-frontend
           
       - name: Install Dependencies for backend
-        run: npm install
+        run: npm ci
         working-directory: jury-lookup-backend
 
 
