@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          path: jury-lookup-frontend
+          working-directory: jury-lookup-frontend
           
       - name: Install Dependencies for frontend
         run: npm ci
