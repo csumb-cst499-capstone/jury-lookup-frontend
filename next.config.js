@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "",
+  basePath: `http://localhost:3000`,
 
   env: {
     API_URL: "http://localhost:8080",
