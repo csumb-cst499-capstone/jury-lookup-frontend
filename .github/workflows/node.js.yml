@@ -43,7 +43,7 @@ jobs:
           token: ${{ secrets.token }}
           ref: main
           path: jury-lookup-backend
-          
+      - run: ls -la
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
