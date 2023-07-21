@@ -72,7 +72,7 @@ jobs:
 
       - name: Start Frontend
         run: |
-          npm build
+          npm run build
           npm start &
         working-directory: jury-lookup-frontend
 
