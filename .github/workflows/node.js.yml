@@ -26,6 +26,7 @@ jobs:
           repository: csumb-cst499-capstone/jury-lookup-backend
           ref: main
           path: backend
+          token: ${{ github.PAT }}
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
