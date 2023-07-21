@@ -1,49 +1,64 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [ 18.x, 19.x ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x, 19.x]
 
     steps:
-    - name: checkout frontend
-      uses: actions/checkout@v3
-      with:
-        path: jury-lookup/frontend
-    - name: Install Dependencies for frontend
-      run: |
-        cd jury-lookup/frontend
-        npm install
-      
-    - name: checkout backend
-    - uses: actions/checkout@v3
-      with:
-        repository: csumb-cst499-capstone/jury-lookup-frontend
-        path: jury-lookup/backend
-    - name: Install Dependencies for backend
-      run: |
-        cd jury-lookup/backend
-        npm install
-        
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Checkout frontend
+        uses: actions/checkout@v3
+        with:
+          path: jury-lookup/frontend
+
+      - name: Install Dependencies for frontend
+        run: |
+          cd jury-lookup/frontend
+          npm install
+
+      - name: Checkout backend
+        uses: actions/checkout@v3
+        with:
+          repository: csumb-cst499-capstone/jury-lookup-frontend
+          path: jury-lookup/backend
+
+      - name: Install Dependencies for backend
+        run: |
+          cd jury-lookup/backend
+          npm install
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Start Backend
+        run: |
+          cd jury-lookup/backend
+          npm start &
+
+      - name: Wait for Backend to Start
+        run: sleep 10s
+
+      - name: Start Frontend
+        run: |
+          cd jury-lookup/frontend
+          npm start &
+
+      - name: Wait for Frontend to Start
+        run: sleep 10s
+
+      - name: Run Cypress Tests
+        run: |
+          cd jury-lookup/frontend
+          npx run cypress
