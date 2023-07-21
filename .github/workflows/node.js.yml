@@ -43,14 +43,16 @@ jobs:
           token: ${{ secrets.token }}
           ref: main
           path: jury-lookup-backend
+      - run: pwd
       - run: ls -la
         working-directory: jury-lookup-backend
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
+          working-directory: jury-lookup-backend
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          working-directory: jury-lookup-frontend
+          cache-dependency-path: "./jury-lookup-backend/package-lock.json"
           
       - name: Install Dependencies for frontend
         run: npm ci
