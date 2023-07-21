@@ -31,8 +31,6 @@ jobs:
     steps:
       - name: Checkout frontend
         uses: actions/checkout@v3
-        with:
-          path: frontend
           
       - name: Checkout backend
         uses: actions/checkout@v3
@@ -40,7 +38,6 @@ jobs:
           repository: csumb-cst499-capstone/jury-lookup-backend
           token: ${{secrets.token}}
           ref: main
-          path: backend
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -50,27 +47,27 @@ jobs:
 
       - name: Install Dependencies for frontend
         run: npm install
-        working-directory: frontend
+        working-directory: jury-lookup-frontend
 
 
       - name: Install Dependencies for backend
         run: npm install
-        working-directory: backend
+        working-directory: jury-lookup-backend
 
       - name: Start Backend
         run: npm start &
-        working-directory: backend
+        working-directory: jury-lookup-backend
 
       - name: Wait for Backend to Start
         run: sleep 10s
 
       - name: Start Frontend
         run: npm start &
-        working-directory: frontend
+        working-directory: jury-lookup-frontend
 
       - name: Wait for Frontend to Start
         run: sleep 10s
 
       - name: Run Cypress Tests
         run: npx run cypress
-        working-directory: frontend
+        working-directory: jury-lookup-frontend
