@@ -19,9 +19,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Dependencies for frontend
-        run: |
-          cd jury-lookup-frontend
-          npm install
+        run: npm install
+        working-directory: frontend
 
       - name: Checkout backend
         uses: actions/checkout@v3
@@ -29,9 +28,8 @@ jobs:
           repository: csumb-cst499-capstone/jury-lookup-frontend
 
       - name: Install Dependencies for backend
-        run: |
-          cd jury-lookup-backend
-          npm install
+        run: npm install
+        working-directory: backend
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -40,22 +38,19 @@ jobs:
           cache: 'npm'
 
       - name: Start Backend
-        run: |
-          cd jury-lookup-backend
-          npm start &
+        run: npm start &
+        working-directory: backend
 
       - name: Wait for Backend to Start
         run: sleep 10s
 
       - name: Start Frontend
-        run: |
-          cd jury-lookup-frontend
-          npm start &
+        run: npm start &
+        working-directory: frontend
 
       - name: Wait for Frontend to Start
         run: sleep 10s
 
       - name: Run Cypress Tests
-        run: |
-          cd jury-lookup-fronend
-          npx run cypress
+        run: npx run cypress
+        working-directory: frontend
