@@ -17,7 +17,7 @@ function Login() {
 
     try {
       setButtonState(2);
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`${process.env.API_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ function Login() {
                 />
               </div>
               <div className="flex justify-center items-center mt-6">
-              <Button
+                <Button
                   onClick={(event) => handleLogin(event)}
                   isDisabled={!badgeNumber || !pinCode}
                   className={`${
@@ -106,7 +106,7 @@ function Login() {
                 </Button>
               </div>
               <div className="text-center">
-                <Button auto onClick={openModal} variant="text" color="primary">
+                <Button onPress={openModal} variant="text" color="primary">
                   Need Help?
                 </Button>
                 <hr className="my-4 w-2/3 mx-auto border border-gray-300" />
@@ -121,7 +121,7 @@ function Login() {
           </div>
         </Suspense>
       )}
-      {showModal && <Modal  closeModal={closeModal} />}
+      {showModal && <Modal closeModal={closeModal} />}
     </div>
   );
 }

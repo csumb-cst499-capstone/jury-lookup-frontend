@@ -16,19 +16,19 @@ export function CalendarLinks({ event }) {
       <p className="font-bold">Add to your calendar:</p>
       <Button
         className="text-blue-500 hover:underline"
-        onClick={() => handleCreateEvent(googleCalendarUrl)}
+        onPress={() => handleCreateEvent(googleCalendarUrl)}
       >
         Google
       </Button>
       <Button
         className="text-blue-500 hover:underline"
-        onClick={() => handleCreateEvent(outlookCalendarUrl)}
+        onPress={() => handleCreateEvent(outlookCalendarUrl)}
       >
         Outlook
       </Button>
       <Button
         className="text-blue-500 hover:underline"
-        onClick={() => handleCreateEvent(icsCalendarUrl)}
+        onPress={() => handleCreateEvent(icsCalendarUrl)}
       >
         iCal
       </Button>

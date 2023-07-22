@@ -32,7 +32,7 @@ export default function Error({ error, reset }) {
           <strong>Error:</strong> {error.message}
         </p>
         <div className="flex mx-auto justify-center">
-          <Button className="mb-8" onClick={handleRetry}>
+          <Button className="mb-8" onPress={handleRetry}>
             Try again
           </Button>
         </div>

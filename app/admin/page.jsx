@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { JurorLookup } from "@/components/admin/juror_lookup";
 import { PageWrapper } from "../page-wrapper";
+import { motion } from "framer-motion";
 
 export default function Page() {
   return (
@@ -12,7 +13,10 @@ export default function Page() {
           Welcome Jury Duty Admin
         </h1>
         <div className="flex-auto rounded-full">
+          <motion.div>
+
           <JurorLookup />
+          </motion.div>
         </div>
       </div>
     </PageWrapper>
