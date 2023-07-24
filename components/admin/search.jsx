@@ -10,7 +10,7 @@ export function SearchBar({ onDataFetched }) {
     if (query.trim() === "") {
       return; // Exit early if the query is empty or contains only whitespace
     }
-
+ 
     try {
       const response = await fetch(
         `${process.env.API_URL}/api/admin/search?query=${query}`
@@ -56,7 +56,7 @@ export function SearchBar({ onDataFetched }) {
           innerWrapper: "bg-transparent",
           inputWrapper: [
             "shadow-xl",
-            //"bg-default-200/50",
+            //"bg-default-200/50", 
             "dark:bg-default/60",
             "backdrop-blur-xl",
             "backdrop-saturate-200",
