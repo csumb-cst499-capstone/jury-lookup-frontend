@@ -56,7 +56,7 @@ export function SearchBar({ onDataFetched }) {
           innerWrapper: "bg-transparent",
           inputWrapper: [
             "shadow-xl",
-            "bg-default-200/50",
+            //"bg-default-200/50",
             "dark:bg-default/60",
             "backdrop-blur-xl",
             "backdrop-saturate-200",
