@@ -42,6 +42,7 @@ export function JurorLookup() {
               No results found
             </h2>
           )}
+          <div className="divider"></div>
         {jurorData.length > 0 && showResults && (
           <SearchResultsTable
             className="flex-auto h-screen"
