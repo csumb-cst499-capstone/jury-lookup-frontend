@@ -36,8 +36,8 @@
   
   .divider {
     width: 100%;
-    height: 10px; /* You can adjust this value to control the space height */
-    margin: 1ch; /* You can adjust this value to control the space around the divider */
-    background-color: transparent; /* Change this to the desired color for the space */
+    height: 10px;
+    margin: 1ch; 
+    background-color: transparent;
   }
   
