@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import enTranslation from '../../jury-lookup-frontend/locales/en.json';
-import esTranslation from '../../jury-lookup-frontend/locales/es.json';
+import enTranslation from '../../jury-lookup-frontend/translations/en.json';
+import esTranslation from '../../jury-lookup-frontend/translations/es.json';
 
 i18next.use(initReactI18next).init({
   resources: {
