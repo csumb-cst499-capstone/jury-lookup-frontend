@@ -1,0 +1,23 @@
+{
+  "login": {
+    "juryDutyLookup": "Búsqueda de Servicio de Jurado",
+    "badgeNumber": "Número de Placa",
+    "enterBadgeNumber": "Ingrese su número de placa",
+    "pinCode": "Código PIN",
+    "enterPinCode": "Ingrese su código PIN",
+    "loading": "Cargando...",
+    "success": "¡Éxito!",
+    "invalidCredentials": "Credenciales Inválidas",
+    "signIn": "Iniciar Sesión",
+    "needHelp": "¿Necesitas Ayuda?"
+  },
+
+  "modal": {
+    "instructionsTitle": "Instrucciones para Iniciar Sesión",
+    "instructionsStep1": "¿No puedes iniciar sesión? Sigue estos pasos:",
+    "instructionsStep2": "1. Ingrese su número de placa en el campo \"Número de Placa\".",
+    "instructionsStep3": "2. Ingrese su código PIN en el campo \"Código PIN\".",
+    "instructionsStep4": "3. Haga clic en el botón \"Iniciar sesión\".\nSi aún tiene problemas para iniciar sesión, llame a nuestra oficina para obtener ayuda.",
+    "closeButton": "Cerrar"
+  }
+}

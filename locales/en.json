@@ -1,0 +1,23 @@
+{
+  "login": {
+    "juryDutyLookup": "Jury Duty Lookup",
+    "badgeNumber": "Badge Number",
+    "enterBadgeNumber": "Enter your badge number",
+    "pinCode": "Pin Code",
+    "enterPinCode": "Enter your pin code",
+    "loading": "Loading...",
+    "success": "Success!",
+    "invalidCredentials": "Invalid Credentials",
+    "signIn": "Sign in",
+    "needHelp": "Need Help?"
+  },
+  
+  "modal": {
+    "instructionsTitle": "Instructions for Sign In",
+    "instructionsStep1": "Cannot Sign In? Follow these steps:",
+    "instructionsStep2": "1. Enter your badge number in the \"Badge Number\" field.",
+    "instructionsStep3": "2. Enter your pin code in the \"Pin Code\" field.",
+    "instructionsStep4": "3. Click on the \"Sign In\" button.\nIf you still have trouble signing in, please call our office for assistance.",
+    "closeButton": "Close"
+  }
+}
