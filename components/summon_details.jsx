@@ -8,13 +8,16 @@ export function SummonDetails({ token }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${process.env.API_URL}/api/summon`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/summon`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
       if (response.status === 200) {
         const data = await response.json();
         setJurorData(data);

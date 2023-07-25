@@ -81,7 +81,7 @@ export function Postpone(props) {
 
   const handleChange = async () => {
     const formattedDate = selectedValueDate.toISOString().split("T")[0];
-    const url = `${process.env.API_URL}/api/editSummons`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/editSummons`;
 
     const requestBody = {
       PostponeDate: formattedDate,
@@ -217,7 +217,9 @@ export function Postpone(props) {
 }
 
 export async function GetReportingLocations() {
-  const url = `${process.env.API_URL}/api/getReportingLocations`;
+  const url = `${
+    process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
+  }/api/getReportingLocations`;
   const res = await fetch(url, {
     method: "GET",
     headers: {

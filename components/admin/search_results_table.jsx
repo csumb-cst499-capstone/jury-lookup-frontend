@@ -39,8 +39,8 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   const handleSaveJuror = async (updatedJuror) => {
     // patch the juror
-    let url = `${process.env.API_URL}/api/admin/juror/edit/${updatedJuror._id}`;
-    
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/juror/edit/${updatedJuror._id}`;
+
     let options = {
       method: "PATCH",
       headers: {
