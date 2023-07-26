@@ -19,5 +19,32 @@
     "instructionsStep3": "2. Enter your pin code in the \"Pin Code\" field.",
     "instructionsStep4": "3. Click on the \"Sign In\" button.\nIf you still have trouble signing in, please call our office for assistance.",
     "closeButton": "Close"
+  },
+
+  "summonDetails": {
+    "juryServiceCompleted": "Jury Service Completed",
+    "summonedForJuryService": "YOU HAVE BEEN SUMMONED FOR JURY SERVICE",
+    "name": "Name",
+    "badgeNumber": "Badge Number",
+    "groupNumber": "Group Number",
+    "thankYouForService": "Thank you for your service.",
+    "reportTo": "Please report to",
+    "on": "on",
+    "at": "at",
+    "courtSchedule": "Court is held every Monday at 8:00 AM PDT, excluding holidays.",
+    "postponeInstructions": "You may edit your summons by postponing to a later date and/or changing locations.",
+    "cannotPostpone": "You are no longer able to postpone this summon."
+  },
+
+  "calendarLinks": {
+    "addToCalendar": "Add to your calendar:"
+  },
+
+  "postpone": {
+    "editSummons": "Edit Summons",
+    "requestPostponement": "Request Postponement",
+    "youHaveSelected": "You have selected:",
+    "closeButton": "Close",
+    "confirmButton": "Confirm"
   }
 }

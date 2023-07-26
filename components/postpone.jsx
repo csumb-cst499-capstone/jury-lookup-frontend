@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
+import { useTranslation } from "react-i18next";
 import {
   Modal,
   ModalContent,
@@ -14,7 +15,9 @@ import {
 } from "@nextui-org/react";
 import "react-calendar/dist/Calendar.css";
 
+
 export function Postpone(props) {
+  const { t } = useTranslation();
   // modal
   const [visible, setVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(props.SummonsDate);
@@ -119,20 +122,21 @@ export function Postpone(props) {
 
   return (
     <>
+    <div className="divider"></div>
       <Button
         className="text-sm px-3 py-1 rounded-xl bg-purple-500 text-white hover:bg-purple-300"
         onPress={openCalendarHandler}
       >
-        Edit Summons
+        {t("postpone.editSummons")}
       </Button>
       <Modal isOpen={visible} onOpenChange={closeHandler}>
         <ModalContent className="flex flex-col items-center">
           <ModalHeader className="flex flex-col gap-1">
-            Request Postponement
+            {t("postpone.requestPostponement")}
           </ModalHeader>
           <ModalBody>
             <p className="text-center">
-              You have selected: <br />
+            {t("postpone.youHaveSelected")} <br />
               {summonDateUTC > selectedValueUTC
                 ? summonDateUTC
                 : selectedValueUTC}{" "}
@@ -189,13 +193,13 @@ export function Postpone(props) {
               className="text-sm px-3 py-1 rounded-xl bg-red-500 text-white hover:bg-red-300"
               onPress={closeHandler}
             >
-              Close
+              {t("postpone.closeButton")}
             </Button>
             <Button
               className="text-sm px-3 py-1 rounded-xl bg-green-500 text-white hover:bg-green-300"
               onPress={handleChange}
             >
-              Confirm
+              {t("postpone.confirmButton")}
             </Button>
           </ModalFooter>
         </ModalContent>

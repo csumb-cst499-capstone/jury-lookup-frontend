@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import {Divider} from "@nextui-org/react";
 import SearchBar from "@/components/admin/search";
 import SearchResultsTable from "@/components/admin/search_results_table";
 

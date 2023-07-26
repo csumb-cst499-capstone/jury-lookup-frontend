@@ -19,5 +19,32 @@
     "instructionsStep3": "2. Ingrese su código PIN en el campo \"Código PIN\".",
     "instructionsStep4": "3. Haga clic en el botón \"Iniciar sesión\".\nSi aún tiene problemas para iniciar sesión, llame a nuestra oficina para obtener ayuda.",
     "closeButton": "Cerrar"
-  }
+  },
+
+  "summonDetails": {
+    "juryServiceCompleted": "Servicio de jurado completado",
+    "summonedForJuryService": "HAS SIDO CONVOCADO PARA EL SERVICIO DE JURADO",
+    "name": "Nombre",
+    "badgeNumber": "Número de Placa",
+    "groupNumber": "Número de Grupo",
+    "thankYouForService": "Gracias por su servicio.",
+    "reportTo": "Por favor, preséntese en",
+    "on": "el",
+    "at": "a las",
+    "courtSchedule": "El tribunal se lleva a cabo todos los lunes a las 8:00 a. m. PDT, excluyendo días festivos.",
+    "postponeInstructions": "Puede editar su citación posponiéndola para una fecha y/o ubicaciones posteriores.",
+    "cannotPostpone": "Ya no puede posponer esta citación."
+  },
+
+    "calendarLinks": {
+      "addToCalendar": "Agregar a tu calendario:"
+    },
+
+    "postpone": {
+      "editSummons": "Editar Convocatoria",
+      "requestPostponement": "Solicitar Posposición",
+      "youHaveSelected": "Has seleccionado:",
+      "closeButton": "Cerrar",
+      "confirmButton": "Confirmar"
+    }
 }
