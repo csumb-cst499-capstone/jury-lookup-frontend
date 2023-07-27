@@ -4,10 +4,15 @@ import CalendarLinks from "./calendar-links";
 
 export function SummonDetails({ token }) {
   const [jurorData, setJurorData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [postponeSuccess, setPostponeSuccess] = useState(false);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
+      setError(null);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/summon`,
         {
@@ -18,15 +23,18 @@ export function SummonDetails({ token }) {
           },
         }
       );
+
       if (response.status === 200) {
         const data = await response.json();
         setJurorData(data);
         setPostponeSuccess(false);
       } else {
-        console.error("Error fetching summon details");
+        setError("Error fetching data. Please try again later.");
       }
     } catch (error) {
-      console.error("Error fetching summon details", error);
+      setError("Error fetching data. Please check your internet connection.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,19 +56,37 @@ export function SummonDetails({ token }) {
       year: "numeric",
       timeZone: "UTC",
     };
-
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat("en-US", options).format(date);
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      date
+    );
+    return formattedDate;
   };
 
   const handlePostponeSuccess = () => {
     setPostponeSuccess(true);
   };
 
-  if (!jurorData) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
         Loading...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Error: {error}
+      </div>
+    );
+  }
+
+  if (!jurorData) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        No data available.
       </div>
     );
   }
