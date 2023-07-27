@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next"; // Add this import
+import { useTranslation } from "react-i18next";
 import { Postpone } from "./postpone";
 import CalendarLinks from "./calendar-links";
 
 export function SummonDetails({ token }) {
-  const { t } = useTranslation(); // Add this line to get the translation function
+  const { t } = useTranslation();
   const [jurorData, setJurorData] = useState(null);
   const [postponeSuccess, setPostponeSuccess] = useState(false);
 
