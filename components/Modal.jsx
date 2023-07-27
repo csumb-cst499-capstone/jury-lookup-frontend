@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { motion } from "framer-motion";
+
 function Modal({ closeModal }) {
   return (
     <motion.div>

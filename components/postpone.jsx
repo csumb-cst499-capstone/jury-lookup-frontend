@@ -13,6 +13,7 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import "react-calendar/dist/Calendar.css";
+import { API } from "../constants/api_constants";
 
 export function Postpone(props) {
   // modal
@@ -81,7 +82,7 @@ export function Postpone(props) {
 
   const handleChange = async () => {
     const formattedDate = selectedValueDate.toISOString().split("T")[0];
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/editSummons`;
+    const url = API.postpone;
 
     const requestBody = {
       PostponeDate: formattedDate,
@@ -217,9 +218,7 @@ export function Postpone(props) {
 }
 
 export async function GetReportingLocations() {
-  const url = `${
-    process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
-  }/api/getReportingLocations`;
+  const url = API.locations;
   const res = await fetch(url, {
     method: "GET",
     headers: {

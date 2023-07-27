@@ -1,5 +1,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { Container, Card, Row, Text } from "@nextui-org/react";
+import { API } from "../constants/api_constants";
 
 export function Greeting({ data = [] }) {
   const [apiData, setApiData] = useState(data);
@@ -7,7 +8,7 @@ export function Greeting({ data = [] }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hello`);
+        const res = await fetch(API.hello);
         const json = await res.json();
         setApiData(json);
       } catch (error) {

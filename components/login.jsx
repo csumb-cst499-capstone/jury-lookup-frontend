@@ -3,6 +3,7 @@ import { SummonDetails } from "./summon_details";
 import { Button, Input } from "@nextui-org/react";
 import Modal from "./Modal";
 import "../styles/animations.css";
+import { API } from "../constants/api_constants";
 
 function Login() {
   const [badgeNumber, setBadgeNumber] = useState("");
@@ -17,40 +18,38 @@ function Login() {
 
     try {
       setButtonState(2);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ BadgeNumber: badgeNumber, PinCode: pinCode }),
-        }
-      );
+      const url = API.login;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ BadgeNumber: badgeNumber, PinCode: pinCode }),
+      });
 
       if (response.status === 200) {
         const data = await response.json();
         setButtonState(3);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         setToken(data.token);
         setLoggedIn(true);
-      } else {
+      } else if (response.status === 401) {
         setButtonState(4);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         setButtonState(1);
+        console.error("Invalid badge number or pin code"); // Log the error for debugging
+      } else {
+        console.error(
+          "Unexpected error:",
+          response.status,
+          response.statusText
+        );
       }
     } catch (error) {
       setButtonState(4);
+      console.error("Unexpected error:", error); // Log the error for debugging
     }
-  };
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   return (
@@ -109,7 +108,11 @@ function Login() {
                 </Button>
               </div>
               <div className="text-center">
-                <Button onPress={openModal} variant="text" color="primary">
+                <Button
+                  onPress={() => setShowModal(true)}
+                  variant="text"
+                  color="primary"
+                >
                   Need Help?
                 </Button>
                 <hr className="my-4 w-2/3 mx-auto border border-gray-300" />
@@ -124,7 +127,7 @@ function Login() {
           </div>
         </Suspense>
       )}
-      {showModal && <Modal closeModal={closeModal} />}
+      {showModal && <Modal closeModal={() => setShowModal(false)} />}
     </div>
   );
 }
