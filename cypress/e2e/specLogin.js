@@ -6,7 +6,7 @@ export function postponeableUserLogin() {
     testUser.badgeNumber
   );
   cy.get('input[placeholder="Enter your pin code"]').type(testUser.pinCode);
-  cy.contains("Sign In").click();
+  cy.contains("Sign in").click();
 }
 
 export function adminUserLogin() {
