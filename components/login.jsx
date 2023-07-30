@@ -1,12 +1,12 @@
 import React, { Suspense, useState } from "react";
-import { useTranslation } from "react-i18next"; // Add this import
+import { useTranslation } from "react-i18next";
 import { SummonDetails } from "./summon_details";
 import { Button, Input } from "@nextui-org/react";
 import Modal from "./Modal";
 import "../styles/animations.css";
 
 function Login() {
-  const { t } = useTranslation(); // Add this line to get the translation function
+  const { t } = useTranslation();
   const [badgeNumber, setBadgeNumber] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -88,25 +88,6 @@ function Login() {
                 />
               </div>
               <div className="flex justify-center items-center mt-6">
-                {/* <Button
-                  onClick={(event) => handleLogin(event)}
-                  isDisabled={!badgeNumber || !pinCode}
-                  className={`${
-                    buttonState === 3
-                      ? "bg-green-500"
-                      : buttonState === 4
-                      ? "bg-red-500 animate-shake"
-                      : "bg-purple-500"
-                  } text-white font-bold px-6 py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-opacity-75 mb-8 shadow-customSignin`}
-                >
-                  {buttonState === 2
-                    ? "Loading..."
-                    : buttonState === 3
-                    ? "Success!"
-                    : buttonState === 4
-                    ? "Invalid Credentials"
-                    : "Sign In"}
-                </Button> */}
                 <Button
                   onClick={(event) => handleLogin(event)}
                   isDisabled={!badgeNumber || !pinCode}
