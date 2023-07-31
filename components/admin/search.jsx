@@ -1,10 +1,10 @@
 import { Skeleton, Button, Input, kbd } from "@nextui-org/react";
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { API } from "../../constants/api_constants";
 
-export function SearchBar({ onDataFetched }) {
+export function SearchBar({ onDataFetched, onError, setLoading }) {
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
     if (query.trim() === "") {
@@ -12,18 +12,19 @@ export function SearchBar({ onDataFetched }) {
     }
  
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/search?query=${query}`
-      );
+      let url = API.search(query);
+      const response = await fetch(url);
       if (response.status === 200) {
         const data = await response.json();
         console.log("Search results fetched successfully");
         onDataFetched(data);
       } else {
-        console.error("Error fetching search results");
+        onError("Error fetching search results");
       }
     } catch (error) {
-      console.error("Error fetching search results", error);
+      onError("Error fetching search results");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,6 +35,7 @@ export function SearchBar({ onDataFetched }) {
 
     if (event.key === "Escape") {
       setQuery("");
+      
     }
   };
 

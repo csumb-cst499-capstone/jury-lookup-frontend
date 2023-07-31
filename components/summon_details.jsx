@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Postpone } from "./postpone";
 import CalendarLinks from "./calendar-links";
+import { API } from "../constants/api_constants";
 
 export function SummonDetails({ token }) {
   const { t } = useTranslation();
@@ -14,17 +15,15 @@ export function SummonDetails({ token }) {
     try {
       setLoading(true);
       setError(null);
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/summon`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const url = API.summon_details;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      };
+      const response = await fetch(url, options);
 
       if (response.status === 200) {
         const data = await response.json();

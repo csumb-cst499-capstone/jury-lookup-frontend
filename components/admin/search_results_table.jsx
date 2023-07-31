@@ -8,14 +8,13 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  Input,
   Link,
   Tooltip,
 } from "@nextui-org/react";
-
 import { EditJurorModal } from "./edit_juror_modal";
 import { ViewDetailsModal } from "./details_modal";
 import { motion } from "framer-motion";
+import { API } from "../../constants/api_constants";
 export function SearchResultsTable({ jurorData, onSaveJuror }) {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -39,7 +38,8 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
 
   const handleSaveJuror = async (updatedJuror) => {
     // patch the juror
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/api/admin/juror/edit/${updatedJuror._id}`;
+    let url = API.editJuror(updatedJuror._id);
+    console.log("url: ", url);
 
     let options = {
       method: "PATCH",
