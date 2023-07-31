@@ -14,8 +14,6 @@ import Logo from "@/components/logo";
 import LanguageSelector from "./language_selector";
 
 export function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const { user } = useUser();
 
   return (
