@@ -5,11 +5,13 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
+  Button,
 } from "@nextui-org/react";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import Logo from "@/components/logo";
+import LanguageSelector from "./language_selector";
 
 export function Navigation() {
   const { user } = useUser();
@@ -22,20 +24,54 @@ export function Navigation() {
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
-            <Link href="/">Home</Link>
+            <LanguageSelector />
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              href="/"
+              as={Link}
+              color="foreground"
+              variant="solid"
+              isBlock
+            >
+              Home
+            </Button>
           </NavbarItem>
           {!user ? (
             <NavbarItem>
-              <Link href="/api/auth/login">Login</Link>
+              <Button
+                href="/api/auth/login"
+                as={Link}
+                color="foreground"
+                variant="solid"
+                isBlock
+              >
+                Login
+              </Button>
             </NavbarItem>
           ) : (
             <>
               <NavbarItem>
-                <Link href="/admin">Admin</Link>
+                <Button
+                  href="/admin"
+                  as={Link}
+                  color="foreground"
+                  variant="solid"
+                  isBlock
+                >
+                  Admin
+                </Button>
               </NavbarItem>
-
               <NavbarItem>
-                <Link href="/api/auth/logout">Logout</Link>
+                <Button
+                  href="/api/auth/logout"
+                  as={Link}
+                  color="danger"
+                  variant="solid"
+                  isBlock
+                >
+                  Logout
+                </Button>
               </NavbarItem>
             </>
           )}

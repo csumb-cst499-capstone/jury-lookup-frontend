@@ -25,6 +25,7 @@
     "@react-aria/visually-hidden": "^3.8.1",
     "autoprefixer": "10.4.14",
     "calendar-link": "^2.4.0",
+    "country-flag-icons": "^1.5.7",
     "framer-motion": "^10.12.22",
     "i18next": "^23.2.11",
     "intl-messageformat": "^10.1.0",
