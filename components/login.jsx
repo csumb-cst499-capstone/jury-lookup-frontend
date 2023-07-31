@@ -3,7 +3,7 @@ import React, { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SummonDetails } from "./summon_details";
 import { Button, Input } from "@nextui-org/react";
-import Modal from "./Modal";
+import Modal from "./help_modal";
 import "../styles/animations.css";
 import { API } from "../constants/api_constants";
 
@@ -15,6 +15,10 @@ function Login() {
   const [token, setToken] = useState("");
   const [buttonState, setButtonState] = useState(0);
   const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
