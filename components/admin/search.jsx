@@ -10,7 +10,7 @@ export function SearchBar({ onDataFetched }) {
     if (query.trim() === "") {
       return; // Exit early if the query is empty or contains only whitespace
     }
-
+ 
     try {
       const response = await fetch(
         `${process.env.API_URL}/api/admin/search?query=${query}`
@@ -38,7 +38,7 @@ export function SearchBar({ onDataFetched }) {
   };
 
   return (
-    <div className="w-[600px] h-[240px] px-8 rounded-2xl flex justify-center items-center bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">
+    <div className="w-[600px] h-[250px] px-8 rounded-2xl flex justify-center items-center bg-gradient-to-tr from-purple-200 to-violet-500 text-white shadow-custom">
       <Input
         label="Search"
         isClearable
@@ -56,7 +56,7 @@ export function SearchBar({ onDataFetched }) {
           innerWrapper: "bg-transparent",
           inputWrapper: [
             "shadow-xl",
-            "bg-default-200/50",
+            //"bg-default-200/50", 
             "dark:bg-default/60",
             "backdrop-blur-xl",
             "backdrop-saturate-200",

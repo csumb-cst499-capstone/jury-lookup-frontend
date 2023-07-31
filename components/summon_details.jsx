@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Postpone } from "./postpone";
 import CalendarLinks from "./calendar-links";
 
 export function SummonDetails({ token }) {
+  const { t } = useTranslation();
   const [jurorData, setJurorData] = useState(null);
   const [postponeSuccess, setPostponeSuccess] = useState(false);
 
@@ -81,35 +83,38 @@ export function SummonDetails({ token }) {
       <div className="max-w-lg p-8 bg-white rounded-lg shadow-custom">
         <h4 className="text-red-600 text-2xl text-center font-bold mb-4">
           {isMoreThanAWeekPassed
-            ? "Jury Service Completed"
-            : "YOU HAVE BEEN SUMMONED FOR JURY SERVICE"}
+            ? t("summonDetails.juryServiceCompleted")
+            : t("summonDetails.summonedForJuryService")}
         </h4>
         <p className="font-bold">
-          Name: {jurorData.FirstName} {jurorData.LastName}
+          {t("summonDetails.name")}: {jurorData.FirstName} {jurorData.LastName}
         </p>
-        <p className="font-bold">Badge Number: {jurorData.BadgeNumber}</p>
-        <p className="font-bold">Group Number: {jurorData.GroupNumber}</p>
+        <p className="font-bold">
+          {t("summonDetails.badgeNumber")}: {jurorData.BadgeNumber}
+        </p>
+        <p className="font-bold">
+          {t("summonDetails.groupNumber")}: {jurorData.GroupNumber}
+        </p>
 
         {isSummonDatePassed && isMoreThanAWeekPassed && (
           <p className="text-center text-green-500 font-bold my-4">
-            Thank you for your service.
+            {t("summonDetails.thankYouForService")}
           </p>
         )}
+
         {!isMoreThanAWeekPassed && (
           <>
             <p>
-              Please report to {jurorData.ReportingLocation} on{" "}
-              {formattedSummonDate} at 8:00 AM
+              {t("summonDetails.reportTo")} {jurorData.ReportingLocation} {t("summonDetails.on")} {formattedSummonDate} {t("summonDetails.at")} 8:00 AM
             </p>
 
             <hr className="my-6" />
             {jurorData.CanPostpone ? (
               <div>
                 <p className="font-bold">
-                  You may edit your summons by postponing to a later date and/or
-                  changing locations.
+                  {t("summonDetails.postponeInstructions")}
                   <br />
-                  Court is held every Monday at 8:00 AM PDT, excluding holidays.
+                  {t("summonDetails.courtSchedule")}
                 </p>
                 <Postpone
                   token={token}
@@ -122,7 +127,7 @@ export function SummonDetails({ token }) {
             ) : (
               <div>
                 <p className="font-bold" id="cannot-postpone">
-                  You are no longer able to postpone this summon.
+                  {t("summonDetails.cannotPostpone")}
                 </p>
                 <CalendarLinks event={event} />
               </div>

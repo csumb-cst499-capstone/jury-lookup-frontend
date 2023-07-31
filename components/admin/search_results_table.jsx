@@ -64,8 +64,6 @@ export function SearchResultsTable({ jurorData, onSaveJuror }) {
     } catch (error) {
       console.error("Error: ", error);
     }
-
-    // close the modal
     handleCloseModal();
   };
 
