@@ -59,7 +59,7 @@ function Login() {
     <div className="flex justify-center items-center h-screen bg-custom-color">
       {!loggedIn ? (
         <div className="flex justify-center items-center h-screen">
-          <div className="w-full sm:w-max-65 max-w-md px-6 py-8 bg-custom-colorBox shadow-custom">
+          <div className="w-full max-w-md px-6 py-8 bg-custom-colorBox shadow-custom">
             <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">
               {t("login.juryDutyLookup")}
               </h3>
