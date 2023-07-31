@@ -19,13 +19,16 @@ function Login() {
 
     try {
       setButtonState(2);
-      const response = await fetch(`${process.env.API_URL}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ BadgeNumber: badgeNumber, PinCode: pinCode }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ BadgeNumber: badgeNumber, PinCode: pinCode }),
+        }
+      );
 
       if (response.status === 200) {
         const data = await response.json();
@@ -56,7 +59,7 @@ function Login() {
     <div className="flex justify-center items-center h-screen bg-custom-color">
       {!loggedIn ? (
         <div className="flex justify-center items-center h-screen">
-          <div className="w-full max-w-md px-6 py-8 bg-custom-colorBox shadow-custom">
+          <div className="w-full sm:w-max-65 max-w-md px-6 py-8 bg-custom-colorBox shadow-custom">
             <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">
               {t("login.juryDutyLookup")}
               </h3>

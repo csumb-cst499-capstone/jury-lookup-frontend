@@ -37,3 +37,6 @@ next-env.d.ts
 /cypress/videos/
 /cypress/screenshots/
 cypress/screenshots/
+env-loader.sh
+
+.env.production

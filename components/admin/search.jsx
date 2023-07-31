@@ -13,7 +13,7 @@ export function SearchBar({ onDataFetched }) {
  
     try {
       const response = await fetch(
-        `${process.env.API_URL}/api/admin/search?query=${query}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/search?query=${query}`
       );
       if (response.status === 200) {
         const data = await response.json();

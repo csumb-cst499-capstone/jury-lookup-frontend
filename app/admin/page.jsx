@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import { JurorLookup } from "@/components/admin/juror_lookup";
 import { PageWrapper } from "../page-wrapper";
 import { motion } from "framer-motion";
@@ -13,8 +12,7 @@ export default function Page() {
         </h1>
         <div className="flex-auto rounded-full">
           <motion.div>
-
-          <JurorLookup />
+            <JurorLookup />
           </motion.div>
         </div>
       </div>
