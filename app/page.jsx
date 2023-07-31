@@ -8,7 +8,6 @@ export default function Page() {
     <PageWrapper>
       <div className="flex-auto">
         <Login />
-        <LanguageSelector />
       </div>
     </PageWrapper>
   );
