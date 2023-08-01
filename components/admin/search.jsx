@@ -10,8 +10,9 @@ export function SearchBar({ onDataFetched, onError, setLoading }) {
     if (query.trim() === "") {
       return; // Exit early if the query is empty or contains only whitespace
     }
- 
+
     try {
+      setLoading(true); // Set loading to true before making the API call
       let url = API.search(query);
       const response = await fetch(url);
       if (response.status === 200) {
@@ -24,7 +25,7 @@ export function SearchBar({ onDataFetched, onError, setLoading }) {
     } catch (error) {
       onError("Error fetching search results");
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false after the API call is completed
     }
   };
 
@@ -35,7 +36,6 @@ export function SearchBar({ onDataFetched, onError, setLoading }) {
 
     if (event.key === "Escape") {
       setQuery("");
-      
     }
   };
 
@@ -58,7 +58,7 @@ export function SearchBar({ onDataFetched, onError, setLoading }) {
           innerWrapper: "bg-transparent",
           inputWrapper: [
             "shadow-xl",
-            //"bg-default-200/50", 
+            //"bg-default-200/50",
             "dark:bg-default/60",
             "backdrop-blur-xl",
             "backdrop-saturate-200",

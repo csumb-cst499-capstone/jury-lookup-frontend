@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import {Divider} from "@nextui-org/react";
 import SearchBar from "@/components/admin/search";
 import SearchResultsTable from "@/components/admin/search_results_table";
 
@@ -36,25 +35,33 @@ export function JurorLookup() {
   return (
     <div className="bg-custom-color flex-auto max-w-full h-screen m-auto mt-4 ">
       <div className="flex-auto rounded-full ">
-      <hr className="mb-8" />
-        <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
-          To begin search for a juror
+        <hr className="mb-8" />
+        <h2 className="text-xl text-center text-violet-800 font-bold shadow-max-sm">
+          To begin, search for a juror
         </h2>
         <div className="divider"></div>
       </div>
       <div className="flex justify-center m-3">
         <hr className="mb-8" />
-        <SearchBar onDataFetched={handleDataFetched} />
+        <SearchBar onDataFetched={handleDataFetched} setLoading={setLoading} />
       </div>
       <div className="flex-auto rounded-full">
-        {jurorData.length === 0 &&
-          showResults && ( // if there is no data, show the message
-            <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
-              No results found
-            </h2>
-          )}
-          <div className="divider"></div>
-        {jurorData.length > 0 && showResults && (
+        {loading && (
+          <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
+            Loading...
+          </h2>
+        )}
+        {error && (
+          <h2 className="text-xl text-center text-red-500 font-bold shadow-max-sm">
+            Something went wrong
+          </h2>
+        )}
+        {showResults && jurorData.length === 0 && (
+          <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
+            No results found
+          </h2>
+        )}
+        {showResults && jurorData.length > 0 && (
           <SearchResultsTable
             className="flex-auto h-screen"
             jurorData={jurorData}
@@ -62,28 +69,6 @@ export function JurorLookup() {
           />
         )}
       </div>
-      {loading && (
-        <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
-          Loading...
-        </h2>
-      )}
-      {error && (
-        <h2 className="text-xl text-center text-red-500 font-bold shadow-max-sm">
-          Something went wrong
-        </h2>
-      )}
-      {showResults && jurorData.length === 0 && (
-        <h2 className="text-xl text-center text-slate-400 font-bold shadow-max-sm">
-          No results found
-        </h2>
-      )}
-      {showResults && jurorData.length > 0 && (
-        <SearchResultsTable
-          className="flex-auto h-screen"
-          jurorData={jurorData}
-          onSaveJuror={handleSaveJuror}
-        />
-      )}
     </div>
   );
 }
