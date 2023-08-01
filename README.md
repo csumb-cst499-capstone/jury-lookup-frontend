@@ -43,10 +43,15 @@ NEXT_PUBLIC_AUTH0_SCOPE=openid profile email read:jurors write:jurors
 openssl rand -base64 32
 ```
 6. Sign up for an <a href="auth0.com">Auth0 account</a>
-7. Create a regular web application and select Next.js.
-8. Replace the following environment variables provided by Auth0
+7. Create a regular web application and select Next.js and fill out the necessary fields  
+8. Upon creation you'll be forwarded to the application settings page, fill out the following fields:  
+  - Allowed Callback URL: `http://localhost:3000/api/auth/callback`
+  - Allowed Logout URLs: `http://localhost:3000`
+  - Allowed Web Origins: `http://localhost:3000`
+9. Replace the following environment variables provided by Auth0
 ```
 AUTH0_ISSUER_BASE_URL=[REPLACE ME]
 AUTH0_CLIENT_ID=[REPLACE ME]
 AUTH0_CLIENT_SECRET=[REPLACE ME]
 ```
+9. Once everything is configured 
