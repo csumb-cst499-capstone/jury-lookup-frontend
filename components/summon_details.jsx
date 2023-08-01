@@ -133,7 +133,9 @@ export function SummonDetails({ token }) {
         {!isMoreThanAWeekPassed && (
           <>
             <p>
-              {t("summonDetails.reportTo")} {jurorData.ReportingLocation} {t("summonDetails.on")} {formattedSummonDate} {t("summonDetails.at")} 8:00 AM
+              {t("summonDetails.reportTo")} {jurorData.ReportingLocation}{" "}
+              {t("summonDetails.on")} {formattedSummonDate}{" "}
+              {t("summonDetails.at")} 8:00 AM
             </p>
 
             <hr className="my-6" />

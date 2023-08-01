@@ -1,8 +1,13 @@
-"use client";
 import { JurorLookup } from "@/components/admin/juror_lookup";
 import { PageWrapper } from "../page-wrapper";
-import { motion } from "framer-motion";
 
+export function metadata() {
+  return {
+    title: "Jury Duty Admin",
+    description: "Admin page for jury duty lookup",
+    slug: "/admin",
+  };
+}
 export default function Page() {
   return (
     <PageWrapper>
@@ -11,9 +16,7 @@ export default function Page() {
           Welcome Jury Duty Admin
         </h1>
         <div className="flex-auto rounded-full">
-          <motion.div>
-            <JurorLookup />
-          </motion.div>
+          <JurorLookup />
         </div>
       </div>
     </PageWrapper>

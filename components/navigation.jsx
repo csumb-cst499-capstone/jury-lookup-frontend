@@ -30,9 +30,9 @@ export function Navigation() {
             <Button
               href="/"
               as={Link}
-              color="foreground"
-              variant="solid"
-              isBlock
+              variant="flat"
+              aria-label="Home"
+              className="bg-violet-400 hover:bg-violet-700 text-white"
             >
               Home
             </Button>
@@ -42,9 +42,9 @@ export function Navigation() {
               <Button
                 href="/api/auth/login"
                 as={Link}
-                color="foreground"
-                variant="solid"
-                isBlock
+                className="bg-violet-700 text-white shadow-violet-700 hover:bg-violet-700 shadow-md"
+                variant="shadow"
+                aria-label="Login"
               >
                 Login
               </Button>
@@ -55,20 +55,21 @@ export function Navigation() {
                 <Button
                   href="/admin"
                   as={Link}
-                  color="foreground"
-                  variant="solid"
-                  isBlock
+                  variant="shadow"
+                  className="bg-violet-400 hover:bg-violet-700 text-white"
+                  aria-label="Admin"
                 >
                   Admin
                 </Button>
               </NavbarItem>
+
               <NavbarItem>
                 <Button
                   href="/api/auth/logout"
                   as={Link}
                   color="danger"
-                  variant="solid"
-                  isBlock
+                  variant="shadow"
+                  aria-label="Logout"
                 >
                   Logout
                 </Button>

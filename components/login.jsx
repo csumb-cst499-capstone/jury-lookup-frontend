@@ -98,13 +98,14 @@ function Login() {
                 <Button
                   onClick={(event) => handleLogin(event)}
                   isDisabled={!badgeNumber || !pinCode}
+                  variant="shadow"
                   className={`${
                     buttonState === 3
-                      ? "bg-green-500"
+                      ? "bg-green-500 shadow-green-500 hover:bg-green-600 shadow-md"
                       : buttonState === 4
-                      ? "bg-red-500 animate-shake"
-                      : "bg-purple-500"
-                  } text-white font-bold px-6 py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-opacity-75 mb-8 shadow-customSignin`}
+                      ? "bg-red-500 shadow-red-500 hover:bg-red-400 shadow-md animate-shake"
+                      : "bg-violet-700 shadow-violet-700 hover:bg-violet-600 shadow-md"
+                  } text-white font-bold px-6 py-2 transition-colors duration-300 ease-in-out mb-8`}
                 >
                   {buttonState === 2
                     ? t("login.loading")

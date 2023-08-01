@@ -11,7 +11,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Switch
+  Switch,
 } from "@nextui-org/react";
 
 export function EditJurorModal({
@@ -172,7 +172,7 @@ export function EditJurorModal({
           )}
         </ModalBody>
         <ModalFooter>
-          <Button color="secondary" onPress={handleCancel}>
+          <Button color="danger" onPress={handleCancel}>
             Cancel
           </Button>
           <Button color="primary" onPress={handleSave} disabled={!hasChanges}>

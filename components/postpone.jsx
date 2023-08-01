@@ -16,7 +16,6 @@ import {
 import "react-calendar/dist/Calendar.css";
 import { API } from "../constants/api_constants";
 
-
 export function Postpone(props) {
   const { t } = useTranslation();
   // modal
@@ -123,9 +122,9 @@ export function Postpone(props) {
 
   return (
     <>
-    <div className="divider"></div>
+      <div className="divider"></div>
       <Button
-        className="text-sm px-3 py-1 rounded-xl bg-purple-500 text-white hover:bg-purple-300"
+        className="text-sm px-3 py-1 bg-violet-400 hover:bg-violet-700 text-white"
         onPress={openCalendarHandler}
       >
         {t("postpone.editSummons")}
@@ -137,7 +136,7 @@ export function Postpone(props) {
           </ModalHeader>
           <ModalBody>
             <p className="text-center">
-            {t("postpone.youHaveSelected")} <br />
+              {t("postpone.youHaveSelected")} <br />
               {summonDateUTC > selectedValueUTC
                 ? summonDateUTC
                 : selectedValueUTC}{" "}
@@ -213,7 +212,12 @@ export function Postpone(props) {
             <p>{alertMessage}</p>
           </ModalBody>
           <ModalFooter>
-            <Button onPress={closeAlertHandler}>Close</Button>
+            <Button
+              className="bg-violet-400 hover:bg-violet-700 text-white"
+              onPress={closeAlertHandler}
+            >
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

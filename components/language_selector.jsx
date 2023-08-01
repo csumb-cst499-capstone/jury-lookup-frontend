@@ -11,7 +11,7 @@ import getUnicodeFlagIcon from "country-flag-icons/unicode";
 
 import { useTranslation } from "react-i18next";
 
-export default function LanguageSelector() {
+export function LanguageSelector() {
   const { t, i18n } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
@@ -23,7 +23,14 @@ export default function LanguageSelector() {
   return (
     <Dropdown closeOnSelect={true}>
       <DropdownTrigger>
-        <Button className="language-button" variant="light" color="primary">
+        <Button
+          variant="flat"
+          aria-label={
+            selectedLanguage === "en"
+              ? t("Select English Language")
+              : t("Select Spanish Language")
+          }
+        >
           {selectedLanguage === "en"
             ? getUnicodeFlagIcon("US")
             : getUnicodeFlagIcon("ES")}
@@ -34,12 +41,14 @@ export default function LanguageSelector() {
         <DropdownItem
           startContent={getUnicodeFlagIcon("US")}
           onClick={() => changeLanguage("en")}
+          aria-label={t("Select English Language")}
         >
           {t("English")}
         </DropdownItem>
         <DropdownItem
           startContent={getUnicodeFlagIcon("ES")}
           onClick={() => changeLanguage("es")}
+          aria-label={t("Select Spanish Language")}
         >
           {t("Español")}
         </DropdownItem>
@@ -47,3 +56,5 @@ export default function LanguageSelector() {
     </Dropdown>
   );
 }
+
+export default LanguageSelector;

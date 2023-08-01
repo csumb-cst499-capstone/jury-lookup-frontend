@@ -5,7 +5,7 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  Link,
+  Button,
 } from "@nextui-org/react";
 
 export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
@@ -59,9 +59,9 @@ export function ViewDetailsModal({ isOpen, onClose, selectedJuror }) {
           )}
         </ModalBody>
         <ModalFooter>
-          <Link color="secondary" onPress={onClose}>
+          <Button color="secondary" onPress={onClose}>
             Close
-          </Link>
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
