@@ -54,4 +54,11 @@ AUTH0_ISSUER_BASE_URL=[REPLACE ME]
 AUTH0_CLIENT_ID=[REPLACE ME]
 AUTH0_CLIENT_SECRET=[REPLACE ME]
 ```
-9. Once everything is configured 
+9. Once everything is configured run the following to build the app:
+```
+npm run build
+```
+10. Lastly run the following to start the app.
+```
+npm run start
+```
