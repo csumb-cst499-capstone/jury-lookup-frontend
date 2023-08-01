@@ -9,11 +9,6 @@ export function postponeableUserLogin() {
   cy.contains("Sign in").click();
 }
 
-export function adminUserLogin() {
-  cy.visit(Cypress.env("BASE_URL"));
-  cy.get('li:contains("Login")').click();
-}
-
 export function resetPostponeableUserLogin() {
   cy.request("POST", `${Cypress.env("API_URL")}/api/login`, {
     BadgeNumber: testUser.badgeNumber,
