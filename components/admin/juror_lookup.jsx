@@ -36,7 +36,7 @@ export function JurorLookup() {
     <div className="bg-custom-color flex-auto max-w-full h-screen m-auto mt-4 ">
       <div className="flex-auto rounded-full ">
         <hr className="mb-8" />
-        <h2 className="text-xl text-center text-violet-800 font-bold shadow-max-sm">
+        <h2 className="text-2xl text-center text-slate-700 font-bold shadow-max-sm">
           To begin, search for a juror
         </h2>
         <div className="divider"></div>

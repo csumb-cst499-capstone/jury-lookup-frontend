@@ -11,7 +11,6 @@
     "signIn": "Sign in",
     "needHelp": "Need Help?"
   },
-  
   "modal": {
     "instructionsTitle": "Instructions for Sign In",
     "instructionsStep1": "Cannot Sign In? Follow these steps:",
@@ -20,7 +19,6 @@
     "instructionsStep4": "3. Click on the \"Sign In\" button.\nIf you still have trouble signing in, please call our office for assistance.",
     "closeButton": "Close"
   },
-
   "summonDetails": {
     "juryServiceCompleted": "Jury Service Completed",
     "summonedForJuryService": "YOU HAVE BEEN SUMMONED FOR JURY SERVICE",
@@ -35,11 +33,9 @@
     "postponeInstructions": "You may edit your summons by postponing to a later date and/or changing locations.",
     "cannotPostpone": "You are no longer able to postpone this summon."
   },
-
   "calendarLinks": {
     "addToCalendar": "Add to your calendar:"
   },
-
   "postpone": {
     "editSummons": "Edit Summons",
     "requestPostponement": "Request Postponement",
