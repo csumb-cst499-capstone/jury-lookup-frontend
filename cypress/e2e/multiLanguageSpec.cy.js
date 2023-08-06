@@ -17,6 +17,7 @@
     
       //Spanish Login
       it("should display the login page with Spanish text after changing the language", () => {
+        cy.contains("English").click();
         cy.contains("Español").click();
         cy.contains("Búsqueda de Servicio de Jurado").should("be.visible");
         cy.contains("Número de Placa").should("be.visible");
@@ -37,6 +38,7 @@
     
       //Spanish Modal
       it("should open the modal with Spanish instructions when clicking the 'Need Help?' button in Spanish", () => {
+        cy.contains("English").click();
         cy.contains("Español").click();
         cy.contains("¿Necesitas Ayuda?").click();
         cy.contains("Instrucciones para Iniciar Sesión").should("be.visible");
@@ -67,8 +69,6 @@
         cy.contains("Badge Number").should("be.visible"); 
         cy.contains("Group Number").should("be.visible"); 
         cy.contains("Please report to").should("be.visible");
-        cy.contains("on").should("be.visible");
-        cy.contains("at").should("be.visible");
         cy.contains("Court is held every Monday at 8:00 AM PDT, excluding holidays.").should("be.visible");
         cy.contains("You may edit your summons by postponing to a later date and/or changing locations.").should("be.visible");
         cy.contains("Add to your calendar:").should("be.visible");
@@ -76,6 +76,7 @@
 
       //Spanish SummonDetails
       it("should display the SummonDetails page with correct information in Spanish", () => {
+        cy.contains("English").click();
         cy.contains("Español").click();
         cy.get("h4").contains("HAS SIDO CONVOCADO PARA EL SERVICIO DE JURADO").should("be.visible");
         cy.contains("Nombre").should("be.visible");

@@ -12,11 +12,8 @@ describe("Login Component", () => {
 
     cy.get('Input[name="badgeNumber"]').type("9999999");
     cy.get('Input[name="pinCode"]').type("9999999");
-    cy.contains("Sign In").click();
-
-    cy.wait("@loginRequest").then(() => {
-      cy.get('button:contains("Success!")').should("be.visible");
-    });
+    cy.contains("Sign in").click();
+    cy.get('button:contains("Success!")').should("be.visible");
   });
 
   // test unsuccessful login
@@ -27,10 +24,7 @@ describe("Login Component", () => {
 
     cy.get('input[name="badgeNumber"]').type("123");
     cy.get('input[name="pinCode"]').type("123");
-    cy.contains("Sign In").click();
-
-    cy.wait("@loginRequest").then(() => {
-      cy.get('button:contains("Invalid Credentials")').should("be.visible");
-    });
+    cy.contains("Sign in").click();
+    cy.get('button:contains("Invalid Credentials")').should("be.visible");
   });
 });

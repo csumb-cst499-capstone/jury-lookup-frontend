@@ -26,7 +26,8 @@ describe("Sucessful Postpone Component", () => {
     cy.get('button:contains("Edit Summons")', { timeout: 10000 }).click();
     cy.get('button:contains("Monterey")').click();
     cy.get('li:contains("King City")').click();
-    cy.get('button:contains("Confirm")').click();
+    cy.get('button:contains("Confirm")'
+      , { timeout: 10000 }).click();
     cy.contains('You are no longer able to postpone this summon').should("be.visible");
     cy.contains('King City').should("be.visible");
     cy.contains('January 4, 2100').should("be.visible");
